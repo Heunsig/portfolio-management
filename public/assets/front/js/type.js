@@ -1,0 +1,1 @@
+var Type = Backbone.Model.extend({});

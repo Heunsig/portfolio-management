@@ -1,0 +1,4 @@
+.space-margin-top{margin-top:20px;}
+
+.list-thumbnail{width:70px;height:70px;overflow:hidden;line-height:70px;}
+.list-thumbnail > img{width:100%;vertical-align:middle;}
