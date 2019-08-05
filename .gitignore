@@ -8,6 +8,8 @@
 Homestead.json
 Homestead.yaml
 .env
+.env.production
+.env.development
 
 # Customized
 sftp-config.json
