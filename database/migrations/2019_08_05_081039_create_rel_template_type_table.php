@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PortfolioTable extends Migration
+class CreateRelTemplateTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,11 @@ class PortfolioTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('rel_template_type', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('template_id')->unsigned()->nullable();
+            $table->integer('type_id')->unsigned()->nullable();
+        });
     }
 
     /**
@@ -23,6 +27,6 @@ class PortfolioTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('rel_template_type');
     }
 }
