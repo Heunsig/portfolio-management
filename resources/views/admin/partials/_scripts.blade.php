@@ -1,7 +1,7 @@
 
-{{ Html::script('assets/common_lib/jquery/jquery-2.1.4.min.js') }}
+{{-- {{ Html::script('assets/common_lib/jquery/jquery-2.1.4.min.js') }}
 {{ Html::script('assets/common_lib/jquery/jquery-ui.min.js') }}
-{{ Html::script('assets/common_lib/bootstrap/js/bootstrap.min.js') }}
+{{ Html::script('assets/common_lib/bootstrap/js/bootstrap.min.js') }} --}}
 
 @stack('scripts')
 

@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Catcha Admin Login</title>
-	{{ Html::style('assets/common_lib/bootstrap/css/bootstrap.min.css') }}
-</head>
-<body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-6 col-sm-offset-3">
-				@if (Session::has('fail'))
-					<div class="alert alert-danger" role="alert">
-						<stong>Login failed :</stong> {{ Session::get('fail') }}
-					</div>
-				@endif
-				{{ Form::open(['route'=>'admin.login', 'method'=>'POST']) }}
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Email*</span>
-					<input type="text" name="email" class="form-control" aria-describedby="basic-addon1">
-				</div>
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Password*</span>
-					<input type="password" name="password" class="form-control" aria-describedby="basic-addon1">
-				</div>
-				<input type="submit" class="btn btn-block btn-primary" value="Login"/>
+	<head>
+		<meta charset="UTF-8">
+		<title>Catcha Admin Login</title>
+		
+		{{ Html::style('assets/admin/css/style.css') }}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+	</head>
+	<body id="c-login-body">
+		<div class="ui fluid container c-container">
+	  	<div class="c-login-box">
+	  		<h1 class="c-company">Catchasoft</h1>
+	  		{{ Form::open(['route'=>'admin.login', 'method'=>'POST', 'class'=>'ui form warning']) }}
+				  <div class="field">
+				    <label class="c-color c-white">E-mail</label>
+				    <input type="email" name="email" placeholder="joe@catchasoft.com" />
+				  </div>
+				  <div class="field">
+				    <label class="c-color c-white">Password</label>
+				    <input type="password" name="password" />
+				  </div>
+				  @if (Session::has('fail'))
+				  <div class="ui warning message">
+				    <div class="header">Login failed</div>
+				    <ul class="list">
+				      <li>{{ Session::get('fail') }}</li>
+				    </ul>
+				  </div>
+					@endif
+				  
+				  <button class="ui submit button fluid teal">Sign in</button>
 				{{ Form::close() }}
-			</div>
+	  	</div>
 		</div>
-	</div>
 </body>
 </html>

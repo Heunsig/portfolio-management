@@ -1,4 +1,29 @@
-.space-margin-top{margin-top:20px;}
+/*.space-margin-top{margin-top:20px;}
 
 .list-thumbnail{width:70px;height:70px;overflow:hidden;line-height:70px;}
-.list-thumbnail > img{width:100%;vertical-align:middle;}
+.list-thumbnail > img{width:100%;vertical-align:middle;}*/
+
+
+#c-login-body {
+  display: flex;
+}
+
+.c-container {
+  display: flex!important; 
+  justify-content: center; 
+  align-items: center;
+  background: #3fcab8;
+}
+
+.c-company {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+.c-login-box {
+  width: 300px;
+}
+
+.c-color.c-white {
+  color: white!important;
+}
