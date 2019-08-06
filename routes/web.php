@@ -33,8 +33,8 @@ Route::group(['prefix'=>'page'], function(){
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
 	Route::get('/', 'PageController@getIndex');
 	Route::resource('portfolio', 'PortfolioController', ['as'=>'admin']);
-	Route::resource('template', 'TemplateController', ['as'=>'admin']);
-	Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['create','edit','update']]);
+	// Route::resource('template', 'TemplateController', ['as'=>'admin']);
+	// Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['create','edit','update']]);
 	Route::resource('type', 'TypeController', ['as'=>'admin','except'=>'create']);
 	Route::resource('icon', 'IconController',['as'=>'admin', 'except'=>'create']);
 });

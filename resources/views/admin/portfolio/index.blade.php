@@ -4,22 +4,17 @@
 
 @section('content')
 
-<div class="row">
-	<div class="col-md-12">
-		<ol class="breadcrumb">
-			<li class="active">Portfolio</li>
-		</ol>
+<div class="ui grid">
+	<div class="sixteen wide column">
+		<h1>Portfolio</h1>
+		<div>
+			<a class="ui button" href="{{ route('admin.portfolio.create') }}">
+			  Create new portfolio
+			</a>
+		</div>
 	</div>
-	<div class="col-md-8">
-		<h2>Portfolio</h2>
-	</div>
-	<div class="col-md-2 col-md-offset-2">
-		<a href="{{ route('admin.portfolio.create') }}" class="btn btn-block btn-primary space-margin-top">Create New Portfolio</a>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<table id="itemListTbl" class="table" data-tbl-type="portfolio">
+	<div class="sixteen wide column">
+		<table id="itemListTbl" class="ui celled table" data-tbl-type="portfolio">
 			<thead>
 				<tr>
 					<th></th>
