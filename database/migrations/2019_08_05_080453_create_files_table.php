@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->string('mime', 40)->nullable();
             $table->string('saved_dir')->nullable();
+            $table->string('thumbnail_dir')->nullable();
             $table->string('saved_name')->nullable();
             $table->string('orig_name')->nullable();
             $table->string('raw_name')->nullable();

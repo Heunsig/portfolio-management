@@ -11,7 +11,7 @@ use Session;
 class LoginController extends Controller
 {
     public function index(){
-        //echo bcrypt("d8t44m5b");
+        // echo bcrypt("d8t44m5b");
     	return view('admin.auth.login');
     }
 

@@ -13,6 +13,7 @@ use Session;
 use App\Helpers\FileInfo;
 use App\Helpers\FileString;
 use Image;
+use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
 {
@@ -48,6 +49,8 @@ class PortfolioController extends Controller
             $icon_options[$icon->id] = $icon->name;
         }
 
+        // print_r(Storage::get('portfolio/file.jpg');)
+
         return view('admin.portfolio.create')->withTypes($type_options)->withIcons($icon_options);
     }
 
@@ -65,74 +68,61 @@ class PortfolioController extends Controller
         ]);
 
         $portfolio = new Portfolio;
-        $file = null;
-        $file_info = [];
-        $files_id = [];
-       
-
         $portfolio->name        = $request->name;
         $portfolio->link        = $request->link;
         $portfolio->explanation = $request->explanation;
-        $portfolio->order_number= DB::table('portfolios')->max('order_number')+1;
+        $portfolio->order_number= DB::table('portfolios')->max('order_number') + 1;
 
         $portfolio->save();
 
-        if($request->hasFile('images')){
+        if ($request->hasFile('images')) {
+            $images = $request->images;
 
-            $images = $request->file("images");
+            foreach ($images as $image) {
+                if ($image->isValid()){
+                    $file = new File;
+                    $fileInfo = (new FileInfo($image))->get_fileinfo();
+                    
+                    $image = Image::make($image);
+                    $image_thumb = Image::make($image);
 
-            $directory = "uploads/portfolio/";
-
-            foreach($images as $key => $image){
-                $file = new File;
-
-                $new_filename = FileString::raw_name($image->getClientOriginalName()) . '_' . time() . '.' . $image->getClientOriginalExtension();
-                $location = public_path($directory );
-
-                $fileInfo = [];
-                $fileInfo = new FileInfo($image);
-                $file_info = $fileInfo->get_fileinfo();
-                $file_info['saved_dir'] = "/". $directory;
-                $file_info['saved_name'] = $new_filename;
-                $file_info['download'] = 0;
-
-                // Get width value
-                $width = Image::make($image)->width();
-
-                // Save original image
-                if($width > 1200){
-                    Image::make($image)->resize(1200, null, function($constraint){
+                    // Resize a image within width 1200px
+                    if ($image->width() > 1200) {
+                        $image = $image->resize(1200, null, function ($constraint) {
                             $constraint->aspectRatio();
-                    })->save($location . $new_filename, 100);
-                }else{
-                    Image::make($image)->save($location . $new_filename, 100);    
-                }
+                        });
+                    }
 
-                // Make front thumbnail image
-                if($width > 300){
-                    Image::make($image)->resize(300, null, function($constraint){
+                    // Resize a image for thumbnail.
+                    if ($image_thumb->width() > 300) {
+                        $image_thumb->resize(300, null, function ($constraint) {
                             $constraint->aspectRatio();
-                    })->save($location . 'thumbnail/'. $new_filename);    
-                }else{
-                    Image::make($image)->save($location . 'thumbnail/' . $new_filename);
+                        });
+                    }
+
+                    $basePath = 'images/';
+                    $path = $basePath.$fileInfo['unique_name'];
+                    $path_thumbnail = $basePath.'thumbnail/'.$fileInfo['unique_name'];
+
+                    Storage::disk('s3')->put($path, $image->stream()->__toString());
+                    Storage::disk('s3')->put($path_thumbnail, $image_thumb->stream()->__toString());
+
+                    $file->mime      = $fileInfo['mime'];
+                    $file->saved_dir = $path;
+                    $file->thumbnail_dir = $path_thumbnail;
+                    $file->orig_name = $fileInfo['orig_name'];
+                    $file->saved_name= $fileInfo['unique_name'];
+                    $file->raw_name  = $fileInfo['raw_name'];
+                    $file->extension = $fileInfo['extension'];
+                    $file->size      = $fileInfo['size'];
+                    $file->is_image  = true;
+
+                    $file->save();
+
+                    $last_portfolio = Portfolio::find($portfolio->id);
+                    $portfolio->files()->attach([$file->id =>['order_number'=>$last_portfolio->files()->count() + 1]]);
                 }
-
-                $file->mime      = $file_info['mime'];
-                $file->saved_dir = $file_info['saved_dir'];
-                $file->saved_name= $file_info['saved_name'];
-                $file->orig_name = $file_info['orig_name'];
-                $file->raw_name  = $file_info['raw_name'];
-                $file->extension = $file_info['extension'];
-                $file->size      = $file_info['size'];
-                $file->is_image  = null;
-                $file->download  = $file_info['download'];
-
-                $file->save();
-
-                $last_portfolio = Portfolio::find($portfolio->id);
-                $portfolio->files()->attach([$file->id =>['order_number'=>$last_portfolio->files()->count() + 1]]);
             }
-
         }
 
         $portfolio->types()->sync($request->types, false);
@@ -240,62 +230,54 @@ class PortfolioController extends Controller
 
         $portfolio->save();
 
-        if($request->hasFile('images')){
+        if ($request->hasFile('images')) {
+            $images = $request->images;
 
-            $images = $request->file("images");
+            foreach ($images as $image) {
+                if ($image->isValid()){
+                    $file = new File;
+                    $fileInfo = (new FileInfo($image))->get_fileinfo();
+                    
+                    $image = Image::make($image);
+                    $image_thumb = Image::make($image);
 
-            $directory = "uploads/portfolio/";
-
-            foreach($images as $key => $image){
-                $file = new File;
-
-                $new_filename = FileString::raw_name($image->getClientOriginalName()) . '_' . time() . '.' . $image->getClientOriginalExtension();
-                $location = public_path($directory );
-
-                $fileInfo = [];
-                $fileInfo = new FileInfo($image);
-                $file_info = $fileInfo->get_fileinfo();
-                $file_info['saved_dir'] = "/". $directory;
-                $file_info['saved_name'] = $new_filename;
-                $file_info['download'] = 0;
-
-                // Get width value
-                $width = Image::make($image)->width();
-
-                // Save original image
-                if($width > 1200){
-                    Image::make($image)->resize(1200, null, function($constraint){
+                    // Resize a image within width 1200px
+                    if ($image->width() > 1200) {
+                        $image = $image->resize(1200, null, function ($constraint) {
                             $constraint->aspectRatio();
-                    })->save($location . $new_filename, 100);
-                }else{
-                    Image::make($image)->save($location . $new_filename, 100);    
-                }
+                        });
+                    }
 
-                // Make front thumbnail image
-                if($width > 300){
-                    Image::make($image)->resize(300, null, function($constraint){
+                    // Resize a image for thumbnail.
+                    if ($image_thumb->width() > 300) {
+                        $image_thumb->resize(300, null, function ($constraint) {
                             $constraint->aspectRatio();
-                    })->save($location . 'thumbnail/'. $new_filename);    
-                }else{
-                    Image::make($image)->save($location . 'thumbnail/' . $new_filename);
+                        });
+                    }
+
+                    $basePath = 'images/';
+                    $path = $basePath.$fileInfo['unique_name'];
+                    $path_thumbnail = $basePath.'thumbnail/'.$fileInfo['unique_name'];
+
+                    Storage::disk('s3')->put($path, $image->stream()->__toString());
+                    Storage::disk('s3')->put($path_thumbnail, $image_thumb->stream()->__toString());
+
+                    $file->mime      = $fileInfo['mime'];
+                    $file->saved_dir = $path;
+                    $file->thumbnail_dir = $path_thumbnail;
+                    $file->orig_name = $fileInfo['orig_name'];
+                    $file->saved_name= $fileInfo['unique_name'];
+                    $file->raw_name  = $fileInfo['raw_name'];
+                    $file->extension = $fileInfo['extension'];
+                    $file->size      = $fileInfo['size'];
+                    $file->is_image  = true;
+
+                    $file->save();
+
+                    $last_portfolio = Portfolio::find($portfolio->id);
+                    $portfolio->files()->attach([$file->id =>['order_number'=>$last_portfolio->files()->count() + 1]]);
                 }
-
-                $file->mime = $file_info['mime'];
-                $file->saved_dir = $file_info['saved_dir'];
-                $file->saved_name = $file_info['saved_name'];
-                $file->orig_name = $file_info['orig_name'];
-                $file->raw_name = $file_info['raw_name'];
-                $file->extension = $file_info['extension'];
-                $file->size = $file_info['size'];
-                $file->is_image = null;
-                $file->download = $file_info['download'];
-
-                $file->save();
-
-                $last_portfolio = Portfolio::find($portfolio->id);
-                $portfolio->files()->attach([$file->id =>['order_number'=>$last_portfolio->files()->count() + 1]]);
             }
-
         }
 
         $portfolio->types()->sync($request->types);

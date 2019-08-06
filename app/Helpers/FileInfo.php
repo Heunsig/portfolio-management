@@ -31,11 +31,12 @@ class FileInfo {
 	public function get_fileinfo(){
 		$this->file_info['mime'] = $this->file->getMimeType();
 		$this->file_info['orig_name'] = $this->file->getClientOriginalName();
+		$this->file_info['unique_name'] = md5($this->file->getClientOriginalName().microtime()).'.'.$this->file->getClientOriginalExtension();
 		$this->file_info['raw_name'] = FileString::raw_name($this->file->getClientOriginalName());
 		$this->file_info['extension'] = $this->file->getClientOriginalExtension();
-       		$this->file_info['size'] = $this->file->getClientSize();
+    $this->file_info['size'] = $this->file->getClientSize();
 
-       		return $this->file_info;
+    return $this->file_info;
 	}
 
 	

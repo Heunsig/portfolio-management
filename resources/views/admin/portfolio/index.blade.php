@@ -43,10 +43,11 @@
 						@endphp
 						@if(isset($selected_file))
 						<div class="list-thumbnail">
-							<img src="{{$selected_file['saved_dir'] . 'thumbnail/'. $selected_file['saved_name']}}"/>
+							<img src="{{env('AWS_OBJECT_BASEURL') . $selected_file['thumbnail_dir']}}"/>
 						</div>
 						@else
-						<div class="list-thumbnail">							{{ Html::image('/assets/admin/images/thumbnail_noImage.gif') }}
+						<div class="list-thumbnail">
+							{{ Html::image('/assets/admin/images/thumbnail_noImage.gif') }}
 						</div>
 						@endif
 					</td>

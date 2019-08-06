@@ -26,7 +26,7 @@
 						@foreach($portfolio->files()->orderBy('order_number','asc')->get() as $file)
 						<div class="col-xs-6 col-md-3 grid-item">
 							<a href="#" class="thumbnail">
-								<img src="{{$file->saved_dir.'thumbnail/'.$file->saved_name}}"/>
+								<img src="{{env('AWS_OBJECT_BASEURL') . $file->thumbnail_dir}}"/>
 							</a>
 						</div>
 						@endforeach

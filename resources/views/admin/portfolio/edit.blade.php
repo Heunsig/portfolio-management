@@ -38,9 +38,9 @@
 				<li class="list-group-item" data-id="{{$file->id}}">
 					<span type="button" style="cursor:move;" class="order_handle glyphicon glyphicon-move"></span>
 					<a href="#">
-						<img src="{{$file->saved_dir.'thumbnail/'.$file->saved_name}}" alt="{{ $file->orig_name }}">
+						<img src="{{env('AWS_OBJECT_BASEURL') . $file->thumbnail_dir}}" alt="{{ $file->orig_name }}">
 					</a>
-					<span class="image_name">{{ $file->saved_name }}</span>
+					<span class="image_name">{{ $file->orig_name }}</span>
 
 					<button type="button" data-id="{{ $file->id }}" class="btn btn-danger btn-xs btn-delete-image">Delete</button>
 				</li>
