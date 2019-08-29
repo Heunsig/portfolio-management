@@ -13,12 +13,11 @@
 
 Route::get('/', 'PageController@getIndex');
 
-
 // Auth Routes
-Route::group([], function(){
+// Route::group([], function(){
 	/*Route::post('admin/login', 'Auth\LoginController@login');
 	Route::post('register', 'Auth\RegisterController@create');*/
-});
+// });
 
 // Page Routes
 Route::group(['prefix'=>'page'], function(){
@@ -41,7 +40,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth']
 
 // Admin Auth Routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-	Route::get('login', [ 'as' => 'admin.login', 'uses' => 'Auth\LoginController@index']);	
+	Route::get('login', [ 'as' => 'admin.login', 'uses' => 'Auth\LoginController@index']);
 	Route::post('login', [ 'as' => 'admin.login', 'uses' => 'Auth\LoginController@login']);
 	Route::get('logout', [ 'as' => 'admin.logout', 'uses' => 'Auth\LoginController@logout']);
 });
