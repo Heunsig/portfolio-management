@@ -1,4 +1,4 @@
-<title>Admin @yield('title')</title>
+<title>Catcha Portfolio @yield('title')</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">

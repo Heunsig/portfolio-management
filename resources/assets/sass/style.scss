@@ -1,36 +1,39 @@
+/**
+ * For the admin page
+ * endpoint.scss
+ */
+
 /*.space-margin-top{margin-top:20px;}
 
 .list-thumbnail{width:70px;height:70px;overflow:hidden;line-height:70px;}
 .list-thumbnail > img{width:100%;vertical-align:middle;}*/
+$app: '.catcha';
+$prefix: 'c';
 
-
-#c-login-body {
-  display: flex;
+#{$app}.#{$prefix}-body {
+  background: #f6f6f6;
 }
 
-.c-container {
+.#{$prefix}-container {
   display: flex!important; 
   justify-content: center; 
   align-items: center;
   background: #3fcab8;
 }
 
-.c-company {
-  text-align: center;
-  color: white;
-  margin-bottom: 20px;
-}
-.c-login-box {
-  width: 300px;
-}
-
-.c-color.c-white {
-  color: white!important;
-}
-
-.c-content {
+#{$app}.#{$prefix}-content {
   padding-top: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 90px;
+  padding-right: 90px;
   padding-bottom: 20px;
 }
+
+.dragging {
+  opacity: 0.3!important;
+}
+
+@import './login.scss';
+@import './header.scss';
+@import './image.scss';
+@import './cursor.scss';
+@import './alignment.scss';

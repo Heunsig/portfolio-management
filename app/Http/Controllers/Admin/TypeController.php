@@ -41,7 +41,7 @@ class TypeController extends Controller
 
         $type->save();
 
-        Session::flash('success', 'Successfully, Type has added');
+        Session::flash('success', 'Successfully a new type has been added.');
 
         return redirect()->route('admin.type.index');
     }

@@ -2,10 +2,23 @@
 {{-- {{ Html::script('assets/common_lib/jquery/jquery-2.1.4.min.js') }}
 {{ Html::script('assets/common_lib/jquery/jquery-ui.min.js') }}
 {{ Html::script('assets/common_lib/bootstrap/js/bootstrap.min.js') }} --}}
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous">
+ </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+	$.ajaxSetup({
+    headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+	})
+</script>
 
 @stack('scripts')
 
-<script>
+{{-- <script>
 	$(document).ready(function(){
 		activeCurrentNav();
 
@@ -36,4 +49,4 @@
 				}
 		});
 	}
-</script>
+</script> --}}

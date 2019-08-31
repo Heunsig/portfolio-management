@@ -3,50 +3,106 @@
 @section('title','- Create Portfolio')
 
 @push('stylesheets')
-{{ Html::style('assets/admin/lib/select2/select2.min.css') }}
+	{{-- {{ Html::style('assets/admin/lib/select2/select2.min.css') }} --}}
 @endpush
 
 @section('content')
-
-<div class="row">
-	<div class="col-md-12">
-		<ol class="breadcrumb">
-			<li><a href="{{ route('admin.portfolio.index') }}">Portfolio</a></li>
-			<li class="active">Create</li>
-		</ol>
+{{ Form::open(['route'=>'admin.portfolio.store', 'method'=>'POST', 'files'=>true, 'class'=>'ui form']) }}
+<div class="ui grid">
+	<div class="sixteen wide column">
+		<div class="ui grid catcha c-header-main">
+			<div class="twelve wide column">
+				<h1 class="ui header catcha c-header-title">Portfolio</h1>
+				<div class="ui breadcrumb">
+				  <a class="section">Home</a>
+				  <div class="divider"> / </div>
+				  <a class="section">Portfolio</a>
+				  <div class="divider"> / </div>
+				  <div class="section active">New</div>
+				</div>
+			</div>
+			<div class="four wide column right aligned" id="btnSave">
+				{{ Form::submit('Save', ['class'=>'ui button primary']) }}
+				{{-- {{ Form::submit('Save', ['class'=>'ui button primary']) }} --}}
+			</div>
+		</div>
 	</div>
-	<div class="col-md-12">	
-		{{ Form::open(['route'=>'admin.portfolio.store', 'method'=>'POST', 'files'=>true]) }}
-		
-		{{ Form::label('name', 'Name:') }}
-		{{ Form::text('name', null, ['class'=>'form-control']) }}
-		
-		{{ Form::label('link', 'Link:', ['class'=>'space-margin-top']) }}
-		{{ Form::text('link', null, ['class'=>'form-control']) }}
-		
-		{{ Form::label('types[]', 'Type:',['class'=>'space-margin-top']) }}
-		{{ Form::select('types[]', $types, null, ['class'=>'form-control select-form-multiple', 'multiple'=>'']) }}
+	<div class="sixteen wide column">
+		<div class="ui grid">
+			<div class="seven wide column">
+				<h3 class="ui header top attached">Portfolio information</h3>
+				<div class="ui segment attached">
+					<div class="field">
+						{{ Form::label('name', 'Name:') }}
+						{{ Form::text('name', null) }}
+					</div>
+					
+					<div class="field">
+						{{ Form::label('link', 'Link:') }}
+						{{ Form::text('link', null) }}
+					</div>
+						
+					<div class="field">
+						<label>Type</label>
+				    <select multiple="" class="ui dropdown"	id="types[]" name="types[]">
+							<option value="">Select Type</option>
+				    	@foreach ($types as $key => $type)
+				    		<option value="{{ $key }}">{{ $type }}</option>
+				    	@endforeach
+				    </select>
+						{{-- {{ Form::label('types[]', 'Type:') }}
+						{{ Form::select('types[]', $types, null, ['class'=>'"ui dropdown', 'multiple'=>'']) }} --}}
+					</div>
 
-		{{ Form::label('icons[]', 'Support:',['class'=>'space-margin-top']) }}
-		{{ Form::select('icons[]', $icons, null, ['class'=>'form-control select-form-multiple', 'multiple'=>'']) }}
+					<div class="field">
+						<label>Icon</label>
+				    <select multiple="" class="ui dropdown"	id="icons[]" name="icons[]">
+							<option value="">Select Icon</option>
+				    	@foreach ($icons as $key => $icon)
+				    		<option value="{{ $key }}">{{ $icon }}</option>
+				    	@endforeach
+				    </select>
+						{{-- {{ Form::label('icons[]', 'Support:') }}
+						{{ Form::select('icons[]', $icons, null, ['class'=>'select-form-multiple', 'multiple'=>'']) }} --}}
+					</div>
 
-		{{ Form::label('explanation', 'Explanation:', ['class'=>'space-margin-top']) }}
-		{{ Form::textarea('explanation', null, ['class'=>'form-control']) }}
-		
-		{{ Form::label('images[]', 'Images:', ['class'=>'space-margin-top']) }}
-		{{ Form::file('images[]', ['multiple'=>''])}}
-		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-		{{ Form::submit('Save', ['class'=>'btn btn-block btn-success space-margin-top']) }}
-
-		{{ Form::close() }}
+					<div class="field">
+						{{ Form::label('explanation', 'Explanation:') }}
+						{{ Form::textarea('explanation', null) }}
+					</div>
+				</div>
+			</div>
+			<div class="nine wide column">
+				<h3 class="ui header top attached">Portfolio image upload</h3>
+				<div class="ui segment attached">
+					<div class="field">
+						{{ Form::label('images[]', 'Images:') }}
+						{{ Form::file('images[]', ['multiple'=>''])}}
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-
+{{ Form::close() }}
 @endsection
 
 @push('scripts')
-{{ Html::script('assets/admin/lib/select2/select2.min.js') }}
-<script type="text/javascript">
-	$(".select-form-multiple").select2();
+<script>
+	$('.ui.dropdown').dropdown()
+
+	$('#btnSave').on('click', e => {
+		e.preventDefault()
+		$('.ui.page.dimmer').dimmer({
+			closable: false,
+			onShow: function () {
+				$('form').submit()
+			}
+		}).dimmer('show')
+	})
 </script>
+{{-- {{ Html::script('assets/admin/lib/select2/select2.min.js') }} --}}
+{{-- <script type="text/javascript">
+	$(".select-form-multiple").select2();
+</script> --}}
 @endpush

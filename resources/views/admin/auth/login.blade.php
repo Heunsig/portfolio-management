@@ -3,21 +3,20 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Catcha Admin Login</title>
-		
 		{{ Html::style('assets/admin/css/style.css') }}
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
 	</head>
 	<body id="c-login-body">
 		<div class="ui fluid container c-container">
 	  	<div class="c-login-box">
-	  		<h1 class="c-company">Catchasoft</h1>
+	  		<h1 class="c-login-company">Catchasoft</h1>
 	  		{{ Form::open(['route'=>'admin.login', 'method'=>'POST', 'class'=>'ui form warning']) }}
 				  <div class="field">
-				    <label class="c-color c-white">E-mail</label>
+				    <label class="c-login-label">E-mail</label>
 				    <input type="email" name="email" placeholder="joe@catchasoft.com" />
 				  </div>
 				  <div class="field">
-				    <label class="c-color c-white">Password</label>
+				    <label class="c-login-label">Password</label>
 				    <input type="password" name="password" />
 				  </div>
 				  @if (Session::has('fail'))

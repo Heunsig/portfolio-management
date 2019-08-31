@@ -1,0 +1,19 @@
+$prefix: 'c-login';
+
+##{$prefix}-body {
+  display: flex;
+}
+
+.#{$prefix}-company {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.#{$prefix}-box {
+  width: 300px;
+}
+
+.#{$prefix}-label {
+  color: white!important;
+}

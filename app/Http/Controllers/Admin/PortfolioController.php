@@ -83,12 +83,12 @@ class PortfolioController extends Controller
                     $file = new File;
                     $fileInfo = (new FileInfo($image))->get_fileinfo();
                     
-                    $image = Image::make($image);
+                    $image_big = Image::make($image);
                     $image_thumb = Image::make($image);
 
                     // Resize a image within width 1200px
-                    if ($image->width() > 1200) {
-                        $image = $image->resize(1200, null, function ($constraint) {
+                    if ($image_big->width() > 1200) {
+                        $image_big->resize(1200, null, function ($constraint) {
                             $constraint->aspectRatio();
                         });
                     }
@@ -104,7 +104,7 @@ class PortfolioController extends Controller
                     $path = $basePath.$fileInfo['unique_name'];
                     $path_thumbnail = $basePath.'thumbnail/'.$fileInfo['unique_name'];
 
-                    Storage::disk('s3')->put($path, $image->stream()->__toString());
+                    Storage::disk('s3')->put($path, $image_big->stream()->__toString());
                     Storage::disk('s3')->put($path_thumbnail, $image_thumb->stream()->__toString());
 
                     $file->mime      = $fileInfo['mime'];
@@ -128,12 +128,12 @@ class PortfolioController extends Controller
         $portfolio->types()->sync($request->types, false);
         $portfolio->icons()->sync($request->icons, false);
 
-        Session::flash('success', 'Success Test');            
+        Session::flash('success', 'Successfully created a new portfolio.');            
 
-        return redirect()->route('admin.portfolio.index');
+        return redirect()->route('admin.portfolio.show', $portfolio->id);
     }
        
-        
+       
 
     /**
      * Display the specified resource.
@@ -164,8 +164,8 @@ class PortfolioController extends Controller
         $icon_options = [];
         //$image_order_options = [];
 
-        $had_types = [];
-        $had_icons = [];
+        $selected_types = [];
+        $selected_icons = [];
 
         foreach($types as $type){
             $type_options[$type->id] = $type->name;
@@ -180,25 +180,26 @@ class PortfolioController extends Controller
             $image_order_options[$i] = $i;
         }*/
 
-        $i = 0;
+        // $i = 0;
         foreach($portfolio->types as $type){
-            $had_types[$i] = $type->id;
-            $i++;
+            $selected_types[] = strval($type->id);
+            // $i++;
         }
 
-        $i = 0;
+        // $i = 0;
         foreach($portfolio->icons as $icon){
-            $had_icons[$i] = $icon->id;
-            $i++;
+            $selected_icons[] = strval($icon->id);
+            // $had_icons[$i] = $icon->id;
+            // $i++;
         }
-        
+
         return view("admin.portfolio.edit")->with([
             "portfolio" => $portfolio,
             "types" => $type_options,
             "icons" => $icon_options,
             //"image_orders" => $image_order_options,
-            "had_types" => $had_types,
-            "had_icons" => $had_icons
+            "selected_types" => $selected_types,
+            "selected_icons" => $selected_icons
         ]);
 
         //return view('admin.portfolio.edit')->withPortfolio($portfolio)->withTypes($type_options)->withIcons($icon_options);
@@ -213,17 +214,17 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $portfolio = Portfolio::find($id);
-        $file = null;
-        $file_info = [];
-        $files_id = [];
-
         $this->validate($request, [
             'name' => 'required|max:255',
             'images[]' => 'image'
         ]);
 
         
+        $portfolio = Portfolio::find($id);
+        $file = null;
+        $file_info = [];
+        $files_id = [];
+
         $portfolio->name = $request->name;
         $portfolio->link = $request->link;
         $portfolio->explanation = $request->explanation;
@@ -238,12 +239,13 @@ class PortfolioController extends Controller
                     $file = new File;
                     $fileInfo = (new FileInfo($image))->get_fileinfo();
                     
-                    $image = Image::make($image);
+                    $image_big = Image::make($image);
                     $image_thumb = Image::make($image);
 
                     // Resize a image within width 1200px
-                    if ($image->width() > 1200) {
-                        $image = $image->resize(1200, null, function ($constraint) {
+                    if ($image_big->width() > 1200) {
+                        // $image = $image->resize(1200, null, function ($constraint) {
+                        $image_big->resize(1200, null, function ($constraint) {
                             $constraint->aspectRatio();
                         });
                     }
@@ -259,7 +261,7 @@ class PortfolioController extends Controller
                     $path = $basePath.$fileInfo['unique_name'];
                     $path_thumbnail = $basePath.'thumbnail/'.$fileInfo['unique_name'];
 
-                    Storage::disk('s3')->put($path, $image->stream()->__toString());
+                    Storage::disk('s3')->put($path, $image_big->stream()->__toString());
                     Storage::disk('s3')->put($path_thumbnail, $image_thumb->stream()->__toString());
 
                     $file->mime      = $fileInfo['mime'];
@@ -296,9 +298,9 @@ class PortfolioController extends Controller
             }
         }
 
-        Session::flash('success', 'Successfully Updated');
+        Session::flash('success', 'Successfully Updated this portfolio.');
 
-        return redirect()->route('admin.portfolio.show', $id);
+        return redirect()->route('admin.portfolio.edit', $id);
     }
 
     /**
@@ -324,7 +326,7 @@ class PortfolioController extends Controller
             $order_number++;
         }
 
-        Session::flash('success', 'The portfolio was successfully deleted.');
+        Session::flash('success', 'Successfully deleted the portfolio(#'.$id.').');
 
         return redirect()->route('admin.portfolio.index');
     }

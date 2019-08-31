@@ -67,7 +67,8 @@ class FunctionController extends Controller
     		$order++;
     	}
 
-    	return response(json_encode(['success'=>'Image was successfully relocated']),200)->header('Content-Type', 'application/json');
+    	return response(json_encode(['success'=>'Image was successfully relocated']), 200)
+               ->header('Content-Type', 'application/json');
     }
 
 }

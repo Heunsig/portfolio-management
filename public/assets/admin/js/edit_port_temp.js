@@ -1,3 +1,6 @@
+////////////
+// legacy //
+////////////
 function documentReady(){
 	$(".btn-delete-image").on("click", onDeleteBtnClick);
 

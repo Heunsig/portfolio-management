@@ -1,0 +1,14 @@
+$prefix: 'c-cursor';
+
+#{$app}.#{$prefix}-pointer {
+  cursor: pointer;
+}
+
+
+#{$app}.#{$prefix}-delete {
+  color: #ff8a8a;
+}
+
+#{$app}.#{$prefix}-delete:hover {
+  color: red;
+}

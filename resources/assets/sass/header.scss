@@ -1,0 +1,10 @@
+$prefix: 'c-header';
+
+#{$app}.#{$prefix}-main {
+  padding-top: 30px;
+  /*padding-bottom: 20px;*/
+}
+
+#{$app}.#{$prefix}-title {
+  color: #31c9da;
+}

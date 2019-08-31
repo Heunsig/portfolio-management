@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Helpers;
+// namespace App\Helpers;
 
-class Extract {
+// class Extract {
 
-	private $model = [];
+// 	private $model = [];
 
-	public function __construct($model) {
-		$this->model = $model;
-	}
-}
+// 	public function __construct($model) {
+// 		$this->model = $model;
+// 	}
+// }

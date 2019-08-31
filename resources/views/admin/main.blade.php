@@ -4,24 +4,30 @@
 		<meta charset="UTF-8">
 		@include('admin.partials._head')
 	</head>
-	<body>
+	<body class="catcha c-body">
 		<div class="ui fluid container">
 			<div class="ui top fixed menu">
 			  <div class="item">
 			    <img src="https://semantic-ui.com/images/logo.png"/>
 			  </div>
-			  <a class="item active">Portfolio</a>
-			  <a class="item">Type</a>
-			  <a class="item">Icon</a>
+			  <a class="item active" href="{{ route('admin.portfolio.index') }}">Portfolio</a>
+			  <a class="item" href="{{ route('admin.type.index') }}">Type</a>
+			  <a class="item" href="{{ route('admin.icon.index') }}">Icon</a>
 			  <div class="right menu">
-			    <a class="item">Sign Out</a>
+			    <a class="item" herf="{{ route('admin.logout') }}">Sign Out</a>
 			  </div>
 			</div>
-			<div class="c-content">
+			<div class="catcha c-content">
+				@include('admin.partials._messages')
 				@yield('content')
 			</div>
 		</div>
-
+		
+		<div class="ui page dimmer">
+		  <div class="content">
+		    <div class="ui text loader">Loading</div>
+		  </div>
+		</div>
 		{{-- @include('admin.partials._nav')
 		<div class="container-fluid">
 			<div class="row">
@@ -39,5 +45,6 @@
 			</div>
 		</div>		
 		@include('admin.partials._scripts') --}}
+		@include('admin.partials._scripts')
 	</body>
 </html>
