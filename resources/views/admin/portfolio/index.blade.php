@@ -33,7 +33,7 @@
 						<th width="70">#</th>
 						<th width="110" class="center aligned">Thumbnail</th>
 						<th>Name</th>
-						<th width="200" class="center aligned">Types</th>
+						<th width="350" class="center aligned">Types</th>
 						<th width="200" class="center aligned">Icons</th>
 						<th width="175"></th>
 					</tr>

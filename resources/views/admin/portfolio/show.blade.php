@@ -18,7 +18,7 @@
 			</div>
 			<div class="four wide column right aligned">
 				<a class="ui primary button" href="{{ route('admin.portfolio.index') }}">
-				  List
+				  Back to list
 				</a>
 				<a class="ui orange button" href="{{ route('admin.portfolio.edit', $portfolio->id) }}">
 				  Edit

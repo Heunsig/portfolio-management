@@ -17,6 +17,9 @@
 				</div>
 			</div>
 			<div class="four wide column right aligned">
+				<a class="ui primary button" href="{{ route('admin.icon.index') }}">
+				  Back to list
+				</a>
 				<button 
 					type="button" 
 					class="ui button orange" 
