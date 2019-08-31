@@ -14,6 +14,19 @@
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 	})
+
+	function activeMenuOnMainNav () {
+		var currentPage = $('.breadcrumb').children().eq(2)[0].innerText.toLowerCase()
+
+		$('#mainNav').find('.item').each((i, e) => {
+			if (e.innerText.toLowerCase() === currentPage) {
+				$(e).addClass('active')
+				return false
+			}
+		})
+	}
+
+	activeMenuOnMainNav()
 </script>
 
 @stack('scripts')
