@@ -85,13 +85,17 @@
 						<div class="row">
 							<div class="sixteen wide column">
 								<div class="ui tiny header">Link</div>
-								<p>
-									@if($portfolio->link)
-										<a href="{{ $portfolio->link }}" target="_blank">{{ $portfolio->link }}</a>
-									@else
-										No link
-									@endif
-								</p>
+								<div class="ui list">
+									@foreach($portfolio->links as $link)
+									<div class="item">
+								    <i class="{{ strtolower($link->name) }} icon"></i>
+								    <div class="content">
+								      <div class="header">{{ $link->name }}</div>
+								      <a href="{{ $link->link }}" target="_blank">{{ $link->link }}</a>
+								    </div>
+								  </div>
+								  @endforeach
+								</div>
 							</div>
 						</div>
 						<div class="ui divider"></div>
@@ -100,7 +104,8 @@
 								<div class="ui tiny header">Explanation</div>
 								<p>
 									@if($portfolio->explanation)
-										{{ $portfolio->explanation }}
+										{{-- {{ $portfolio->explanation }} --}}
+										{!! nl2br(e($portfolio->explanation)) !!}
 									@else
 										No explanation
 									@endif

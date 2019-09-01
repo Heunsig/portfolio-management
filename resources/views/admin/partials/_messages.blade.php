@@ -1,12 +1,11 @@
 @if (Session::has('success'))
-	<div class="ui positive message">
+	<div class="ui positive message catcha c-mt-1">
 		<i class="close icon"></i>
 	  <div class="header">
 	    Success
 	  </div>
 	  <p>{{ Session::get('success') }}</p>
 	</div>
-
 @endif
 
 @if (count($errors) > 0)

@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-{{ Form::model($portfolio, ['route'=>['admin.portfolio.update', $portfolio->id], 'method'=>'PUT', 'files'=>true, 'class'=>'ui form']) }}
+{{ Form::model($portfolio, ['route'=>['admin.portfolio.update', $portfolio->id], 'method'=>'PUT', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
 <div class="ui grid">
 	<div class="sixteen wide column">
 		<div class="ui grid catcha c-header-main">
@@ -41,32 +41,43 @@
 						{{ Form::label('name', 'Name:') }}
 						{{ Form::text('name', null) }}
 					</div>
-					
-					<div class="field">
-						{{ Form::label('link', 'Link:') }}
-						{{ Form::text('link', null) }}
+					<div class="ui divider"></div>
+					<div class="field" id="linkFields">
+						<div class="catcha c-form-label-box">
+							<label>Links</label>
+							<button type="button" id="btnAddLinkField" class="ui mini primary button">Add</button>
+						</div>
+						@if(count($portfolio->links))
+							@foreach($portfolio->links as $index => $link)
+								@component('admin.components.linkField', ['index'=>$index, 'link'=>$link])
+								@endcomponent
+							@endforeach
+						@else
+							@component('admin.components.linkField')
+								@endcomponent
+						@endif
 					</div>
-						
+					<div class="ui divider"></div>
 					<div class="field">
 						<label>Type</label>
-				    <select multiple="" class="ui dropdown type"	id="types[]" name="types[]">
+				    <select multiple="" class="ui dropdown"	id="types" name="types[]">
 							<option value="">Select Type</option>
 				    	@foreach ($types as $key => $type)
 				    		<option value="{{ $key }}">{{ $type }}</option>
 				    	@endforeach
 				    </select>
 					</div>
-
+					<div class="ui divider"></div>
 					<div class="field">
 						<label>Icon</label>
-				    <select multiple="" class="ui dropdown icon"	id="icons[]" name="icons[]">
+				    <select multiple="" class="ui dropdown"	id="icons" name="icons[]">
 							<option value="">Select Icon</option>
 				    	@foreach ($icons as $key => $icon)
 				    		<option value="{{ $key }}">{{ $icon }}</option>
 				    	@endforeach
 				    </select>
 					</div>
-
+					<div class="ui divider"></div>
 					<div class="field">
 						{{ Form::label('explanation', 'Explanation:') }}
 						{{ Form::textarea('explanation', null) }}
@@ -172,9 +183,18 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+{{ Html::script('assets/admin/js/templates/linkField.js') }}
+
 <script type="text/javascript">
-	$('.ui.dropdown.type').dropdown('set selected', {!! json_encode($selected_types) !!})
-	$('.ui.dropdown.icon').dropdown('set selected', {!! json_encode($selected_icons) !!})
+	var linkFieldTemplate = LinkFieldTemplate('#linkFields', '.__linkFields', () => {
+		$('.__linkName').dropdown({
+			allowAdditions: true
+		})
+	})
+
+	$('.__linkName').dropdown({
+		allowAdditions: true
+	})
 
 	var sortable = new Sortable(document.querySelector('#uploadedImages'), {
     ghostClass: 'dragging',
@@ -218,6 +238,15 @@
 			}
 		}).dimmer('show')
 	})
+
+
+	$('#types').dropdown('set selected', {!! json_encode($selected_types) !!})
+	$('#icons').dropdown('set selected', {!! json_encode($selected_icons) !!})
+	$("#btnAddLinkField").on('click', e => {
+		e.preventDefault()
+		linkFieldTemplate.add()
+	})
+
 </script>
 {{-- {{ Html::script('assets/admin/js/edit_port_temp.js') }} --}}
 @endpush

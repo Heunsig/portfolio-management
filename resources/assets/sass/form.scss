@@ -1,0 +1,17 @@
+$prefix: 'c-form';
+// $prefix: 'c-label';
+// $prefix: 'c-image';
+
+#{$app}.#{$prefix} {
+  #{$app}.#{$prefix}-label-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    label {
+      font-size: .92857143em;
+      font-weight: 700;
+      flex: 1 1 auto;
+    }
+  }
+}

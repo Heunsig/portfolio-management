@@ -1,1 +1,118 @@
-.catcha.c-body{background:#f6f6f6}.c-container{display:flex !important;justify-content:center;align-items:center;background:#3fcab8}.catcha.c-content{padding-top:60px;padding-left:90px;padding-right:90px;padding-bottom:20px}.dragging{opacity:.3 !important}#c-login-body{display:flex}.c-login-company{text-align:center;color:#fff;margin-bottom:20px}.c-login-box{width:300px}.c-login-label{color:#fff !important}.catcha.c-header-main{padding-top:30px}.catcha.c-header-title{color:#31c9da}.catcha.c-image-thumbnail{width:60px;border-radius:15px}.catcha.c-cursor-pointer{cursor:pointer}.catcha.c-cursor-delete{color:#ff8a8a}.catcha.c-cursor-delete:hover{color:red}.catcha.c-alignment-inline{display:inline}/*# sourceMappingURL=style.css.map */
+/**
+ * For the admin page
+ * endpoint.scss
+ */
+/*.space-margin-top{margin-top:20px;}
+
+.list-thumbnail{width:70px;height:70px;overflow:hidden;line-height:70px;}
+.list-thumbnail > img{width:100%;vertical-align:middle;}*/
+.catcha.c-body {
+  background: #f6f6f6;
+}
+
+.c-container {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  background: #3fcab8;
+}
+
+.catcha.c-content {
+  padding-top: 60px;
+  padding-left: 90px;
+  padding-right: 90px;
+  padding-bottom: 20px;
+}
+
+.dragging {
+  opacity: 0.3 !important;
+}
+
+#c-login-body {
+  display: flex;
+}
+
+.c-login-company {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.c-login-box {
+  width: 300px;
+}
+
+.c-login-label {
+  color: white !important;
+}
+
+.catcha.c-header-main {
+  padding-top: 30px;
+  /*padding-bottom: 20px;*/
+}
+
+.catcha.c-header-title {
+  color: #31c9da;
+}
+
+.catcha.c-image-thumbnail-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.catcha.c-image-thumbnail {
+  width: 60px;
+  border-radius: 15px;
+}
+
+.catcha.c-image-empty {
+  /*width: auto;*/
+  height: 50px;
+  background: #d2d2d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.catcha.c-image-empty i {
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: auto;
+  color: white;
+}
+
+.catcha.c-cursor-pointer {
+  cursor: pointer;
+}
+
+.catcha.c-cursor-delete {
+  color: #ff8a8a;
+}
+
+.catcha.c-cursor-delete:hover {
+  color: red;
+}
+
+.catcha.c-alignment-inline {
+  display: inline;
+}
+
+/*.catcha.c-alignment-text-cen*/
+.catcha.c-form .catcha.c-form-label-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.catcha.c-form .catcha.c-form-label-box label {
+  font-size: 0.92857143em;
+  font-weight: 700;
+  flex: 1 1 auto;
+}
+
+.catcha.c-mt-1 {
+  margin-top: 10px !important;
+}
+
+/*# sourceMappingURL=style.css.map */

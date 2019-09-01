@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,3 +69,7 @@ Route::get('transfer', 'TransferController@moveToLink')->name('transfer');
 // 	echo '날짜가 이미 지났습니다';
 // 	}
 // });
+
+Route::post('test', function (Request $request) {
+	print_r($request->links);
+})->name('test');;

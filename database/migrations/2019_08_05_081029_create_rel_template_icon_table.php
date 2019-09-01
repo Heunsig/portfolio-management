@@ -13,11 +13,11 @@ class CreateRelTemplateIconTable extends Migration
      */
     public function up()
     {
-        Schema::create('rel_template_icon', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('template_id')->unsigned()->nullable();
-            $table->integer('icon_id')->unsigned()->nullable();
-        });
+        // Schema::create('rel_template_icon', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('template_id')->unsigned()->nullable();
+        //     $table->integer('icon_id')->unsigned()->nullable();
+        // });
     }
 
     /**
@@ -27,6 +27,6 @@ class CreateRelTemplateIconTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rel_template_icon');
+        // Schema::dropIfExists('rel_template_icon');
     }
 }

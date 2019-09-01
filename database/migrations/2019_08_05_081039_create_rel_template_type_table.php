@@ -13,11 +13,11 @@ class CreateRelTemplateTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('rel_template_type', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('template_id')->unsigned()->nullable();
-            $table->integer('type_id')->unsigned()->nullable();
-        });
+        // Schema::create('rel_template_type', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('template_id')->unsigned()->nullable();
+        //     $table->integer('type_id')->unsigned()->nullable();
+        // });
     }
 
     /**
@@ -27,6 +27,6 @@ class CreateRelTemplateTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rel_template_type');
+        // Schema::dropIfExists('rel_template_type');
     }
 }

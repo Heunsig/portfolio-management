@@ -54,7 +54,7 @@
 			<div class="eight wide column">
 				<h3 class="ui header top attached">Form adding a icon</h3>
 				<div class="ui segment attached">
-					{{ Form::open(['route'=>'admin.icon.store', 'method'=>'POST', 'class'=>'ui form']) }}
+					{{ Form::open(['route'=>'admin.icon.store', 'method'=>'POST', 'class'=>'ui form', 'id'=>'form']) }}
 						<div class="field">
 							{{ Form::label('name', 'Name:') }}
 							{{ Form::text('name', null) }}
@@ -64,7 +64,7 @@
 							{{ Form::text('code', null) }}
 						</div>
 						<div class="field">
-							{{ Form::submit('Save', ['class'=>'ui button primary']) }}
+							{{ Form::submit('Save', ['class'=>'ui button primary', 'id'=>'btnSave']) }}
 						</div>
 					{{  Form::close() }}
 				</div>
@@ -126,3 +126,16 @@
 	</div>
 </div> --}}
 @endsection
+@push('scripts')
+<script>
+	$('#btnSave').on('click', e => {
+		e.preventDefault()
+		$('.ui.page.dimmer').dimmer({
+			closable: false,
+			onShow: function () {
+				$('form').submit()
+			}
+		}).dimmer('show')
+	})
+</script>
+@endpush

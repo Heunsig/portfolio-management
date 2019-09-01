@@ -13,14 +13,14 @@ class CreateTemplatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('templates', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable();
-            $table->text('link')->nullable();
-            $table->text('explanation')->nullable();
-            $table->integer('order_number')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('templates', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name')->nullable();
+        //     $table->text('link')->nullable();
+        //     $table->text('explanation')->nullable();
+        //     $table->integer('order_number')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('templates');
+        // Schema::dropIfExists('templates');
     }
 }

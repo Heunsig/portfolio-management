@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Portfolio;
+use App\Models\admin\Portfolio;
 use App\Models\File;
 use App\Models\Type;
 use App\Models\Icon;
@@ -69,7 +69,7 @@ class PortfolioController extends Controller
 
         $portfolio = new Portfolio;
         $portfolio->name        = $request->name;
-        $portfolio->link        = $request->link;
+        // $portfolio->link        = $request->link;
         $portfolio->explanation = $request->explanation;
         $portfolio->order_number= DB::table('portfolios')->max('order_number') + 1;
 
@@ -125,6 +125,15 @@ class PortfolioController extends Controller
             }
         }
 
+        // Filter links
+        $filteredLinks = [];
+        foreach($request->links as $link) {
+            if ($link['link']) {
+                $filteredLinks[] = $link;
+            }
+        }
+
+        $portfolio->links()->createMany($filteredLinks);
         $portfolio->types()->sync($request->types, false);
         $portfolio->icons()->sync($request->icons, false);
 
@@ -132,7 +141,7 @@ class PortfolioController extends Controller
 
         return redirect()->route('admin.portfolio.show', $portfolio->id);
     }
-       
+    
        
 
     /**
@@ -226,7 +235,7 @@ class PortfolioController extends Controller
         $files_id = [];
 
         $portfolio->name = $request->name;
-        $portfolio->link = $request->link;
+        // $portfolio->link = $request->link;
         $portfolio->explanation = $request->explanation;
 
         $portfolio->save();
@@ -281,6 +290,16 @@ class PortfolioController extends Controller
                 }
             }
         }
+
+        // Filter links
+        $filteredLinks = [];
+        foreach($request->links as $link) {
+            if ($link['link']) {
+                $filteredLinks[] = $link;
+            }
+        }
+        $portfolio->links()->delete();
+        $portfolio->links()->createMany($filteredLinks);
 
         $portfolio->types()->sync($request->types);
         $portfolio->icons()->sync($request->icons);

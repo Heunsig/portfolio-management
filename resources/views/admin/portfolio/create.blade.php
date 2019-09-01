@@ -7,7 +7,8 @@
 @endpush
 
 @section('content')
-{{ Form::open(['route'=>'admin.portfolio.store', 'method'=>'POST', 'files'=>true, 'class'=>'ui form']) }}
+{{ Form::open(['route'=>'admin.portfolio.store', 'method'=>'POST', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
+{{-- {{ Form::open(['route'=>'test', 'method'=>'POST', 'files'=>true, 'class'=>'ui form catcha c-form']) }} --}}
 <div class="ui grid">
 	<div class="sixteen wide column">
 		<div class="ui grid catcha c-header-main">
@@ -36,36 +37,36 @@
 						{{ Form::label('name', 'Name:') }}
 						{{ Form::text('name', null) }}
 					</div>
-					
-					<div class="field">
-						{{ Form::label('link', 'Link:') }}
-						{{ Form::text('link', null) }}
+					<div class="ui divider"></div>
+					<div class="field" id="linkFields">
+						<div class="catcha c-form-label-box">
+							<label>Links</label>
+							<button type="button" id="btnAddLinkField" class="ui mini primary button">Add</button>
+						</div>
+						@component('admin.components.linkField')
+						@endcomponent
 					</div>
-						
+					<div class="ui divider"></div>
 					<div class="field">
 						<label>Type</label>
-				    <select multiple="" class="ui dropdown"	id="types[]" name="types[]">
+				    <select multiple="" class="ui dropdown"	id="types" name="types[]">
 							<option value="">Select Type</option>
 				    	@foreach ($types as $key => $type)
 				    		<option value="{{ $key }}">{{ $type }}</option>
 				    	@endforeach
 				    </select>
-						{{-- {{ Form::label('types[]', 'Type:') }}
-						{{ Form::select('types[]', $types, null, ['class'=>'"ui dropdown', 'multiple'=>'']) }} --}}
 					</div>
-
+					<div class="ui divider"></div>
 					<div class="field">
 						<label>Icon</label>
-				    <select multiple="" class="ui dropdown"	id="icons[]" name="icons[]">
+				    <select multiple="" class="ui dropdown"	id="icons" name="icons[]">
 							<option value="">Select Icon</option>
 				    	@foreach ($icons as $key => $icon)
 				    		<option value="{{ $key }}">{{ $icon }}</option>
 				    	@endforeach
 				    </select>
-						{{-- {{ Form::label('icons[]', 'Support:') }}
-						{{ Form::select('icons[]', $icons, null, ['class'=>'select-form-multiple', 'multiple'=>'']) }} --}}
 					</div>
-
+					<div class="ui divider"></div>
 					<div class="field">
 						{{ Form::label('explanation', 'Explanation:') }}
 						{{ Form::textarea('explanation', null) }}
@@ -88,8 +89,18 @@
 @endsection
 
 @push('scripts')
+{{ Html::script('assets/admin/js/templates/linkField.js') }}
 <script>
-	$('.ui.dropdown').dropdown()
+	var linkFieldTemplate = LinkFieldTemplate('#linkFields', '.__linkFields', () => {
+	  $('.__linkName').dropdown({
+	    allowAdditions: true
+	  })
+	})
+
+	$("#btnAddLinkField").on('click', e => {
+	  e.preventDefault()
+	  linkFieldTemplate.add()
+	})
 
 	$('#btnSave').on('click', e => {
 		e.preventDefault()
@@ -100,9 +111,11 @@
 			}
 		}).dimmer('show')
 	})
+
+	$('#types').dropdown()
+	$('#icons').dropdown()
+	$('.__linkName').dropdown({
+	  allowAdditions: true
+	})
 </script>
-{{-- {{ Html::script('assets/admin/lib/select2/select2.min.js') }} --}}
-{{-- <script type="text/javascript">
-	$(".select-form-multiple").select2();
-</script> --}}
 @endpush

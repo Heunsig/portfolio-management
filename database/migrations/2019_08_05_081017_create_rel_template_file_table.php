@@ -13,13 +13,13 @@ class CreateRelTemplateFileTable extends Migration
      */
     public function up()
     {
-        Schema::create('rel_template_file', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('template_id')->unsigned()->nullable();
-            $table->integer('file_id')->unsigned()->nullable();
-            $table->integer('order_number')->nullable();
-            $table->tinyInteger('is_thumbnail')->nullable();
-        });
+        // Schema::create('rel_template_file', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('template_id')->unsigned()->nullable();
+        //     $table->integer('file_id')->unsigned()->nullable();
+        //     $table->integer('order_number')->nullable();
+        //     $table->tinyInteger('is_thumbnail')->nullable();
+        // });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateRelTemplateFileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rel_template_file');
+        // Schema::dropIfExists('rel_template_file');
     }
 }

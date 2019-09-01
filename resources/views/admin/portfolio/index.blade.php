@@ -43,30 +43,26 @@
 					<tr data-id="{{ $portfolio->id }}">
 						<td class="center aligned">
 							 <i class="arrows alternate icon catcha c-cursor-pointer __dragHandle"></i>
-							{{-- <span class="order_handle glyphicon glyphicon-move"></span> --}}
 						</td>
 						<td>{{ $portfolio->id }}</td>
-						<td class="center aligned">
-
-							@php
-								$selected_file = $portfolio->select_frist_file();
-							@endphp
-							@if(isset($selected_file))
-								<div class="list-thumbnail">
-									<img src="{{env('AWS_OBJECT_BASEURL') . $selected_file['thumbnail_dir']}}" class="catcha c-image-thumbnail"/>
-								</div>
-							@else
-								<div class="list-thumbnail">
-									{{-- {{ Html::image('/assets/admin/images/thumbnail_noImage.gif', null, ['class'=>'catcha c-image-thumbnail']) }} --}}
-									<img src="https://picsum.photos/id/1018/80/80" class="catcha c-image-thumbnail"/>
-								</div>
-							@endif
+						<td class="catcha c-image-thumbnail-column">
+							<div class="list-thumbnail">
+								@php
+									$selected_file = $portfolio->select_frist_file();
+								@endphp
+								@if(isset($selected_file))
+										<img src="{{env('AWS_OBJECT_BASEURL') . $selected_file['thumbnail_dir']}}" class="catcha c-image-thumbnail"/>
+								@else
+									  <div class="catcha c-image-empty c-image-thumbnail">
+									  	<i class="ui icon image outline"></i>
+									  </div>
+								@endif
+							</div>
 						</td>
 						<td>{{ $portfolio->name }}</td>
 						<td class="center aligend">
 							@foreach($portfolio->types as $type)
 								<div class="ui label grey">{{ $type->name }}</div>
-								{{-- <span class="label label-default"></span> --}}
 							@endforeach
 						</td>
 						<td>
