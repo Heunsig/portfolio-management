@@ -188,12 +188,14 @@
 <script type="text/javascript">
 	var linkFieldTemplate = LinkFieldTemplate('#linkFields', '.__linkFields', () => {
 		$('.__linkName').dropdown({
+			clearable: true,
 			allowAdditions: true
 		})
 	})
 
-	$('.__linkName').dropdown({
-		allowAdditions: true
+	$("#btnAddLinkField").on('click', e => {
+		e.preventDefault()
+		linkFieldTemplate.add()
 	})
 
 	var sortable = new Sortable(document.querySelector('#uploadedImages'), {
@@ -242,9 +244,9 @@
 
 	$('#types').dropdown('set selected', {!! json_encode($selected_types) !!})
 	$('#icons').dropdown('set selected', {!! json_encode($selected_icons) !!})
-	$("#btnAddLinkField").on('click', e => {
-		e.preventDefault()
-		linkFieldTemplate.add()
+	$('.__linkName').dropdown({
+		clearable: true,
+		allowAdditions: true
 	})
 
 </script>

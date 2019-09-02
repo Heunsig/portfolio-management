@@ -93,6 +93,7 @@
 <script>
 	var linkFieldTemplate = LinkFieldTemplate('#linkFields', '.__linkFields', () => {
 	  $('.__linkName').dropdown({
+	  	clearable: true,
 	    allowAdditions: true
 	  })
 	})
@@ -115,6 +116,7 @@
 	$('#types').dropdown()
 	$('#icons').dropdown()
 	$('.__linkName').dropdown({
+		clearable: true,
 	  allowAdditions: true
 	})
 </script>
