@@ -28,4 +28,8 @@ class Portfolio extends Model
 	public function icons(){
 		return $this->belongsToMany('App\Models\Icon', 'rel_portfolio_icon', 'portfolio_id', 'icon_id');
 	}
+
+	public function links() {
+		return $this->hasMany('App\Models\Link', 'portfolio_id');
+	}
 }

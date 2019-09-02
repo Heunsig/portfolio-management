@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\admin\Portfolio;
+use App\Models\Portfolio;
 use App\Models\File;
 use App\Models\Type;
 use App\Models\Icon;
