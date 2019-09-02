@@ -3,7 +3,7 @@
   	<h1 class="ui teal header">Catcha Portfolio</h1>
     {{-- <img src="https://semantic-ui.com/images/logo.png"/> --}}
   </div>
-  <a class="item" href="#">About me</a>
+  <a class="item" href="{{ route('admin.content.index') }}">Content</a>
   <a class="item" href="{{ route('admin.portfolio.index') }}">Portfolio</a>
   <a class="item" href="{{ route('admin.category.index') }}">Category</a>
   <a class="item" href="{{ route('admin.icon.index') }}">Icon</a>

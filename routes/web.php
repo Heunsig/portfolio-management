@@ -32,6 +32,7 @@ Route::group(['prefix'=>'page'], function(){
 // Admin Routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
 	Route::get('/', 'PageController@getIndex');
+	Route::resource('content', 'ContentController', ['as'=>'admin']);
 	Route::resource('portfolio', 'PortfolioController', ['as'=>'admin']);
 	// Route::resource('template', 'TemplateController', ['as'=>'admin']);
 	Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['create','edit','update']]);
