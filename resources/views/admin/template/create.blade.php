@@ -24,8 +24,8 @@
 		{{ Form::label('link', 'Link:', ['class'=>'space-margin-top']) }}
 		{{ Form::text('link', null, ['class'=>'form-control']) }}
 		
-		{{ Form::label('types[]', 'Type:',['class'=>'space-margin-top']) }}
-		{{ Form::select('types[]', $types, null, ['class'=>'form-control select-form-multiple', 'multiple'=>'']) }}
+		{{ Form::label('cateogries[]', 'Category:',['class'=>'space-margin-top']) }}
+		{{ Form::select('categories[]', $categories, null, ['class'=>'form-control select-form-multiple', 'multiple'=>'']) }}
 
 		{{ Form::label('icons[]', 'Support:',['class'=>'space-margin-top']) }}
 		{{ Form::select('icons[]', $icons, null, ['class'=>'form-control select-form-multiple', 'multiple'=>'']) }}

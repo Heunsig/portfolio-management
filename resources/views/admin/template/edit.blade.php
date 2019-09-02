@@ -24,8 +24,8 @@
 		{{ Form::label('link', 'Link:', ['class'=>'space-margin-top']) }}
 		{{ Form::text('link', null, ['class'=>'form-control']) }}
 
-		{{ Form::label('types[]', 'Type:',['class'=>'space-margin-top']) }}
-		{{ Form::select('types[]', $types, null, ['class'=>'form-control select-form-multiple types', 'multiple'=>'']) }}
+		{{ Form::label('categories[]', 'Category:',['class'=>'space-margin-top']) }}
+		{{ Form::select('categories[]', $categories, null, ['class'=>'form-control select-form-multiple categories', 'multiple'=>'']) }}
 
 		{{ Form::label('icons[]', 'Support:',['class'=>'space-margin-top']) }}
 		{{ Form::select('icons[]', $icons, null, ['class'=>'form-control select-form-multiple icons', 'multiple'=>'']) }}
@@ -62,7 +62,7 @@
 {{ Html::script('assets/admin/lib/select2/select2.min.js') }}
 <script type="text/javascript">
 	$(".select-form-multiple").select2();
-	$(".select-form-multiple.types").select2().val({{ json_encode($had_types) }}).trigger('change');
+	$(".select-form-multiple.categories").select2().val({{ json_encode($had_categories) }}).trigger('change');
 	$(".select-form-multiple.icons").select2().val({{ json_encode($had_icons) }}).trigger('change');
 </script>
 {{ Html::script('assets/admin/js/edit_port_temp.js') }}

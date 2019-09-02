@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelPortfolioTypeTable extends Migration
+class CreateRelPortfolioCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRelPortfolioTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('rel_portfolio_type', function (Blueprint $table) {
+        Schema::create('rel_portfolio_category', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('portfolio_id')->unsigned()->nullable();
-            $table->integer('type_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
         });
     }
 
@@ -27,6 +27,6 @@ class CreateRelPortfolioTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rel_portfolio_type');
+        Schema::dropIfExists('rel_portfolio_category');
     }
 }

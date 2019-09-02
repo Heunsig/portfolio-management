@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Template;
-use App\Models\Type;
+use App\Models\Category;
 
 class TemplateController extends Controller
 {
-    public function getTypes(){
-        $types = Type::all();
+    public function getCategories(){
+        $categories = Category::all();
         $result = [];
 
         $i = 0;
-        foreach($types as $type){
+        foreach($categories as $category){
 
-            $result[$i]['name'] = $type->name;
-            $result[$i]['code'] = "." . $type->code;
+            $result[$i]['name'] = $category->name;
+            $result[$i]['code'] = "." . $category->code;
             $i++;
         }
 
@@ -39,9 +39,9 @@ class TemplateController extends Controller
                 $result[$i]['thumbnail']['saved_name'] = $image->saved_name;
             }
     		$j = 0;
-    		foreach($template->types as $type){
-    			$result[$i]['types'][$j]['name'] = 	$type->name;
-                $result[$i]['types'][$j]['code'] =  $type->code;
+    		foreach($template->categories as $category){
+    			$result[$i]['categories'][$j]['name'] = 	$category->name;
+                $result[$i]['categories'][$j]['code'] =  $category->code;
     			$j++;
     		}
     		

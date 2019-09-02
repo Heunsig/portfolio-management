@@ -13,13 +13,13 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('message')->nullable();
-            $table->integer('count')->nullable();
-            $table->integer('template_id')->unsigned()->nullable();
-            $table->integer('orderer_id')->unsigned()->nullable();
-        });
+        // Schema::create('orders', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->text('message')->nullable();
+        //     $table->integer('count')->nullable();
+        //     $table->integer('template_id')->unsigned()->nullable();
+        //     $table->integer('orderer_id')->unsigned()->nullable();
+        // });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        // Schema::dropIfExists('orders');
     }
 }

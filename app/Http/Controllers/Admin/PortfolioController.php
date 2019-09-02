@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
 use App\Models\File;
-use App\Models\Type;
+use App\Models\Category;
 use App\Models\Icon;
 use Session;
 use App\Helpers\FileInfo;
@@ -35,14 +35,14 @@ class PortfolioController extends Controller
      */
     public function create()
     {   
-        $types = Type::all();
+        $categories = Category::all();
         $icons = Icon::all();
 
-        $type_options = [];
+        $category_options = [];
         $icon_options = [];
 
-        foreach($types as $type){
-            $type_options[$type->id] = $type->name;
+        foreach($categories as $category){
+            $category_options[$category->id] = $category->name;
         }
 
         foreach($icons as $icon){
@@ -51,7 +51,7 @@ class PortfolioController extends Controller
 
         // print_r(Storage::get('portfolio/file.jpg');)
 
-        return view('admin.portfolio.create')->withTypes($type_options)->withIcons($icon_options);
+        return view('admin.portfolio.create')->withCategories($category_options)->withIcons($icon_options);
     }
 
     /**
@@ -134,7 +134,7 @@ class PortfolioController extends Controller
         }
 
         $portfolio->links()->createMany($filteredLinks);
-        $portfolio->types()->sync($request->types, false);
+        $portfolio->categories()->sync($request->categories, false);
         $portfolio->icons()->sync($request->icons, false);
 
         Session::flash('success', 'Successfully created a new portfolio.');            
@@ -166,18 +166,18 @@ class PortfolioController extends Controller
     {
         $portfolio = Portfolio::find($id);
 
-        $types = Type::all();
+        $categories = Category::all();
         $icons = Icon::all();
 
-        $type_options = [];
+        $category_options = [];
         $icon_options = [];
         //$image_order_options = [];
 
-        $selected_types = [];
+        $selected_categories = [];
         $selected_icons = [];
 
-        foreach($types as $type){
-            $type_options[$type->id] = $type->name;
+        foreach($categories as $category){
+            $category_options[$category->id] = $category->name;
         }
 
         foreach($icons as $icon){
@@ -190,8 +190,8 @@ class PortfolioController extends Controller
         }*/
 
         // $i = 0;
-        foreach($portfolio->types as $type){
-            $selected_types[] = strval($type->id);
+        foreach($portfolio->categories as $category){
+            $selected_categories[] = strval($category->id);
             // $i++;
         }
 
@@ -204,10 +204,10 @@ class PortfolioController extends Controller
 
         return view("admin.portfolio.edit")->with([
             "portfolio" => $portfolio,
-            "types" => $type_options,
+            "categories" => $category_options,
             "icons" => $icon_options,
             //"image_orders" => $image_order_options,
-            "selected_types" => $selected_types,
+            "selected_categories" => $selected_categories,
             "selected_icons" => $selected_icons
         ]);
 
@@ -301,7 +301,7 @@ class PortfolioController extends Controller
         $portfolio->links()->delete();
         $portfolio->links()->createMany($filteredLinks);
 
-        $portfolio->types()->sync($request->types);
+        $portfolio->categories()->sync($request->categories);
         $portfolio->icons()->sync($request->icons);
 
         //  Detach Images
@@ -332,7 +332,7 @@ class PortfolioController extends Controller
     {
         $portfolio = Portfolio::find($id);
         $portfolio->files()->detach();
-        $portfolio->types()->detach();
+        $portfolio->categories()->detach();
         $portfolio->icons()->detach();
 
         $portfolio->delete();

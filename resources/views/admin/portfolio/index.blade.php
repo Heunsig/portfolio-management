@@ -33,7 +33,7 @@
 						<th width="70">#</th>
 						<th width="110" class="center aligned">Thumbnail</th>
 						<th>Name</th>
-						<th width="350" class="center aligned">Types</th>
+						<th width="350" class="center aligned">Categories</th>
 						<th width="200" class="center aligned">Icons</th>
 						<th width="175"></th>
 					</tr>
@@ -61,8 +61,8 @@
 						</td>
 						<td>{{ $portfolio->name }}</td>
 						<td class="center aligend">
-							@foreach($portfolio->types as $type)
-								<div class="ui label grey">{{ $type->name }}</div>
+							@foreach($portfolio->categories as $category)
+								<div class="ui label grey">{{ $category->name }}</div>
 							@endforeach
 						</td>
 						<td>

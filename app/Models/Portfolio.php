@@ -21,8 +21,8 @@ class Portfolio extends Model
 			->withPivot('order_number', 'is_thumbnail')->orderBy('order_number', "asc")->first();	
 	}
 
-	public function types(){
-		return $this->belongsToMany('App\Models\Type', 'rel_portfolio_type', 'portfolio_id', 'type_id');
+	public function categories(){
+		return $this->belongsToMany('App\Models\Category', 'rel_portfolio_category', 'portfolio_id', 'category_id');
 	}
 
 	public function icons(){

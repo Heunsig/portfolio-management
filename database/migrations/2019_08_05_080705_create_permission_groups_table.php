@@ -13,11 +13,11 @@ class CreatePermissionGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permission_groups', function (Blueprint $table) {
-            $table->string('code', 10);
-            $table->string('name', 50)->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('permission_groups', function (Blueprint $table) {
+        //     $table->string('code', 10);
+        //     $table->string('name', 50)->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -27,6 +27,6 @@ class CreatePermissionGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission_groups');
+        // Schema::dropIfExists('permission_groups');
     }
 }

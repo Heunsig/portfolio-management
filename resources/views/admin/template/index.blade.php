@@ -26,7 +26,7 @@
 					<th>#</th>
 					<th>Thumbnail</th>
 					<th>Name</th>
-					<th>Type</th>
+					<th>Category</th>
 					<th>Icon</th>
 					<th></th>
 				</tr>
@@ -52,8 +52,8 @@
 					</td>
 					<td>{{ $template->name }}</td>
 					<td>
-						@foreach($template->types as $type)
-							<span class="label label-default">{{ $type->name }}</span>
+						@foreach($template->categories as $category)
+							<span class="label label-default">{{ $category->name }}</span>
 						@endforeach
 					</td>
 					<td>

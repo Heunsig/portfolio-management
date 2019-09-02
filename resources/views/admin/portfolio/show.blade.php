@@ -57,14 +57,14 @@
 						<div class="ui divider"></div>
 						<div class="row">
 							<div class="eight wide column">
-								<div class="ui tiny header">Types</div>
+								<div class="ui tiny header">Categories</div>
 								<p>
-									@if(count($portfolio->types))
-										@foreach($portfolio->types as $type)
-											<div class="ui label grey">{{ $type->name }}</div>
+									@if(count($portfolio->categories))
+										@foreach($portfolio->categories as $category)
+											<div class="ui label grey">{{ $category->name }}</div>
 										@endforeach
 									@else
-										No type
+										No category
 									@endif
 								</p>
 							</div>

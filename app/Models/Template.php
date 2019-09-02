@@ -21,8 +21,8 @@ class Template extends Model
 			->withPivot('order_number', 'is_thumbnail')->orderBy('order_number', "asc")->first();	
 	}
 
-	public function types(){
-		return $this->belongsToMany('App\Models\Type', 'rel_template_type', 'template_id', 'type_id');
+	public function categories(){
+		return $this->belongsToMany('App\Models\Category', 'rel_template_category', 'template_id', 'category_id');
 	}
 
 	public function icons(){

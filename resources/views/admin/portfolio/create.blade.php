@@ -48,11 +48,11 @@
 					</div>
 					<div class="ui divider"></div>
 					<div class="field">
-						<label>Type</label>
-				    <select multiple="" class="ui dropdown"	id="types" name="types[]">
-							<option value="">Select Type</option>
-				    	@foreach ($types as $key => $type)
-				    		<option value="{{ $key }}">{{ $type }}</option>
+						<label>Category</label>
+				    <select multiple="" class="ui dropdown"	id="categories" name="categories[]">
+							<option value="">Select Category</option>
+				    	@foreach ($categories as $key => $category)
+				    		<option value="{{ $key }}">{{ $category }}</option>
 				    	@endforeach
 				    </select>
 					</div>
@@ -113,7 +113,7 @@
 		}).dimmer('show')
 	})
 
-	$('#types').dropdown()
+	$('#categories').dropdown()
 	$('#icons').dropdown()
 	$('.__linkName').dropdown({
 		clearable: true,

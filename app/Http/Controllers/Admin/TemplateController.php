@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Template;
 use App\Models\File;
-use App\Models\Type;
+use App\Models\Category;
 use App\Models\Icon;
 use Session;
 use App\Helpers\FileInfo;
@@ -37,21 +37,21 @@ class TemplateController extends Controller
      */
     public function create()
     {
-        $types = Type::all();
+        $categories = Category::all();
         $icons = Icon::all();
 
-        $type_options = [];
+        $category_options = [];
         $icon_options = [];
 
-        foreach($types as $type){
-            $type_options[$type->id] = $type->name;
+        foreach($categories as $category){
+            $category_options[$category->id] = $category->name;
         }
 
         foreach($icons as $icon){
             $icon_options[$icon->id] = $icon->name;
         }
 
-        return view('admin.template.create')->withTypes($type_options)->withIcons($icon_options);
+        return view('admin.template.create')->withCategories($category_options)->withIcons($icon_options);
     }
 
     /**
@@ -138,7 +138,7 @@ class TemplateController extends Controller
 
         }
 
-        $template->types()->sync($request->types, false);
+        $template->categories()->sync($request->categories, false);
         $template->icons()->sync($request->icons, false);
 
         Session::flash('success', 'Success Test');            
@@ -168,17 +168,17 @@ class TemplateController extends Controller
     {
         $template = Template::find($id);
 
-        $types = Type::all();
+        $categories = Category::all();
         $icons = Icon::all();
 
-        $type_options = [];
+        $category_options = [];
         $icon_options = [];
 
-        $had_types = [];
+        $had_categories = [];
         $had_icons = [];
 
-        foreach($types as $type){
-            $type_options[$type->id] = $type->name;
+        foreach($categories as $category){
+            $category_options[$category->id] = $category->name;
         }
 
         foreach($icons as $icon){
@@ -186,8 +186,8 @@ class TemplateController extends Controller
         }
 
         $i = 0;
-        foreach($template->types as $type){
-            $had_types[$i] = $type->id;
+        foreach($template->categories as $category){
+            $had_categories[$i] = $categorie->id;
             $i++;
         }
 
@@ -199,9 +199,9 @@ class TemplateController extends Controller
         
         return view("admin.template.edit")->with([
             "template" => $template,
-            "types" => $type_options,
+            "categories" => $category_options,
             "icons" => $icon_options,
-            "had_types" => $had_types,
+            "had_categories" => $had_categories,
             "had_icons" => $had_icons
         ]);
     }
@@ -289,7 +289,7 @@ class TemplateController extends Controller
 
         }
 
-        $template->types()->sync($request->types);
+        $template->categories()->sync($request->categories);
         $template->icons()->sync($request->icons);
 
         //  Detach Images
@@ -320,7 +320,7 @@ class TemplateController extends Controller
     {
         $template = Template::find($id);
         $template->files()->detach();
-        $template->types()->detach();
+        $template->categories()->detach();
         $template->icons()->detach();
 
         $template->delete();

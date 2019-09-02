@@ -13,18 +13,18 @@ class CreateOrderersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orderers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable();
-            $table->string('phone_number', 20)->nullable();
-            $table->string('mobile_number', 20)->nullable();
-            $table->string('email', 40)->nullable();
-            $table->string('address_basic')->nullable();
-            $table->string('address_detail')->nullable();
-            $table->string('address_city', 50)->nullable();
-            $table->string('address_state', 50)->nullable();
-            $table->timestamp('ordered_time')->nullable();
-        });
+        // Schema::create('orderers', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name')->nullable();
+        //     $table->string('phone_number', 20)->nullable();
+        //     $table->string('mobile_number', 20)->nullable();
+        //     $table->string('email', 40)->nullable();
+        //     $table->string('address_basic')->nullable();
+        //     $table->string('address_detail')->nullable();
+        //     $table->string('address_city', 50)->nullable();
+        //     $table->string('address_state', 50)->nullable();
+        //     $table->timestamp('ordered_time')->nullable();
+        // });
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateOrderersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orderers');
+        // Schema::dropIfExists('orderers');
     }
 }

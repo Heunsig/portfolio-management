@@ -5,7 +5,7 @@
   </div>
   <a class="item" href="#">About me</a>
   <a class="item" href="{{ route('admin.portfolio.index') }}">Portfolio</a>
-  <a class="item" href="{{ route('admin.type.index') }}">Type</a>
+  <a class="item" href="{{ route('admin.category.index') }}">Category</a>
   <a class="item" href="{{ route('admin.icon.index') }}">Icon</a>
   <div class="right menu">
   	<a class="item" href="{{ route('admin.message.index') }}">Message</a>

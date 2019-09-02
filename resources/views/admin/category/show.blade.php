@@ -1,61 +1,56 @@
 @extends('admin.main')
 
-@section('title', '- Icon ' . $icon->name)
+@section('title', '- Category')
 
 @section('content')
+
 <div class="ui grid">
 	<div class="sixteen wide column">
 		<div class="ui grid catcha c-header-main">
 			<div class="twelve wide column">
-				<h1 class="ui header catcha c-header-title">Icon</h1>
+				<h1 class="ui header catcha c-header-title">Category</h1>
 				<div class="ui breadcrumb">
 				  <a class="section">Home</a>
 				  <div class="divider"> / </div>
-				  <a class="section">Icon</a>
+				  <a class="section">Category</a>
 				  <div class="divider"> / </div>
-				  <div class="section active">View: {{ $icon->id }}</div>
+				  <div class="section active">View: {{ $category->id }}</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui primary button" href="{{ route('admin.icon.index') }}">
+				<a class="ui primary button" href="{{ route('admin.category.index') }}">
 				  Back to list
 				</a>
-				<button 
+				<button
 					type="button" 
 					class="ui button orange" 
-					id="btnEditIcon"
+					id="btnEditCategory"
 				>
 					Edit
 				</button>
-				{{ Form::open(['route'=>['admin.icon.destroy', $icon->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteIcon']) }}
+				{{ Form::open(['route'=>['admin.category.destroy', $category->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteCategory']) }}
 					<button class="ui button red" id="btnDelete">Delete</button>
 				{{ Form::close() }}
 			</div>
 		</div>
 	</div>
-	<h2 class="ui header">Icon #{{ $icon->id }}'s details</h2>
+	<h2 class="ui header">Category #{{ $category->id }}'s details</h2>
 	<div class="sixteen wide column">
 		<div class="ui grid">
 			<div class="four wide column">
-				<h3 class="ui header top attached">Icon information</h3>
+				<h3 class="ui header top attached">Category information</h3>
 				<div class="ui segment attached">
 					<div class="ui grid">
 	    			<div class="row">
 				    	<div class="column">
 				    		<div class="ui tiny header">Name</div>
-				    		<p>{{ $icon->name }}</p>
-				    	</div>
-				    </div>
-				    <div class="row">
-				    	<div class="column">
-				    		<div class="ui tiny header">Icon</div>
-				    		<p><i class="ui icon {{ $icon->code }}"></i></p>
+				    		<p>{{ $category->name }}</p>
 				    	</div>
 				    </div>
 				    <div class="row">
 				    	<div class="column">
 				    		<div class="ui tiny header">Code</div>
-				    		<p>{{ $icon->code }}</p>
+				    		<p>{{ $category->code }}</p>
 				    	</div>
 				    </div>
 				  </div>
@@ -69,18 +64,18 @@
 							<tr>
 								<th width="50">#</th>
 								<th>Name</th>
-								<th width="500">icons</th>
+								<th width="500">Categories</th>
 							</tr>
 						</thead>
 						<tbody>
-							@if(count($icon->portfolios))
-								@foreach($icon->portfolios as $portfolio)
+							@if(count($category->portfolios))
+								@foreach($category->portfolios as $portfolio)
 								<tr>
 									<td>{{ $portfolio->id }}</td>
 									<td><a href="{{ route('admin.portfolio.show', $portfolio->id) }}">{{ $portfolio->name }}</a></td>
 									<td>
-										@foreach($portfolio->icons as $icon)
-											<i class="ui icon {{$icon->code}}"></i>
+										@foreach($portfolio->categories as $category)
+											<span class="ui grey label">{{$category->name}}</span>
 										@endforeach
 									</td>
 								</tr>
@@ -100,18 +95,18 @@
 
 @component('admin.components.modals.checkingModal')
 	@slot('id')
-		modalDeleteIcon
+		modalDeleteCategory
 	@endslot
 	@slot('title')
 		Warning
 	@endslot
-	Do you want to delete this icon?
+	Do you want to delete this category?
 @endcomponent
 
-<div class="ui tiny modal" id="modalEditIcon">
-  <div class="header">Edit Icon</div>
+<div class="ui tiny modal" id="modalEditCategory">
+  <div class="header">Edit Category</div>
   <div class="content">
-		{{ Form::model($icon, ['route'=>['admin.icon.update', $icon->id], 'method'=>'PUT', 'class'=>'ui form', 'id'=>'formEditIcon']) }}
+		{{ Form::model($category, ['route'=>['admin.category.update', $category->id], 'method'=>'PUT', 'class'=>'ui form', 'id'=>'formEditCategory']) }}
 		<div class="field">
 			{{ Form::label('name', 'Name:') }}
 			{{ Form::text('name', null) }}
@@ -127,30 +122,31 @@
   	<button type="button" class="ui primary button approve">Save</button>
   </div>
 </div>
-
 @endsection
 @push('scripts')
 <script>
-	$('#btnDelete').on('click', e => {
+	$('#btnEditCategory').on('click', e => {
 		e.preventDefault()
-		$('#modalDeleteIcon').modal({
+
+		$('#modalEditCategory').modal({
 			closable: false,
 			onApprove: () => {
-				$('#modalDeleteIcon > .actions > button').addClass('loading disabled')
-				$('#formToDeleteIcon').submit()
+				$('#modalEditCategory > .actions > button').addClass('loading disabled')
+				$('#formEditCategory').submit()
 				return false
 			}
 		}).modal('show')
 	})
 
-	$('#btnEditIcon').on('click', e => {
+	$('#btnDelete').on('click', e => {
 		e.preventDefault()
-		$('#modalEditIcon').modal({
-			closable: false,
+
+		$('#modalDeleteCategory').modal({
+			closable:false,
 			onApprove: () => {
-				$('#modalEditIcon > .actions > button').addClass('loading disabled')
-				$('#formEditIcon').submit()
-				return false
+				$('#modalDeleteCategory > .actions > button').addClass('loading disabled')
+				$('#formToDeleteCategory').submit()
+			return false
 			}
 		}).modal('show')
 	})

@@ -59,11 +59,11 @@
 					</div>
 					<div class="ui divider"></div>
 					<div class="field">
-						<label>Type</label>
-				    <select multiple="" class="ui dropdown"	id="types" name="types[]">
-							<option value="">Select Type</option>
-				    	@foreach ($types as $key => $type)
-				    		<option value="{{ $key }}">{{ $type }}</option>
+						<label>Category</label>
+				    <select multiple="" class="ui dropdown"	id="categories" name="categories[]">
+							<option value="">Select Category</option>
+				    	@foreach ($categories as $key => $category)
+				    		<option value="{{ $key }}">{{ $category }}</option>
 				    	@endforeach
 				    </select>
 					</div>
@@ -128,58 +128,7 @@
 	</div>
 </div>
 {{ Form::close() }}
-{{-- <div class="row">
-	<div class="col-md-12">
-		<ol class="breadcrumb">
-			<li><a href="{{ route('admin.portfolio.index') }}">Portfolio</a></li>
-			<li class="active">Edit</li>
-		</ol>
-	</div>
-	<div class="col-md-12">	
-		{{ Form::model($portfolio, ['route'=>['admin.portfolio.update', $portfolio->id], 'method'=>'PUT', 'files'=>true]) }}
-		
-		{{ Form::label('name', 'Name:') }}
-		{{ Form::text('name', null, ['class'=>'form-control']) }}
-		
-		{{ Form::label('link', 'Link:', ['class'=>'space-margin-top']) }}
-		{{ Form::text('link', null, ['class'=>'form-control']) }}
-
-		{{ Form::label('types[]', 'Type:',['class'=>'space-margin-top']) }}
-		{{ Form::select('types[]', $types, null, ['class'=>'form-control select-form-multiple types', 'multiple'=>'']) }}
-
-		{{ Form::label('icons[]', 'Support:',['class'=>'space-margin-top']) }}
-		{{ Form::select('icons[]', $icons, null, ['class'=>'form-control select-form-multiple icons', 'multiple'=>'']) }}
-
-		{{ Form::label('explanation', 'Explanation:', ['class'=>'space-margin-top']) }}
-		{{ Form::textarea('explanation', null, ['class'=>'form-control']) }}
-		
-		<ul id="updatedImagesBox" class="list-group space-margin-top" data-item-type="portfolio" data-item-id="{{$portfolio->id}}">
-			@foreach($portfolio->files()->orderBy('order_number','asc')->get() as $file)
-				<li class="list-group-item" data-id="{{$file->id}}">
-					<span type="button" style="cursor:move;" class="order_handle glyphicon glyphicon-move"></span>
-					<a href="#">
-						<img src="{{env('AWS_OBJECT_BASEURL') . $file->thumbnail_dir}}" alt="{{ $file->orig_name }}">
-					</a>
-					<span class="image_name">{{ $file->orig_name }}</span>
-
-					<button type="button" data-id="{{ $file->id }}" class="btn btn-danger btn-xs btn-delete-image">Delete</button>
-				</li>
-			@endforeach
-		</ul>
-
-		{{ Form::label('images[]', 'Images:', ['class'=>'space-margin-top']) }}
-		{{ Form::file('images[]', ['multiple'=>''])}}
-		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-		{{ Form::submit('Save', ['class'=>'btn btn-block btn-success space-margin-top']) }}
-	
-		{{ Form::close() }}
-		
-	</div>
-</div> --}}
-{{-- {{ print_r($types) }}
-{{ print_r($types) }} --}}
 @endsection
-
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -242,7 +191,7 @@
 	})
 
 
-	$('#types').dropdown('set selected', {!! json_encode($selected_types) !!})
+	$('#categories').dropdown('set selected', {!! json_encode($selected_categories) !!})
 	$('#icons').dropdown('set selected', {!! json_encode($selected_icons) !!})
 	$('.__linkName').dropdown({
 		clearable: true,

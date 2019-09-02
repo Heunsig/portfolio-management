@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth']
 	Route::resource('portfolio', 'PortfolioController', ['as'=>'admin']);
 	// Route::resource('template', 'TemplateController', ['as'=>'admin']);
 	Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['create','edit','update']]);
-	Route::resource('type', 'TypeController', ['as'=>'admin','except'=>'create']);
+	Route::resource('category', 'CategoryController', ['as'=>'admin','except'=>'create']);
 	Route::resource('icon', 'IconController',['as'=>'admin', 'except'=>'create']);
 });
 
@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Route::group(['prefix'=>'get'], function(){
 	Route::get('portfolios', 'PortfolioController@getPortfolios');
 	Route::get('templates', 'TemplateController@getTemplates');
-	Route::get('types', 'PortfolioController@getTypes');
+	Route::get('categories', 'PortfolioController@getCategories');
 });
 
 // Relocate Routes
