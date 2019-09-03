@@ -21,7 +21,8 @@
   </div>
   <h2>Account</h2>
   <div class="sixteen wide column">
-    <div class="ui padded segment">
+    <div class="ui header attached">Security</div>
+    <div class="ui padded segment attached">
       {{ Form::open(['route'=>'admin.account.changePassword', 'method'=>'POST', 'files'=>true, 'class'=>'ui form']) }}
       <div class="ui grid">
         <div class="row">
@@ -57,7 +58,7 @@
         <div class="row">
           <div class="column">
             <div class="field">
-              {{ Form::submit('Save', ['class'=>'ui button primary']) }}
+              {{ Form::submit('Change', ['class'=>'ui button primary']) }}
             </div>
           </div>
         </div>
