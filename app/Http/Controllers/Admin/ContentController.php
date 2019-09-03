@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Content;
+use App\Models\Admin\Content;
 use Session;
 
 class ContentController extends Controller

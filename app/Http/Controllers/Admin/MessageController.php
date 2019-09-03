@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Session;
-use App\Models\Message;
+use App\Models\Admin\Message;
 
 class MessageController extends Controller
 {

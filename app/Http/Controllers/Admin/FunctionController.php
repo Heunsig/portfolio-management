@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Portfolio;
-use App\Models\Template;
+use App\Models\Admin\Portfolio;
+use App\Models\Admin\Template;
 //use App\Models\File;
 
 class FunctionController extends Controller
