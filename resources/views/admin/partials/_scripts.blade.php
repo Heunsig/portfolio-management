@@ -15,8 +15,34 @@
     }
 	})
 
+	$("#btnLogout").on('click', e => {
+		e.preventDefault()
+
+
+
+		var form = $('<form></form>')
+		var token = $('<input/>')
+		token.attr('type', 'hidden')
+		token.attr('name', '_token')
+		token.val($('meta[name="csrf-token"]').attr('content'))
+
+		form.attr('action', '/admin/logout')
+		form.attr('method', 'POST')
+		form.append(token)
+		form.appendTo('body')
+
+		$('#blackout').dimmer({
+			closable: false,
+			onShow: function () {
+				form.submit()
+			}
+		}).dimmer('show')
+		
+	})
+
 	function activeMenuOnMainNav () {
-		var currentPage = $('.breadcrumb').children().eq(2)[0].innerText.toLowerCase()
+		var breadcrumb = $('.breadcrumb')
+		var currentPage = breadcrumb.children().eq(2)[0].innerText.toLowerCase()
 
 		$('#mainNav').find('.item').each((i, e) => {
 			if (e.innerText.toLowerCase() === currentPage) {

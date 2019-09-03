@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		
-		<div class="ui page dimmer">
+		<div class="ui page dimmer" id="blackout">
 		  <div class="content">
 		    <div class="ui text loader">Loading</div>
 		  </div>

@@ -115,4 +115,9 @@
   margin-top: 10px !important;
 }
 
+.catcha.c-button-cleanness {
+  border: none;
+  background: none;
+}
+
 /*# sourceMappingURL=style.css.map */

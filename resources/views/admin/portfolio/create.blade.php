@@ -105,7 +105,7 @@
 
 	$('#btnSave').on('click', e => {
 		e.preventDefault()
-		$('.ui.page.dimmer').dimmer({
+		$('#blackout').dimmer({
 			closable: false,
 			onShow: function () {
 				$('form').submit()

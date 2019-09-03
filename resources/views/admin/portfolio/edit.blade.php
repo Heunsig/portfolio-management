@@ -157,7 +157,7 @@
 
 			$.ajax({
 				method: "PUT",
-				url: `/relocateImageOrder/${type}/${portfolioId}`,
+				url: `/admin/relocateImageOrder/${type}/${portfolioId}`,
 				dataType: "json",
 				data: { "sortedIds[]": sortedIds },
 				success: function(data) {
@@ -182,7 +182,7 @@
 
 	$('#btnUpdate').on('click', e => {
 		e.preventDefault()
-		$('.ui.page.dimmer').dimmer({
+		$('#blackout').dimmer({
 			closable: false,
 			onShow: function () {
 				$('form').submit()

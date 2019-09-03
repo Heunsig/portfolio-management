@@ -29,26 +29,26 @@ Route::group(['prefix'=>'page'], function(){
 	Route::get('templatePop/{id}', 'PageController@getTemplatePop');
 });
 	
-// Admin Routes
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
-	Route::get('/', 'PageController@getIndex')->name('admin.main');
-	Route::resource('content', 'ContentController', ['as'=>'admin']);
-	Route::resource('portfolio', 'PortfolioController', ['as'=>'admin']);
-	// Route::resource('template', 'TemplateController', ['as'=>'admin']);
-	Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['create','edit','update']]);
-	Route::resource('category', 'CategoryController', ['as'=>'admin','except'=>'create']);
-	Route::resource('icon', 'IconController',['as'=>'admin', 'except'=>'create']);
+// // Admin Routes
+// Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
+// 	Route::get('/', 'PageController@getIndex')->name('admin.main');
+// 	Route::resource('content', 'ContentController', ['as'=>'admin']);
+// 	Route::resource('portfolio', 'PortfolioController', ['as'=>'admin']);
+// 	// Route::resource('template', 'TemplateController', ['as'=>'admin']);
+// 	Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['create','edit','update']]);
+// 	Route::resource('category', 'CategoryController', ['as'=>'admin','except'=>'create']);
+// 	Route::resource('icon', 'IconController',['as'=>'admin', 'except'=>'create']);
 
-	Route::get('account', 'AccountController@index')->name('admin.account.index');
-	Route::post('changePassword', 'AccountController@changePassword')->name('admin.account.changePassword');
-});
+// 	Route::get('account', 'AccountController@index')->name('admin.account.index');
+// 	Route::post('changePassword', 'AccountController@changePassword')->name('admin.account.changePassword');
+// });
 
 // Admin Auth Routes
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-	Route::get('login', [ 'as' => 'admin.login', 'uses' => 'Auth\LoginController@index']);
-	Route::post('login', [ 'as' => 'admin.login', 'uses' => 'Auth\LoginController@login']);
-	Route::get('logout', [ 'as' => 'admin.logout', 'uses' => 'Auth\LoginController@logout']);
-});
+// Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+// 	Route::get('login', [ 'as' => 'admin.login', 'uses' => 'Auth\LoginController@index']);
+// 	Route::post('login', [ 'as' => 'admin.login', 'uses' => 'Auth\LoginController@login']);
+// 	Route::get('logout', [ 'as' => 'admin.logout', 'uses' => 'Auth\LoginController@logout']);
+// });
 
 
 Route::group(['prefix'=>'get'], function(){
@@ -58,8 +58,8 @@ Route::group(['prefix'=>'get'], function(){
 });
 
 // Relocate Routes
-Route::put('relocateImageOrder/{type}/{id}','Admin\FunctionController@relocateImageOrder');
-Route::put('relocateListOrder/{type}', 'Admin\FunctionController@relocateListOrder');
+// Route::put('relocateImageOrder/{type}/{id}','Admin\FunctionController@relocateImageOrder');
+// Route::put('relocateListOrder/{type}', 'Admin\FunctionController@relocateListOrder');
 
 // Transfer Route
 Route::get('transfer', 'TransferController@moveToLink')->name('transfer');
@@ -74,6 +74,6 @@ Route::get('transfer', 'TransferController@moveToLink')->name('transfer');
 // 	}
 // });
 
-Route::post('test', function (Request $request) {
-	print_r($request->links);
-})->name('test');;
+// Route::post('test', function (Request $request) {
+// 	print_r($request->links);
+// })->name('test');;

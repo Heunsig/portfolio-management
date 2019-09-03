@@ -10,6 +10,9 @@
   <div class="right menu">
   	<a class="item" href="{{ route('admin.message.index') }}">Message</a>
     <a class="item" href="{{ route('admin.account.index') }}">Account</a>
-    <a class="item" href="{{ route('admin.logout') }}">Sign out</a>
+    {{-- <a class="item" href="{{ route('admin.account.index') }}">Sign out</a> --}}
+    {{-- {{ Form::open(['route'=>'admin.logout', 'method'=>'POST']) }} --}}
+    <button type="button" id="btnLogout" class="item catcha c-cursor-pointer c-button-cleanness">Sign out</button>
+    {{-- {{ Form::close() }} --}}
   </div>
 </div>

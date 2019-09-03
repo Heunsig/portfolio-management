@@ -16,9 +16,6 @@ class FunctionController extends Controller
     public function relocateListOrder(Request $request, $type){
 
         $sortedIds = $request->sortedIds;
-        //var_dump($sortedIds);
-        //exit;
-        //
         $order = count($sortedIds);
 
         if($type == 'portfolio'){

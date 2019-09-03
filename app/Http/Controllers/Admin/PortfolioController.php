@@ -49,8 +49,6 @@ class PortfolioController extends Controller
             $icon_options[$icon->id] = $icon->name;
         }
 
-        // print_r(Storage::get('portfolio/file.jpg');)
-
         return view('admin.portfolio.create')->withCategories($category_options)->withIcons($icon_options);
     }
 
@@ -69,7 +67,6 @@ class PortfolioController extends Controller
 
         $portfolio = new Portfolio;
         $portfolio->name        = $request->name;
-        // $portfolio->link        = $request->link;
         $portfolio->explanation = $request->explanation;
         $portfolio->order_number= DB::table('portfolios')->max('order_number') + 1;
 
@@ -171,7 +168,6 @@ class PortfolioController extends Controller
 
         $category_options = [];
         $icon_options = [];
-        //$image_order_options = [];
 
         $selected_categories = [];
         $selected_icons = [];
@@ -184,34 +180,21 @@ class PortfolioController extends Controller
             $icon_options[$icon->id] = $icon->name;
         }
 
-        // Make image order options
-        /*for($i = 1 ; $i <= $portfolio->files()->count() ; $i++){
-            $image_order_options[$i] = $i;
-        }*/
-
-        // $i = 0;
         foreach($portfolio->categories as $category){
             $selected_categories[] = strval($category->id);
-            // $i++;
         }
 
-        // $i = 0;
         foreach($portfolio->icons as $icon){
             $selected_icons[] = strval($icon->id);
-            // $had_icons[$i] = $icon->id;
-            // $i++;
         }
 
         return view("admin.portfolio.edit")->with([
             "portfolio" => $portfolio,
             "categories" => $category_options,
             "icons" => $icon_options,
-            //"image_orders" => $image_order_options,
             "selected_categories" => $selected_categories,
             "selected_icons" => $selected_icons
         ]);
-
-        //return view('admin.portfolio.edit')->withPortfolio($portfolio)->withTypes($type_options)->withIcons($icon_options);
     }
 
     /**
@@ -235,7 +218,6 @@ class PortfolioController extends Controller
         $files_id = [];
 
         $portfolio->name = $request->name;
-        // $portfolio->link = $request->link;
         $portfolio->explanation = $request->explanation;
 
         $portfolio->save();

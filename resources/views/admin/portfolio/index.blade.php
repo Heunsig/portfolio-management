@@ -102,7 +102,7 @@
 
 			$.ajax({
 				method: "PUT",
-				url: `/relocateListOrder/${type}`,
+				url: `/admin/relocateListOrder/${type}`,
 				dataType: "json",
 				data: {"sortedIds[]": sortedIds},
 				success: function(data){
