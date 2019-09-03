@@ -137,7 +137,7 @@ class PortfolioController extends Controller
         $portfolio->categories()->sync($request->categories, false);
         $portfolio->icons()->sync($request->icons, false);
 
-        Session::flash('success', 'Successfully created a new portfolio.');            
+        Session::flash('success', 'Successfully created a new portfolio.');
 
         return redirect()->route('admin.portfolio.show', $portfolio->id);
     }

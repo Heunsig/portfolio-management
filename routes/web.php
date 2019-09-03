@@ -31,13 +31,16 @@ Route::group(['prefix'=>'page'], function(){
 	
 // Admin Routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
-	Route::get('/', 'PageController@getIndex');
+	Route::get('/', 'PageController@getIndex')->name('admin.main');
 	Route::resource('content', 'ContentController', ['as'=>'admin']);
 	Route::resource('portfolio', 'PortfolioController', ['as'=>'admin']);
 	// Route::resource('template', 'TemplateController', ['as'=>'admin']);
 	Route::resource('message', 'MessageController', ['as'=>'admin', 'except'=>['create','edit','update']]);
 	Route::resource('category', 'CategoryController', ['as'=>'admin','except'=>'create']);
 	Route::resource('icon', 'IconController',['as'=>'admin', 'except'=>'create']);
+
+	Route::get('account', 'AccountController@index')->name('admin.account.index');
+	Route::post('changePassword', 'AccountController@changePassword')->name('admin.account.changePassword');
 });
 
 // Admin Auth Routes

@@ -100,7 +100,7 @@ class ContentController extends Controller
             'title' => 'required|max:255'
         ]);
 
-        $content = new Content;
+        $content = Content::find($id);
         $content->title = $request->title;
         $content->subtitle = $request->subtitle;
         $content->content = $request->content;
