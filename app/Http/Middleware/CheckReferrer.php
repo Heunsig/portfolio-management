@@ -29,7 +29,6 @@ class CheckReferrer
 
         $referrers = $apikey->referrers;
 
-        return response()->json($referrers);
         foreach($referrers as $referrer) {
             if (preg_match('/^'.$this->convertToRegExp($referrer['referrer']).'$/', $domain)) {
                 return $next($request);                
