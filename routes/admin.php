@@ -12,7 +12,7 @@ Route::group([
     Route::get('login', 'Auth\LoginController@index')->name('login');
     Route::post('login', 'Auth\LoginController@login')->name('login');
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'dbConn'])->group(function () {
         Route::get('/', 'PageController@getIndex')->name('main');
         Route::resource('content', 'ContentController');
         Route::resource('portfolio', 'PortfolioController');
