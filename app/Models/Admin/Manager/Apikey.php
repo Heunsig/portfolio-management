@@ -13,4 +13,8 @@ class Apikey extends Model
     public function databases () {
       return $this->hasMany('App\Models\Admin\Manager\Database', 'user_id', 'user_id');
     }
+
+    public function referrers () {
+      return $this->hasMany('App\Models\Admin\Manager\Referrer', 'user_id', 'user_id');
+    }
 }

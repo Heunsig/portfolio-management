@@ -58,5 +58,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'dbConn' => \App\Http\Middleware\DatabaseConnection::class,
         'dbConn.api' => \App\Http\Middleware\DatabaseConnectionByApi::class,
+        'cors' => \App\Http\Middleware\Cors::class,
+        'checkReferrer' => \App\Http\Middleware\checkReferrer::class,
     ];
 }
