@@ -30,10 +30,11 @@ class CheckReferrer
         $referrers = $apikey->referrers;
 
         foreach($referrers as $referrer) {
-            if (preg_match('/^'.$this->convertToRegExp($referrer['refferer']).'$/', $domain)) {
+            if (preg_match('/^'.$this->convertToRegExp($referrer['referrer']).'$/', $domain)) {
                 return $next($request);                
             }
         }
+        
         return response()->json(['error' => 'Invalid referrer']);
     }
 

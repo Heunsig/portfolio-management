@@ -8,5 +8,5 @@ class Referrer extends Model
 {
     protected $connection = 'manager';
 
-    protected $table = 'refferers';
+    protected $table = 'referrers';
 }
