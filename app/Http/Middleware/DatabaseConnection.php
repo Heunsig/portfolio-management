@@ -17,15 +17,10 @@ class DatabaseConnection
      */
     public function handle($request, Closure $next)
     {   
-        try {
-            config()->set('database.connections.tenant.host', Auth::user()->databases->first()->host);
-            config()->set('database.connections.tenant.port', Auth::user()->databases->first()->port);
-            config()->set('database.connections.tenant.database', Auth::user()->databases->first()->database);
-            DB::reconnect('tenant');
-        } catch (\Exception $e) {
-            return redirect()->route('admin.login');
-        }
-        
+        config()->set('database.connections.tenant.host', Auth::user()->databases->first()->host);
+        config()->set('database.connections.tenant.port', Auth::user()->databases->first()->port);
+        config()->set('database.connections.tenant.database', Auth::user()->databases->first()->database);
+        DB::reconnect('tenant');
 
         return $next($request);
     }

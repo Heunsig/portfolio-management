@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'dbConn' => \App\Http\Middleware\DatabaseConnection::class
+        'dbConn' => \App\Http\Middleware\DatabaseConnection::class,
+        'dbConn.api' => \App\Http\Middleware\DatabaseConnectionByApi::class,
     ];
 }

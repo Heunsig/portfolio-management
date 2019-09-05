@@ -60,34 +60,38 @@ function makeResult ($value, $onlyQuery) {
     return $result;
 } 
 
-Route::get('contents', function (Request $request) {
-    $contents = Content::all();
-    $result = [];
+Route::middleware(['dbConn.api'])->group(function () {
 
-    foreach ($contents as $content) {
-        $result[] = makeResult($content, $request->query('only'));
-    }
+    Route::get('contents', function (Request $request) {
+        $contents = Content::all();
+        $result = [];
 
-    return response()->json($result);
-});
+        foreach ($contents as $content) {
+            $result[] = makeResult($content, $request->query('only'));
+        }
 
-Route::get('contents/{id}', function (Request $request, $id) {
-    $content = Content::where('id', $id)->first();
-    return response()->json(makeResult($content, $request->query('only')));
-});
+        return response()->json($result);
+    });
 
-Route::get('portfolios', function (Request $request) {
-    $portfolios = Portfolio::with('links', 'files')->get();
-    $result = [];
+    Route::get('contents/{id}', function (Request $request, $id) {
+        $content = Content::where('id', $id)->first();
+        return response()->json(makeResult($content, $request->query('only')));
+    });
 
-    foreach ($portfolios as $portfolio) {
-        $result[] = makeResult($portfolio, $request->query('only'));
-    }
+    Route::get('portfolios', function (Request $request) {
+        $portfolios = Portfolio::with('links', 'files')->get();
+        $result = [];
 
-    return response()->json($result);
-});
+        foreach ($portfolios as $portfolio) {
+            $result[] = makeResult($portfolio, $request->query('only'));
+        }
 
-Route::get('portfolios/{id}', function (Request $request, $id) {
-    $portfolio = Portfolio::where('id', $id)->with('links', 'files')->first();
-    return response()->json(makeResult($portfolio, $request->query('only')));
+        return response()->json($result);
+    });
+
+    Route::get('portfolios/{id}', function (Request $request, $id) {
+        $portfolio = Portfolio::where('id', $id)->with('links', 'files')->first();
+        return response()->json(makeResult($portfolio, $request->query('only')));
+    });
+    
 });
