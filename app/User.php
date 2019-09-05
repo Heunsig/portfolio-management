@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-    protected $connection = 'mysql2';
+
+    protected $connection = 'manager';
 
     /**
      * The attributes that are mass assignable.
@@ -27,4 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function databases () {
+        return $this->hasMany('App\Models\Admin\Manager\Database', 'user_id');
+    }
 }
