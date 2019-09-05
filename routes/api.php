@@ -60,7 +60,7 @@ function makeResult ($value, $onlyQuery) {
     return $result;
 } 
 
-Route::middleware(['dbConn.api'])->group(function () {
+Route::middleware(['cors', 'checkReferrer', 'dbConn.api'])->group(function () {
 
     Route::get('contents', function (Request $request) {
         $contents = Content::all();
