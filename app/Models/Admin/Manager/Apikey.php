@@ -15,6 +15,6 @@ class Apikey extends Model
     }
 
     public function referrers () {
-      return $this->hasMany('App\Models\Admin\Manager\Referrer', 'user_id', 'user_id');
+      return $this->hasMany('App\Models\Admin\Manager\Referrer', 'key', 'key');
     }
 }
