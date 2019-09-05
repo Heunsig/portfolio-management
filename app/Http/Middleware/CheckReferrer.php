@@ -21,7 +21,7 @@ class CheckReferrer
         $apikey = Apikey::where('key', $key)->first();
         $fullReferrer = $request->server('HTTP_REFERER');
         $parsed_url = parse_url($fullReferrer);
-        $domain = $parsed_url['scheme'] . '://' . $parsed_url['host'] . ($parsed_url['port'] ? ':'.$parsed_url['port'] : '');
+        $domain = $parsed_url['scheme'] . '://' . $parsed_url['host'] . (isset($parsed_url['port']) ? ':'.$parsed_url['port'] : '');
 
         if(!$apikey) {
             return response()->json(['error' => 'Invalid api key']);
