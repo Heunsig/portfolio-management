@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\User;
+use App\Models\Admin\Manager\Apikey;
 use Auth;
 use Hash;
 use Session;
@@ -14,8 +14,11 @@ class AccountController extends Controller
 {
     public function index()
     {
+        $apikeys = Apikey::where('user_id', Auth::id())->get();
+        
         return view('admin.account.index')->with([
-          'email' => Auth::user()->email
+          'email' => Auth::user()->email,
+          'apikeys' => $apikeys
         ]);
     }
 
