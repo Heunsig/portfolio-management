@@ -115,5 +115,5 @@ return [
     */
 
     'attributes' => [],
-
+    'check_array' => 'at least one item is required',
 ];
