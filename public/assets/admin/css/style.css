@@ -99,6 +99,15 @@
   display: inline;
 }
 
+.catcha.c-alignment-title-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.catcha.c-alignment-title-card .title {
+  flex: 1 1 auto;
+  margin: 0px;
+}
 /*.catcha.c-alignment-text-cen*/
 .catcha.c-form .catcha.c-form-label-box {
   display: flex;
@@ -115,9 +124,25 @@
   margin-top: 10px !important;
 }
 
+.catcha.c-mb-0 {
+  margin-bottom: 0px !important;
+}
+
 .catcha.c-button-cleanness {
   border: none;
   background: none;
+}
+
+.catcha.c-button-box {
+  display: flex;
+  margin: 10px 0;
+  align-items: center;
+}
+.catcha.c-button-box .space {
+  flex: 1 1 auto;
+}
+.catcha.c-button-box .title {
+  flex: 1 1 auto;
 }
 
 /*# sourceMappingURL=style.css.map */

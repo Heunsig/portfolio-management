@@ -4,3 +4,22 @@ $prefix: 'c-button';
   border: none;
   background: none;
 }
+
+
+#{$app}.#{$prefix}-box {
+  display: flex;
+  margin: 10px 0;
+  align-items: center;
+  
+  .space {
+    flex: 1 1 auto;
+  }
+
+  .title { 
+    flex: 1 1 auto;
+  }
+
+  .actions {  
+    
+  }
+}

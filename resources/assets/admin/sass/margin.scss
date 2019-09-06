@@ -3,3 +3,7 @@ $prefix: 'c-m';
 #{$app}.#{$prefix}t-1 {
   margin-top: 10px!important;
 }
+
+#{$app}.#{$prefix}b-0 {
+  margin-bottom: 0px !important;
+}

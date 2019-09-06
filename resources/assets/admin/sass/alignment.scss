@@ -4,4 +4,22 @@ $prefix: 'c-alignment';
   display: inline;
 }
 
+#{$app}.#{$prefix}-title-card { 
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+
+  .title {
+    flex: 1 1 auto;
+    margin: 0px;
+  } 
+
+  .actions {
+
+  }
+}
+
+
+
+
 /*#{$app}.#{$prefix}-text-cen*/
