@@ -9,4 +9,6 @@ class Referrer extends Model
     protected $connection = 'manager';
 
     protected $table = 'referrers';
+
+    protected $fillable = ['referrer'];
 }

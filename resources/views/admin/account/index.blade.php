@@ -7,64 +7,51 @@
   <div class="sixteen wide column">
     <div class="ui grid catcha c-header-main">
       <div class="twelve wide column">
-        <h1 class="ui header catcha c-header-title">Account</h1>
-        <div class="ui breadcrumb">
-          <a class="section">Home</a>
-          <div class="divider"> / </div>
-          <div class="section active">Account</div>
-        </div>
+        <h1 class="ui header catcha c-header-title">
+          Account
+        </h1>
+        @yield('account.breadcrumb')
       </div>
       <div class="four wide column right aligned">
-
+        @yield('account.actions')
       </div>
     </div>
   </div>
-  <h2>Account</h2>
   <div class="sixteen wide column">
-    <div class="ui header attached">Security</div>
-    <div class="ui padded segment attached">
-      {{ Form::open(['route'=>'admin.account.changePassword', 'method'=>'POST', 'files'=>true, 'class'=>'ui form']) }}
-      <div class="ui grid">
-        <div class="row">
-          <div class="column">
-            <div class="ui tiny header">Email</div>
-            <p>{{ $email }}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <div class="field">
-              {{ Form::label('password', 'Password') }}
-              {{ Form::password('password', null) }}
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <div class="field">
-              {{ Form::label('newPassword', 'New password') }}
-              {{ Form::password('newPassword', null) }}
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <div class="field">
-              {{ Form::label('newPassword_confirmation', 'New password confirmation') }}
-              {{ Form::password('newPassword_confirmation', null) }}
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <div class="field">
-              {{ Form::submit('Change', ['class'=>'ui button primary']) }}
-            </div>
-          </div>
+    <div class="ui grid">
+      <div class="three wide column">
+        <div id="subNav" class="ui vertical pointing menu">
+          <a class="item" href="{{ route('admin.account.index') }}">
+            Overview
+          </a>
+          <a class="item" href="{{ route('admin.account.security') }}">
+            Security
+          </a>
+          <a class="item" href="{{ route('admin.account.apikeys.index') }}">
+            API Key
+          </a>
         </div>
       </div>
+      <div class="thirteen wide column">
+        @yield('account.content')
+      </div>
     </div>
-    {{ Form::close() }}
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+  (function () {
+    var breadcrumb = $('#breadCrumbAccount')
+    var currentPage = breadcrumb.children().eq(4)[0].innerText.toLowerCase()
+
+    $('#subNav').find('.item').each((i, e) => {
+      if (e.innerText.toLowerCase() === currentPage) {
+        $(e).addClass('active')
+        return false
+      }
+    })
+  })()
+</script>
+@endpush

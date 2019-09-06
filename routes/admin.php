@@ -33,8 +33,6 @@ Route::group([
             'except' => 'create'
         ]);
 
-        Route::get('account', 'AccountController@index')->name('account.index');
-        Route::post('changePassword', 'AccountController@changePassword')->name('account.changePassword');
 
         Route::put('relocateImageOrder/{type}/{id}', 'FunctionController@relocateImageOrder');
         Route::put('relocateListOrder/{type}', 'FunctionController@relocateListOrder');
@@ -42,5 +40,12 @@ Route::group([
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
     });
 
-});
+    Route::namespace('Manager')->middleware(['auth'])->group(function () {
+        Route::resource('account/apikeys', 'APIKeyController', ['as' => 'account']);
 
+        Route::get('account/overview', 'AccountController@index')->name('account.index');
+        Route::get('account/security', 'AccountController@security')->name('account.security');
+        Route::post('account/changePassword', 'AccountController@changePassword')->name('account.changePassword');
+    });
+
+});

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Manager;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Manager\Apikey;
+use App\Models\Admin\Manager\APIKey;
 use Auth;
 use Hash;
 use Session;
@@ -14,12 +14,15 @@ class AccountController extends Controller
 {
     public function index()
     {
-        $apikeys = Apikey::where('user_id', Auth::id())->get();
+        $apikeys = APIKey::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         
-        return view('admin.account.index')->with([
-          'email' => Auth::user()->email,
+        return view('admin.account.overview')->with([
           'apikeys' => $apikeys
         ]);
+    }
+
+    public function security() {
+        return view('admin.account.security');
     }
 
     public function changePassword(Request $request)
@@ -41,7 +44,7 @@ class AccountController extends Controller
             $errors->add('Unauthenticated password', 'Incorrect password');
         }
 
-        return redirect()->route('admin.account.index')->with([
+        return redirect()->route('admin.account.security')->with([
             'errors' => $errors
         ]);
         
