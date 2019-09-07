@@ -13,11 +13,11 @@
 				  <div class="divider"> / </div>
 				  <a class="section">Icon</a>
 				  <div class="divider"> / </div>
-				  <div class="section active">View: {{ $icon->id }}</div>
+				  <div class="section active">View icon: {{ $icon->id }}</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui primary button" href="{{ route('admin.icon.index') }}">
+				<a class="ui grey button" href="{{ route('admin.icon.index') }}">
 				  Back to list
 				</a>
 				<button 
@@ -33,11 +33,11 @@
 			</div>
 		</div>
 	</div>
-	<h2 class="ui header">Icon #{{ $icon->id }}'s details</h2>
+	<h2 class="ui header">View Icon</h2>
 	<div class="sixteen wide column">
 		<div class="ui grid">
 			<div class="four wide column">
-				<h3 class="ui header top attached">Icon information</h3>
+				<h3 class="ui header top attached">Icon ID #{{ $icon->id }}'s information</h3>
 				<div class="ui segment attached">
 					<div class="ui grid">
 	    			<div class="row">
@@ -48,21 +48,21 @@
 				    </div>
 				    <div class="row">
 				    	<div class="column">
-				    		<div class="ui tiny header">Icon</div>
-				    		<p><i class="ui icon {{ $icon->code }}"></i></p>
+				    		<div class="ui tiny header">Icon code</div>
+				    		<p>{{ $icon->code }}</p>
 				    	</div>
 				    </div>
 				    <div class="row">
 				    	<div class="column">
-				    		<div class="ui tiny header">Code</div>
-				    		<p>{{ $icon->code }}</p>
+				    		<div class="ui tiny header">Icon</div>
+				    		<p><i class="ui icon {{ $icon->code }}"></i></p>
 				    	</div>
 				    </div>
 				  </div>
 				</div>
 			</div>
 			<div class="twelve wide column">
-				<h3 class="ui header top attached">Portfolios</h3>
+				<h3 class="ui header top attached">Portfolios having this icon</h3>
 				<div class="ui segment attached">
 					<table class="ui very basic celled table">
 						<thead>
@@ -87,7 +87,7 @@
 								@endforeach
 							@else
 								<tr>
-									<td colspan="3" class="center aligned">No portfolio</td>
+									<td colspan="3" class="center aligned catcha c-text-noContent">No portfolios</td>
 								</tr>
 							@endif
 						</tbody>
@@ -117,7 +117,7 @@
 			{{ Form::text('name', null) }}
 		</div>
 		<div class="field">
-			{{ Form::label('code', 'Code:') }}
+			{{ Form::label('code', 'Icon code:') }}
 			{{ Form::text('code', null) }}
 		</div>
 		{{ Form::close() }}

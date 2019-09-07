@@ -14,22 +14,22 @@
           <div class="divider"> / </div>
           <a class="section" href="{{ route('admin.content.index') }}">Content</a>
           <div class="divider"> / </div>
-          <a class="section" href="{{ route('admin.content.show', $content->id) }}">View: {{ $content->id }}</a>
+          <a class="section" href="{{ route('admin.content.show', $content->id) }}">View content: {{ $content->id }}</a>
           <div class="divider"> / </div>
           <div class="section active">Edit</div>
         </div>
       </div>
       <div class="four wide column right aligned">
-        <a href="{{ route('admin.content.show', $content->id)}}" class="ui button positive grey">View</a>
-        {{ Form::submit('Update', ['class'=>'ui button primary', 'id'=>'btnUpdate']) }}
+        <a href="{{ route('admin.content.show', $content->id)}}" class="ui grey button">Back to View Page</a>
       </div>
     </div>
   </div>
   <h2 class="ui header">
-    Edit content #{{ $content->id }}
+    Edit content
   </h2>
   <div class="sixteen wide column">
-    <div class="ui segment">
+    <div class="ui header top attached">ID: {{ $content->id }}</div>
+    <div class="ui segment attached">
       <div class="field">
         {{ Form::label('title', 'Title') }}
         {{ Form::text('title', null) }}
@@ -41,6 +41,12 @@
       <div class="field">
         {{ Form::label('content', 'Content') }}
         {{ Form::textarea('content', null) }}
+      </div>
+    </div>
+    <div class="catcha c-button-box">
+      <div class="space"></div>
+      <div class="actions">
+        {{ Form::submit('Save', ['class'=>'ui button primary', 'id'=>'btnUpdate']) }}
       </div>
     </div>
   </div>

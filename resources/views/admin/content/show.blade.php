@@ -14,11 +14,11 @@
           <div class="divider"> / </div>
           <a class="section" href="{{ route('admin.content.index') }}">Content</a>
           <div class="divider"> / </div>
-          <div class="section active">View: {{ $content->id }}</div>
+          <div class="section active">View content: {{ $content->id }}</div>
         </div>
       </div>
       <div class="four wide column right aligned">
-        <a class="ui primary button" href="{{ route('admin.content.index') }}">
+        <a class="ui grey button" href="{{ route('admin.content.index') }}">
           Back to list
         </a>
         <a class="ui orange button" href="{{ route('admin.content.edit', $content->id) }}">
@@ -31,29 +31,36 @@
     </div>
   </div>
   <h2 class="ui header">
-    Content #{{ $content->id }}'s details
+    View content
   </h2>
   <div class="sixteen wide column">
-    <div class="ui segment">
+    <h3 class="ui segment top attached">ID: {{ $content->id }}</h3>
+    <div class="ui segment attached">
       <div class="ui grid">
         <div class="row">
           <div class="column">
             <div class="ui tiny header">Title</div>
-            <p>{{ $content->title }}</p>
+            @component('admin.components.data', ['content'=>$content->title])
+              No title
+            @endcomponent
           </div>
         </div>
+        <div class="ui divider"></div>
         <div class="row">
           <div class="column">
             <div class="ui tiny header">Sub title</div>
-            <p>{{ $content->subtitle }}</p>
+            @component('admin.components.data', ['content'=>$content->subtitle])
+              No sub title
+            @endcomponent
           </div>
         </div>
+        <div class="ui divider"></div>
         <div class="row">
           <div class="column">
             <div class="ui tiny header">Content</div>
-            <p>
-              {!! $content->content !!}
-            </p>
+            @component('admin.components.data', ['content'=>$content->content])
+              No content
+            @endcomponent
           </div>
         </div>
       </div>

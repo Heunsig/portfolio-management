@@ -144,5 +144,9 @@
 .catcha.c-button-box .title {
   flex: 1 1 auto;
 }
+.catcha.c-text-noContent {
+  font-style: italic;
+  color: #898989;
+}
 
 /*# sourceMappingURL=style.css.map */

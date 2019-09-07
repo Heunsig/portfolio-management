@@ -18,14 +18,13 @@
 				  <div class="divider"> / </div>
 				  <a class="section" href="{{ route('admin.portfolio.index') }}">Portfolio</a>
 				  <div class="divider"> / </div>
-				  <a class="section" href="{{ route('admin.portfolio.show', $portfolio->id) }}">View: 16</a>
+				  <a class="section" href="{{ route('admin.portfolio.show', $portfolio->id) }}">View portfolio: {{ $portfolio->id }}</a>
 				  <div class="divider"> / </div>
 				  <div class="section active">Edit</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a href="{{ route('admin.portfolio.show', $portfolio->id)}}" class="ui button positive grey">View</a>
-				{{ Form::submit('Update', ['class'=>'ui button primary', 'id'=>'btnUpdate']) }}
+				<a href="{{ route('admin.portfolio.show', $portfolio->id)}}" class="ui grey button">Back to View Page</a>
 			</div>
 		</div>
 	</div>
@@ -35,52 +34,84 @@
 	<div class="sixteen wide column">
 		<div class="ui grid">
 			<div class="seven wide column">
-				<h3 class="ui header top attached">Portfolio information</h3>
-				<div class="ui segment attached">
-					<div class="field">
-						{{ Form::label('name', 'Name:') }}
-						{{ Form::text('name', null) }}
-					</div>
-					<div class="ui divider"></div>
-					<div class="field" id="linkFields">
-						<div class="catcha c-form-label-box">
-							<label>Links</label>
-							<button type="button" id="btnAddLinkField" class="ui mini primary button">Add</button>
+				<div class="ui grid">
+					<div class="row">
+						<div class="column">
+							<div class="ui header top attached">
+								Portfolio information
+							</div>
+							<div class="ui segment attached">
+								<div class="field">
+									{{ Form::label('name', 'Name:') }}
+									{{ Form::text('name', null) }}
+								</div>	
+							</div>
 						</div>
-						@if(count($portfolio->links))
-							@foreach($portfolio->links as $index => $link)
-								@component('admin.components.linkField', ['index'=>$index, 'link'=>$link])
-								@endcomponent
-							@endforeach
-						@else
-							@component('admin.components.linkField')
-								@endcomponent
-						@endif
 					</div>
-					<div class="ui divider"></div>
-					<div class="field">
-						<label>Category</label>
-				    <select multiple="" class="ui dropdown"	id="categories" name="categories[]">
-							<option value="">Select Category</option>
-				    	@foreach ($categories as $key => $category)
-				    		<option value="{{ $key }}">{{ $category }}</option>
-				    	@endforeach
-				    </select>
+					<div class="row">
+						<div class="column">
+							<div class="ui header top attached">Links</div>
+							<div class="ui segment attached">
+								<div class="field" id="linkFields">
+									<div class="catcha c-button-box">
+										<div class="space"></div>
+										<div class="actions">
+											<button type="button" id="btnAddLinkField" class="ui mini primary button">Add</button>		
+										</div>
+									</div>
+									@if(count($portfolio->links))
+										@foreach($portfolio->links as $index => $link)
+											@component('admin.components.linkField', ['index'=>$index, 'link'=>$link])
+											@endcomponent
+										@endforeach
+									@else
+										@component('admin.components.linkField')
+											@endcomponent
+									@endif
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="ui divider"></div>
-					<div class="field">
-						<label>Icon</label>
-				    <select multiple="" class="ui dropdown"	id="icons" name="icons[]">
-							<option value="">Select Icon</option>
-				    	@foreach ($icons as $key => $icon)
-				    		<option value="{{ $key }}">{{ $icon }}</option>
-				    	@endforeach
-				    </select>
+					<div class="row">
+						<div class="column">
+							<div class="ui header top attached">Categories & Icons</div>
+							<div class="ui segment attached">
+								<div class="ui grid">
+									<div class="eight wide column">
+										<div class="field">
+											<label>Categories</label>
+									    <select multiple="" class="ui dropdown"	id="categories" name="categories[]">
+												<option value="">Select Categories</option>
+									    	@foreach ($categories as $key => $category)
+									    		<option value="{{ $key }}">{{ $category }}</option>
+									    	@endforeach
+									    </select>
+										</div>
+									</div>
+									<div class="eight wide column">
+										<div class="field">
+											<label>Icons</label>
+									    <select multiple="" class="ui dropdown"	id="icons" name="icons[]">
+												<option value="">Select Icons</option>
+									    	@foreach ($icons as $key => $icon)
+									    		<option value="{{ $key }}">{{ $icon }}</option>
+									    	@endforeach
+									    </select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="ui divider"></div>
-					<div class="field">
-						{{ Form::label('explanation', 'Explanation:') }}
-						{{ Form::textarea('explanation', null) }}
+					<div class="row">
+						<div class="column">
+							<div class="ui header top attached">{{ Form::label('explanation', 'Explanation:') }}</div>
+							<div class="ui segment attached">
+								<div class="field">
+									{{ Form::textarea('explanation', null) }}
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -101,23 +132,42 @@
 						<div class="sixteen wide column">
 							<h3 class="ui header top attached">Uploaded images</h3>
 							<div class="ui segment attached">
+								@php
+									$portfolioImages = $portfolio->files()->orderBy('order_number','asc')->get()
+								@endphp	
+								@if(count($portfolioImages))
 								<div class="ui five doubling cards" id="uploadedImages" data-portfolio-id="{{ $portfolio->id }}">
-								@foreach($portfolio->files()->orderBy('order_number','asc')->get() as $file)
-									<div class="ui link card" data-id="{{ $file->id }}">
-									  <div class="image">
-									    <img src="{{env('AWS_OBJECT_BASEURL') . $file->thumbnail_dir}}" alt="{{ $file->orig_name }}" />
-									  </div>
-									  <div class="content">
-									    <div>{{ $file->orig_name }}</div>
-									    <div class="meta">
-									      <span class="date">{{ humanFileSize($file->size) }}</span>
+									@foreach($portfolioImages as $file)
+										<div class="ui link card" data-id="{{ $file->id }}">
+										  <div class="image">
+										    <img src="{{env('AWS_OBJECT_BASEURL') . $file->thumbnail_dir}}" alt="{{ $file->orig_name }}" />
+										  </div>
+										  <div class="content">
+										    <div>{{ $file->orig_name }}</div>
+										    <div class="meta">
+										      <span class="date">{{ humanFileSize($file->size) }}</span>
+										    </div>
+										  </div>
+										  <div class="extra content">
+										  	<button data-id="{{ $file->id }}" type="button" class="ui mini red basic button __btnDelete">Delete</button>	
 									    </div>
-									  </div>
-									  <div class="extra content">
-									  	<button data-id="{{ $file->id }}" type="button" class="ui mini red basic button __btnDelete">Delete</button>	
-								    </div>
-									</div>
-								@endforeach
+										</div>
+									@endforeach
+								</div>
+								@else
+									@component('admin.components.data', ['tag'=>'div'])
+										No upladed images
+									@endcomponent
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="column">
+							<div class="catcha c-button-box">
+								<div class="space"></div>
+								<div class="actions">
+									{{ Form::submit('Save', ['class'=>'ui button primary', 'id'=>'btnUpdate']) }}
 								</div>
 							</div>
 						</div>
@@ -145,29 +195,6 @@
 	$("#btnAddLinkField").on('click', e => {
 		e.preventDefault()
 		linkFieldTemplate.add()
-	})
-
-	var sortable = new Sortable(document.querySelector('#uploadedImages'), {
-    ghostClass: 'dragging',
-		draggable: '.ui.link.card',
-		onUpdate: function (e) {
-			var type = 'portfolio'
-			var portfolioId = this.el.dataset['portfolioId']
-			var sortedIds = this.toArray()
-
-			$.ajax({
-				method: "PUT",
-				url: `/admin/relocateImageOrder/${type}/${portfolioId}`,
-				dataType: "json",
-				data: { "sortedIds[]": sortedIds },
-				success: function(data) {
-					console.log(data);
-				},
-				error: function (req, status, error) {
-					console.error(req.responseText)
-				}
-			});
-		}
 	})
 
 	$(".__btnDelete").on('click', e => {
@@ -198,6 +225,30 @@
 		allowAdditions: true
 	})
 
+	var uploadedImages = document.querySelector('#uploadedImages')
+	if (uploadedImages) {
+		var sortable = new Sortable(uploadedImages, {
+	    ghostClass: 'dragging',
+			draggable: '.ui.link.card',
+			onUpdate: function (e) {
+				var type = 'portfolio'
+				var portfolioId = this.el.dataset['portfolioId']
+				var sortedIds = this.toArray()
+
+				$.ajax({
+					method: "PUT",
+					url: `/admin/relocateImageOrder/${type}/${portfolioId}`,
+					dataType: "json",
+					data: { "sortedIds[]": sortedIds },
+					success: function(data) {
+					},
+					error: function (req, status, error) {
+						// console.error(req.responseText)
+					}
+				});
+			}
+		})
+	}
 </script>
 {{-- {{ Html::script('assets/admin/js/edit_port_temp.js') }} --}}
 @endpush

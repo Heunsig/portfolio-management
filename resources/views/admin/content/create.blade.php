@@ -14,15 +14,15 @@
           <div class="divider"> / </div>
           <a class="section">Content</a>
           <div class="divider"> / </div>
-          <div class="section active">New</div>
+          <div class="section active">Create New Content</div>
         </div>
       </div>
       <div class="four wide column right aligned">
-        {{ Form::submit('Save', ['class'=>'ui button primary']) }}
+        <a href="{{ route('admin.content.index') }}" class="ui grey button">Back to list</a>
       </div>
     </div>
   </div>
-  <h2 class="ui header">Create a new content</h2>
+  <h2 class="ui header">Create New Content</h2>
   <div class="ui sixteen wide column">
     <div class="ui segment">
       <div class="field">
@@ -36,6 +36,12 @@
       <div class="field">
         {{ Form::label('content', 'Content') }}
         {{ Form::textarea('content', null) }}
+      </div>
+    </div>
+    <div class="catcha c-button-box">
+      <div class="space"></div>
+      <div class="actions">
+        {{ Form::submit('Save', ['class'=>'ui button primary']) }}
       </div>
     </div>
   </div>

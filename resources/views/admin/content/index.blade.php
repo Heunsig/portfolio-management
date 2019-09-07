@@ -16,27 +16,28 @@
       </div>
       <div class="four wide column right aligned">
         <a class="ui primary button" href="{{ route('admin.content.create') }}">
-          <i class="plus icon"></i>
-          New
+          Create New Content
         </a>
       </div>
     </div>
   </div>
-  <h2 class="ui header">Content Items</h2>
   <div class="sixteen wide column">
-    <div class="ui three doubling cards">
+    <h2 class="ui header">Content</h2>
+    <div class="ui four doubling cards">
       @if(count($contents))
         @foreach($contents as $content)
-          <a class="ui card" href="{{ route('admin.content.show', $content->id) }}">
+          <a class="ui teal card" href="{{ route('admin.content.show', $content->id) }}">
             <div class="content">
               <div class="header">{{ $content->title }}</div>
               <div class="meta">
-                <span>{{ $content->subtitle }}</span>
+                @component('admin.components.data', ['content'=>$content->subtitle, 'tag'=>'span'])
+                  No sub title
+                @endcomponent
               </div>
               <div class="description">
-                <p>
-                  {!! strip_tags(preg_replace('/\[(.[^\[\]\(\)]+)\]\((.[^\[\]\(\)]+)\)/uim', '<a href="${2}" target="__blank">${1}</a>', $content->content)) !!}
-                </p>
+                @component('admin.components.data', ['content'=>strip_tags(preg_replace('/\[(.[^\[\]\(\)]+)\]\((.[^\[\]\(\)]+)\)/uim', '<a href="${2}" target="__blank">${1}</a>', $content->content))])
+                  No content
+                @endcomponent
               </div>
             </div>
           </a>

@@ -13,11 +13,11 @@
 				  <div class="divider"> / </div>
 				  <a class="section" href="{{ route('admin.portfolio.index') }}">Portfolio</a>
 				  <div class="divider"> / </div>
-				  <div class="section active">View: {{ $portfolio->id }}</div>
+				  <div class="section active">View portfolio: {{ $portfolio->id }}</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui primary button" href="{{ route('admin.portfolio.index') }}">
+				<a class="ui grey button" href="{{ route('admin.portfolio.index') }}">
 				  Back to list
 				</a>
 				<a class="ui orange button" href="{{ route('admin.portfolio.edit', $portfolio->id) }}">
@@ -30,61 +30,96 @@
 		</div>
 	</div>
 	<h2 class="ui header">
-    Portfolio #{{ $portfolio->id }}'s details
+    View portfolio
   </h2>
 	<div class="sixteen wide column">
 		<div class="ui grid">
 			<div class="seven wide column">
-				<h3 class="ui header top attached">
-			    Portfolio information
-			  </h3>
-				<div class="ui segment attached">
-	    		<div class="ui grid">
-	    			<div class="row">
-				    	<div class="seven wide column">
-				    		<div class="ui tiny header">Name</div>
-				    		<p>{{ $portfolio->name }}</p>
-				    	</div>
-				    	<div class="four wide column">
-				    		<div class="ui tiny header">Created at</div>
-				    		<p>{{ $portfolio->created_at }}</p>
-				    	</div>
-							<div class="five wide column">
-								<div class="ui tiny header">Updated at</div>
-				    		<p>{{ $portfolio->updated_at }}</p>
+				<div class="ui grid">
+					<div class="row">
+						<div class="column">
+							<h3 class="ui header top attached">
+						    Portfolio #{{ $portfolio->id }}
+						  </h3>
+							<div class="ui segment attached">			
+								<div class="ui grid">
+				    			<div class="row">
+				    				<div class="four wide column">
+				    					<div class="ui tiny header">ID</div>
+							    		@component('admin.components.data', ['content'=>$portfolio->id])
+							    			No id
+							    		@endcomponent
+				    				</div>
+				    				<div class="five wide column">
+							    		<div class="ui tiny header">Created at</div>
+							    		@component('admin.components.data', ['content'=>$portfolio->created_at])
+							    			No created at
+							    		@endcomponent
+							    	</div>
+										<div class="five wide column">
+											<div class="ui tiny header">Updated at</div>
+							    		@component('admin.components.data', ['content'=>$portfolio->updated_at])
+							    			No updated at
+							    		@endcomponent
+										</div>
+				    			</div>
+				    			<div class="row">
+							    	<div class="column">
+							    		<div class="ui tiny header">Name</div>
+							    		@component('admin.components.data', ['content'=>$portfolio->name])
+							    			No name
+							    		@endcomponent
+							    	</div>
+									</div>
+				    		</div>
 							</div>
 						</div>
-						<div class="ui divider"></div>
-						<div class="row">
-							<div class="eight wide column">
-								<div class="ui tiny header">Categories</div>
-								<p>
-									@if(count($portfolio->categories))
-										@foreach($portfolio->categories as $category)
-											<div class="ui label grey">{{ $category->name }}</div>
-										@endforeach
-									@else
-										No category
-									@endif
-								</p>
-							</div>
-							<div class="eight wide column">
-								<div class="ui tiny header">Icons</div>
-								<p>
-									@if(count($portfolio->icons))
-										@foreach($portfolio->icons as $icon)
-											<i class="ui icon {{$icon->code}}"></i>
-										@endforeach
-									@else
-										No icon
-									@endif
-								</p>
+					</div>
+					<div class="row">
+						<div class="column">
+							<h3 class="ui header top attached">
+						    Categories & Icons
+						  </h3>
+							<div class="ui segment attached">
+								<div class="ui grid">
+									<div class="eight wide column">
+										<div class="ui tiny header">Categories</div>
+										<p>
+											@if(count($portfolio->categories))
+												@foreach($portfolio->categories as $category)
+													<div class="ui label grey">{{ $category->name }}</div>
+												@endforeach
+											@else
+												@component('admin.components.data')
+								    			No categories
+								    		@endcomponent
+											@endif
+										</p>
+									</div>
+									<div class="eight wide column">
+										<div class="ui tiny header">Icons</div>
+										<p>
+											@if(count($portfolio->icons))
+												@foreach($portfolio->icons as $icon)
+													<i class="ui icon {{$icon->code}}"></i>
+												@endforeach
+											@else
+												@component('admin.components.data')
+								    			No icons
+								    		@endcomponent
+											@endif
+										</p>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="ui divider"></div>
-						<div class="row">
-							<div class="sixteen wide column">
-								<div class="ui tiny header">Links</div>
+					</div>
+					<div class="row">
+						<div class="column">
+							<h3 class="ui header top attached">
+						    Links
+						  </h3>
+							<div class="ui segment attached">
 								<div class="ui list large">
 									@if(count($portfolio->links))
 										@foreach($portfolio->links as $link)
@@ -92,25 +127,26 @@
 											@endcomponent
 									  @endforeach
 									@else
-										No link
+										@component('admin.components.data')
+						    			No links
+						    		@endcomponent
 									@endif
 								</div>
 							</div>
 						</div>
-						<div class="ui divider"></div>
-						<div class="row">
-							<div class="sixteen wide column">
-								<div class="ui tiny header">Explanation</div>
-								<p>
-									@if($portfolio->explanation)
-										{!! nl2br(e($portfolio->explanation)) !!}
-									@else
-										No explanation
-									@endif
-								</p>
+					</div>
+					<div class="row">
+						<div class="column">
+							<h3 class="ui header top attached">
+						    Explanation
+						  </h3>
+							<div class="ui segment attached">
+								@component('admin.components.data', ['content'=>$portfolio->explanation])
+						    	No explanation
+					    	@endcomponent
 							</div>
 						</div>
-	    		</div>
+					</div>
 				</div>
 			</div>
 			<div class="nine wide column">
@@ -139,7 +175,9 @@
 										@endforeach
 									</div>
 								@else
-									<p>No images</p>
+									@component('admin.components.data')
+						    		No images
+					    		@endcomponent
 								@endif
 							</div>
 						</div>
@@ -149,7 +187,6 @@
 		</div>
 	</div>
 </div>
-
 
 @component('admin.components.modals.checkingModal')
 	@slot('id')

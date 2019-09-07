@@ -150,7 +150,12 @@ class PortfolioController extends Controller
     public function show($id)
     {
         $portfolio = Portfolio::find($id);
-        return view('admin.portfolio.show')->withPortfolio($portfolio);
+
+        $portfolio->explanation = nl2br(strip_tags(preg_replace('/\[(.[^\[\]\(\)]+)\]\((.[^\[\]\(\)]+)\)/uim', '<a href="${2}" target="__blank">${1}</a>', $portfolio->explanation), '<a>'));
+
+        return view('admin.portfolio.show')->with([
+            'portfolio' => $portfolio
+        ]);
     }
 
     /**

@@ -1,7 +1,7 @@
 function LinkFieldTemplate (pn, nToC, cb) {
   var parentNode = $(pn)
   var nodeToCopy = clear($(nToC).eq(0).clone())
-  console.log(nodeToCopy)
+  // console.log(nodeToCopy)
   var nodeToCopyLength = parentNode.find(nToC).length
   var index = 0 
   if (nodeToCopyLength) {
@@ -13,7 +13,7 @@ function LinkFieldTemplate (pn, nToC, cb) {
     node.find('select option:selected').removeAttr('selected')
     node.find('input[type="text"]').val('')
 
-    console.log('dd', node.find('select'))
+    // console.log('dd', node.find('select'))
     return node
   }
 

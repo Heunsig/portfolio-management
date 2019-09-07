@@ -14,11 +14,11 @@
 				  <div class="divider"> / </div>
 				  <a class="section">Category</a>
 				  <div class="divider"> / </div>
-				  <div class="section active">View: {{ $category->id }}</div>
+				  <div class="section active">View category: {{ $category->id }}</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui primary button" href="{{ route('admin.category.index') }}">
+				<a class="ui grey button" href="{{ route('admin.category.index') }}">
 				  Back to list
 				</a>
 				<button
@@ -34,11 +34,11 @@
 			</div>
 		</div>
 	</div>
-	<h2 class="ui header">Category #{{ $category->id }}'s details</h2>
+	<h2 class="ui header">View Category</h2>
 	<div class="sixteen wide column">
 		<div class="ui grid">
 			<div class="four wide column">
-				<h3 class="ui header top attached">Category information</h3>
+				<h3 class="ui header top attached">ID #{{ $category->id }}'s information</h3>
 				<div class="ui segment attached">
 					<div class="ui grid">
 	    			<div class="row">
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div class="twelve wide column">
-				<h3 class="ui header top attached">Portfolios</h3>
+				<h3 class="ui header top attached">Portfolios belonged in this category</h3>
 				<div class="ui segment attached">
 					<table class="ui very basic celled table">
 						<thead>
@@ -82,7 +82,7 @@
 								@endforeach
 							@else
 								<tr>
-									<td colspan="3" class="center aligned">No portfolio</td>
+									<td colspan="3" class="center aligned catcha c-text-noContent">No portfolios</td>
 								</tr>
 							@endif
 						</tbody>
@@ -109,11 +109,11 @@
 		{{ Form::model($category, ['route'=>['admin.category.update', $category->id], 'method'=>'PUT', 'class'=>'ui form', 'id'=>'formEditCategory']) }}
 		<div class="field">
 			{{ Form::label('name', 'Name:') }}
-			{{ Form::text('name', null) }}
+			{{ Form::text('name', null, ['id'=>'inputName']) }}
 		</div>
 		<div class="field">
 			{{ Form::label('code', 'Code:') }}
-			{{ Form::text('code', null) }}
+			{{ Form::text('code', null, ['id'=>'inputCode']) }}
 		</div>
 		{{ Form::close() }}
   </div>
@@ -124,6 +124,7 @@
 </div>
 @endsection
 @push('scripts')
+{{ Html::script('assets/admin/js/slugify.js') }}
 <script>
 	$('#btnEditCategory').on('click', e => {
 		e.preventDefault()
@@ -149,6 +150,17 @@
 			return false
 			}
 		}).modal('show')
+	})
+
+	////////////////////////////////////////////////
+	// Automatically slugify name value for code. //
+	////////////////////////////////////////////////
+	$('#inputName').on('input propertychange', e => {
+		e.preventDefault()
+		console.log('hi')
+
+		var value = $(e.target).val()
+		$('#inputCode').val(slugify(value))
 	})
 </script>
 @endpush

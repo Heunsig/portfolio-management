@@ -17,8 +17,7 @@
 			</div>
 			<div class="four wide column right aligned">
 				<a class="ui primary button" href="{{ route('admin.portfolio.create') }}">
-					<i class="plus icon"></i>
-				  New
+				  Create New Portfolio
 				</a>
 			</div>
 		</div>
