@@ -16,10 +16,10 @@ class FileManager {
     private $fileEdited;
     private $fileProperties;
     private $path;
-    private $storageType; // public, s3
+    private $storageType; // local, s3
     private $isUniqueName;
 
-    function __construct($file, $path='', $storageType='public', $isUniqueName=false) {
+    function __construct($file, $path='', $storageType='local', $isUniqueName=false) {
         $this->file = $file;
         $this->path = $path;
         $this->storageType = $storageType;
@@ -35,7 +35,7 @@ class FileManager {
         switch ($this->storageType) {
             case 's3':
                 return $this->uploadToS3($dir, $filename);
-            case 'public':
+            case 'local':
                 return $this->uploadToPublic($dir, $filename);
             default:
                 throw new \Exception('Unsupported storage type');
@@ -104,7 +104,7 @@ class FileManager {
                 'mime' => $this->fileProperties['mime'],
                 'extension' => $this->fileProperties['extension'],
                 'original_filename' => $this->fileProperties['original_name'],
-                'directory' => 'storage/app/public/' . $dir,
+                'directory' => $dir,
                 'filename' => $filename,
                 'filesize' => Storage::disk('public')->size($dir)
             ]
