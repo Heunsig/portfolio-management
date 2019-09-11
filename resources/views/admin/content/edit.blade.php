@@ -3,7 +3,7 @@
 @section('title', '- Edit content')
 
 @section('content')
-{{ Form::model($content, ['route'=>['admin.content.update', $content->id], 'method'=>'PUT', 'files'=>true, 'class'=>'ui form catcha c-form', 'id'=>'form']) }}
+{{ Form::model($content, ['route'=>['admin.contents.update', $content->id], 'method'=>'PUT', 'files'=>true, 'class'=>'ui form catcha c-form', 'id'=>'form']) }}
 <div class="ui grid">
   <div class="sixteen wide column">
     <div class="ui grid catcha c-header-main">
@@ -12,15 +12,15 @@
         <div class="ui breadcrumb">
           <a class="section">Home</a>
           <div class="divider"> / </div>
-          <a class="section" href="{{ route('admin.content.index') }}">Content</a>
+          <a class="section" href="{{ route('admin.contents.index') }}">Content</a>
           <div class="divider"> / </div>
-          <a class="section" href="{{ route('admin.content.show', $content->id) }}">View content: {{ $content->id }}</a>
+          <a class="section" href="{{ route('admin.contents.show', $content->id) }}">View content: {{ $content->id }}</a>
           <div class="divider"> / </div>
           <div class="section active">Edit</div>
         </div>
       </div>
       <div class="four wide column right aligned">
-        <a href="{{ route('admin.content.show', $content->id)}}" class="ui grey button">Back to View Page</a>
+        <a href="{{ route('admin.contents.show', $content->id)}}" class="ui grey button">Back to View Page</a>
       </div>
     </div>
   </div>

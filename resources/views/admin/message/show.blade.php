@@ -11,13 +11,13 @@
 				<div class="ui breadcrumb">
 				  <a class="section">Home</a>
 				  <div class="divider"> / </div>
-				  <a class="section" href="{{ route('admin.message.index') }}">Message</a>
+				  <a class="section" href="{{ route('admin.messages.index') }}">Message</a>
 				  <div class="divider"> / </div>
 				  <div class="section  active">View: {{ $message->id }}</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a href="{{ route('admin.message.index') }}" class="ui primary button">Back to list</a>
+				<a href="{{ route('admin.messages.index') }}" class="ui primary button">Back to list</a>
 				{{ Form::open(['route'=>['admin.message.destroy', $message->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formDeleteMessage']) }}
 					<button type="button" class="ui red button" id="btnDeleteMessage">Delete</button>
 				{{ Form::close() }}
@@ -61,7 +61,7 @@
 {{-- <div class="row">
 	<div class="col-md-12">
 		<ol class="breadcrumb">
-			<li><a href="{{ route('admin.message.index') }}">Message</a></li>
+			<li><a href="{{ route('admin.messages.index') }}">Message</a></li>
 			<li class="active">View</li>
 		</ol>
 	</div>
@@ -92,14 +92,14 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						{{ Form::open(['route'=>['admin.message.destroy', $message->id], 'method'=>'DELETE']) }}
+						{{ Form::open(['route'=>['admin.messages.destroy', $message->id], 'method'=>'DELETE']) }}
 						<button class="btn btn-danger btn-block">Delete</button>
 						{{ Form::close() }}
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<a href="{{ route('admin.message.index') }}" class="btn btn-default btn-block space-margin-top"><< See All of messages</a>
+						<a href="{{ route('admin.messages.index') }}" class="btn btn-default btn-block space-margin-top"><< See All of messages</a>
 					</div>
 				</div>
 			</div>

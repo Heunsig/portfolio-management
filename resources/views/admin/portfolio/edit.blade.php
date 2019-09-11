@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-{{ Form::model($portfolio, ['route'=>['admin.portfolio.update', $portfolio->id], 'method'=>'PUT', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
+{{ Form::model($portfolio, ['route'=>['admin.portfolios.update', $portfolio->id], 'method'=>'PUT', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
 <div class="ui grid">
 	<div class="sixteen wide column">
 		<div class="ui grid catcha c-header-main">
@@ -16,15 +16,15 @@
 				<div class="ui breadcrumb">
 				  <a class="section">Home</a>
 				  <div class="divider"> / </div>
-				  <a class="section" href="{{ route('admin.portfolio.index') }}">Portfolio</a>
+				  <a class="section" href="{{ route('admin.portfolios.index') }}">Portfolio</a>
 				  <div class="divider"> / </div>
-				  <a class="section" href="{{ route('admin.portfolio.show', $portfolio->id) }}">View portfolio: {{ $portfolio->id }}</a>
+				  <a class="section" href="{{ route('admin.portfolios.show', $portfolio->id) }}">View portfolio: {{ $portfolio->id }}</a>
 				  <div class="divider"> / </div>
 				  <div class="section active">Edit</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a href="{{ route('admin.portfolio.show', $portfolio->id)}}" class="ui grey button">Back to View Page</a>
+				<a href="{{ route('admin.portfolios.show', $portfolio->id)}}" class="ui grey button">Back to View Page</a>
 			</div>
 		</div>
 	</div>

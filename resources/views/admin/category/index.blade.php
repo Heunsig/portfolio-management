@@ -43,7 +43,7 @@
 									<td>{{ $category->name }}</td>
 									<td>{{ $category->code }}</td>
 									<td class="center aligned">
-										<a href="{{ route('admin.category.show', $category->id) }}" class="ui button tiny positive">View</a>
+										<a href="{{ route('admin.categories.show', $category->id) }}" class="ui button tiny positive">View</a>
 									</td>
 								</tr>
 								@endforeach
@@ -59,7 +59,7 @@
 			<div class="eight wide column">
 				<h3 class="ui header top attached">New category</h3>
 				<div class="ui segment attached">
-					{{ Form::open(['route'=>'admin.category.store', 'method'=>'POST', 'class'=>'ui form', 'id'=>'form']) }}
+					{{ Form::open(['route'=>'admin.categories.store', 'method'=>'POST', 'class'=>'ui form', 'id'=>'form']) }}
 						<div class="field">
 							{{ Form::label('name', 'Name:') }}
 							{{ Form::text('name', null, ['id'=>'inputName']) }}

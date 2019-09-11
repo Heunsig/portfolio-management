@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="four wide column right aligned">
-        <a class="ui primary button" href="{{ route('admin.content.create') }}">
+        <a class="ui primary button" href="{{ route('admin.contents.create') }}">
           Create New Content
         </a>
       </div>
@@ -26,7 +26,7 @@
     <div class="ui four doubling cards">
       @if(count($contents))
         @foreach($contents as $content)
-          <a class="ui teal card" href="{{ route('admin.content.show', $content->id) }}">
+          <a class="ui teal card" href="{{ route('admin.contents.show', $content->id) }}">
             <div class="content">
               <div class="header">{{ $content->title }}</div>
               <div class="meta">

@@ -18,8 +18,6 @@
 	$("#btnLogout").on('click', e => {
 		e.preventDefault()
 
-
-
 		var form = $('<form></form>')
 		var token = $('<input/>')
 		token.attr('type', 'hidden')

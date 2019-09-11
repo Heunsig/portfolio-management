@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui grey button" href="{{ route('admin.category.index') }}">
+				<a class="ui grey button" href="{{ route('admin.categories.index') }}">
 				  Back to list
 				</a>
 				<button
@@ -28,7 +28,7 @@
 				>
 					Edit
 				</button>
-				{{ Form::open(['route'=>['admin.category.destroy', $category->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteCategory']) }}
+				{{ Form::open(['route'=>['admin.categories.destroy', $category->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteCategory']) }}
 					<button class="ui button red" id="btnDelete">Delete</button>
 				{{ Form::close() }}
 			</div>
@@ -106,7 +106,7 @@
 <div class="ui tiny modal" id="modalEditCategory">
   <div class="header">Edit Category</div>
   <div class="content">
-		{{ Form::model($category, ['route'=>['admin.category.update', $category->id], 'method'=>'PUT', 'class'=>'ui form', 'id'=>'formEditCategory']) }}
+		{{ Form::model($category, ['route'=>['admin.categories.update', $category->id], 'method'=>'PUT', 'class'=>'ui form', 'id'=>'formEditCategory']) }}
 		<div class="field">
 			{{ Form::label('name', 'Name:') }}
 			{{ Form::text('name', null, ['id'=>'inputName']) }}

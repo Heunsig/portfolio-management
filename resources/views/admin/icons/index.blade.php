@@ -44,7 +44,7 @@
 											<i class="icon {{ $icon->code }}"></i>
 										</td>
 										<td class="center aligned">
-											<a href="{{ route('admin.icon.show', $icon->id) }}" class="ui button tiny positive">View</a>
+											<a href="{{ route('admin.icons.show', $icon->id) }}" class="ui button tiny positive">View</a>
 										</td>
 									</tr>
 								@endforeach
@@ -60,7 +60,7 @@
 			<div class="eight wide column">
 				<h3 class="ui header top attached">New icon</h3>
 				<div class="ui segment attached">
-					{{ Form::open(['route'=>'admin.icon.store', 'method'=>'POST', 'class'=>'ui form', 'id'=>'form']) }}
+					{{ Form::open(['route'=>'admin.icons.store', 'method'=>'POST', 'class'=>'ui form', 'id'=>'form']) }}
 						<div class="field">
 							{{ Form::label('name', 'Name:') }}
 							{{ Form::text('name', null) }}

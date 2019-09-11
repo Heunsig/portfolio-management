@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui primary button" href="{{ route('admin.portfolio.create') }}">
+				<a class="ui primary button" href="{{ route('admin.portfolios.create') }}">
 				  Create New Portfolio
 				</a>
 			</div>
@@ -70,8 +70,8 @@
 							@endforeach
 						</td>
 						<td class="center aligned">
-							<a href="{{ route('admin.portfolio.show', $portfolio->id)}}" class="ui positive button tiny">View</a>
-							<a href="{{ route('admin.portfolio.edit',$portfolio->id) }}" class="ui orange button tiny">Edit</a>
+							<a href="{{ route('admin.portfolios.show', $portfolio->id)}}" class="ui positive button tiny">View</a>
+							<a href="{{ route('admin.portfolios.edit',$portfolio->id) }}" class="ui orange button tiny">Edit</a>
 						</td>
 					</tr>
 					@endforeach

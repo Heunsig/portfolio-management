@@ -3,7 +3,7 @@
 @section('title','- Create Content')
 
 @section('content')
-{{ Form::open(['route'=>'admin.content.store', 'method'=>'POST', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
+{{ Form::open(['route'=>'admin.contents.store', 'method'=>'POST', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
 <div class="ui grid">
   <div class="sixteen wide column">
     <div class="ui grid catcha c-header-main">
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="four wide column right aligned">
-        <a href="{{ route('admin.content.index') }}" class="ui grey button">Back to list</a>
+        <a href="{{ route('admin.contents.index') }}" class="ui grey button">Back to list</a>
       </div>
     </div>
   </div>

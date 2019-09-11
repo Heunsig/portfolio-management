@@ -11,19 +11,19 @@
 				<div class="ui breadcrumb">
 				  <a class="section">Home</a>
 				  <div class="divider"> / </div>
-				  <a class="section" href="{{ route('admin.portfolio.index') }}">Portfolio</a>
+				  <a class="section" href="{{ route('admin.portfolios.index') }}">Portfolio</a>
 				  <div class="divider"> / </div>
 				  <div class="section active">View portfolio: {{ $portfolio->id }}</div>
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui grey button" href="{{ route('admin.portfolio.index') }}">
+				<a class="ui grey button" href="{{ route('admin.portfolios.index') }}">
 				  Back to list
 				</a>
-				<a class="ui orange button" href="{{ route('admin.portfolio.edit', $portfolio->id) }}">
+				<a class="ui orange button" href="{{ route('admin.portfolios.edit', $portfolio->id) }}">
 				  Edit
 				</a>
-				{{ Form::open(['route'=>['admin.portfolio.destroy', $portfolio->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDelete']) }}
+				{{ Form::open(['route'=>['admin.portfolios.destroy', $portfolio->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDelete']) }}
 					<button class="ui red button" id="btnDelete">Delete</button>
 				{{ Form::close() }}
 			</div>

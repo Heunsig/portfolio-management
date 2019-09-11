@@ -12,19 +12,19 @@
         <div class="ui breadcrumb">
           <a class="section">Home</a>
           <div class="divider"> / </div>
-          <a class="section" href="{{ route('admin.content.index') }}">Content</a>
+          <a class="section" href="{{ route('admin.contents.index') }}">Content</a>
           <div class="divider"> / </div>
           <div class="section active">View content: {{ $content->id }}</div>
         </div>
       </div>
       <div class="four wide column right aligned">
-        <a class="ui grey button" href="{{ route('admin.content.index') }}">
+        <a class="ui grey button" href="{{ route('admin.contents.index') }}">
           Back to list
         </a>
-        <a class="ui orange button" href="{{ route('admin.content.edit', $content->id) }}">
+        <a class="ui orange button" href="{{ route('admin.contents.edit', $content->id) }}">
           Edit
         </a>
-        {{ Form::open(['route'=>['admin.content.destroy', $content->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDelete']) }}
+        {{ Form::open(['route'=>['admin.contents.destroy', $content->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDelete']) }}
           <button class="ui red button" id="btnDelete">Delete</button>
         {{ Form::close() }}
       </div>

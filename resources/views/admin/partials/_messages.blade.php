@@ -8,20 +8,23 @@
 	</div>
 @endif
 
-@if (count($errors) > 0 || Session::has('error'))
+@if (count($errors) > 0 || Session::has('errors'))
 	<div class="ui error message catcha c-mt-1">
 	  <i class="close icon"></i>
 	  <div class="header">
 	    Couldn't process the transaction because of errors below.
 	  </div>
 	  <ul class="list">
-	    @foreach ($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-			@if (Session::has('errors'))
-				@foreach (Session::get('errors') as $error)
+	  	@if(is_object($errors))
+		    @foreach ($errors->all() as $error)
 					<li>{{ $error }}</li>
 				@endforeach
+			@else
+				@if (Session::has('errors'))
+					@foreach (Session::get('errors') as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				@endif
 			@endif
 	  </ul>
 	</div>

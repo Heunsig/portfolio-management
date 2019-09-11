@@ -7,12 +7,12 @@
 <div class="row">
 	<div class="col-md-12">
 		<ol class="breadcrumb">
-			<li><a href="{{ route('admin.icon.index') }}">Icon</a></li>
+			<li><a href="{{ route('admin.icons.index') }}">Icon</a></li>
 			<li class="active">Edit</li>
 		</ol>
 	</div>
 	<div class="col-md-12">
-		{{ Form::model($icon, ['route'=>['admin.icon.update', $icon->id], 'method'=>'PUT']) }}
+		{{ Form::model($icon, ['route'=>['admin.icons.update', $icon->id], 'method'=>'PUT']) }}
 		
 		{{ Form::label('name', 'Name:') }}	
 		{{ Form::text('name', null, ['class'=>'form-control']) }}

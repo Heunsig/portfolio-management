@@ -17,7 +17,7 @@
 				</div>
 			</div>
 			<div class="four wide column right aligned">
-				<a class="ui grey button" href="{{ route('admin.icon.index') }}">
+				<a class="ui grey button" href="{{ route('admin.icons.index') }}">
 				  Back to list
 				</a>
 				<button 
@@ -27,7 +27,7 @@
 				>
 					Edit
 				</button>
-				{{ Form::open(['route'=>['admin.icon.destroy', $icon->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteIcon']) }}
+				{{ Form::open(['route'=>['admin.icons.destroy', $icon->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteIcon']) }}
 					<button class="ui button red" id="btnDelete">Delete</button>
 				{{ Form::close() }}
 			</div>
@@ -111,7 +111,7 @@
 <div class="ui tiny modal" id="modalEditIcon">
   <div class="header">Edit Icon</div>
   <div class="content">
-		{{ Form::model($icon, ['route'=>['admin.icon.update', $icon->id], 'method'=>'PUT', 'class'=>'ui form', 'id'=>'formEditIcon']) }}
+		{{ Form::model($icon, ['route'=>['admin.icons.update', $icon->id], 'method'=>'PUT', 'class'=>'ui form', 'id'=>'formEditIcon']) }}
 		<div class="field">
 			{{ Form::label('name', 'Name:') }}
 			{{ Form::text('name', null) }}

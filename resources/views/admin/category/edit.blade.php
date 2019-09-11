@@ -7,12 +7,12 @@
 <div class="row">
 	<div class="col-md-12">
 		<ol class="breadcrumb">
-			<li><a href="{{ route('admin.category.index') }}">Category</a></li>
+			<li><a href="{{ route('admin.categories.index') }}">Category</a></li>
 			<li class="active">Edit</li>
 		</ol>
 	</div>
 	<div class="col-md-12">
-		{{ Form::model($category, ['route'=>['admin.category.update', $category->id],'method'=>'PUT']) }}
+		{{ Form::model($category, ['route'=>['admin.categories.update', $category->id],'method'=>'PUT']) }}
 		
 		{{ Form::label('name', 'Name:') }}
 		{{ Form::text('name', null, ['class'=>'form-control']) }}

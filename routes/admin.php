@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Post;
+use App\Tag;
 
 // Admin Routes
 Route::group([
@@ -8,16 +10,20 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.'
 ], function () {
+    Route::get('test', function () {
+        $post = Post::find(1);
+        print_r($post->tags);
+    });
 
     Route::get('login', 'Auth\LoginController@index')->name('login');
     Route::post('login', 'Auth\LoginController@login')->name('login');
 
-    Route::middleware(['auth', 'dbConn'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
         Route::get('/', 'PageController@getIndex')->name('main');
-        Route::resource('content', 'ContentController');
-        Route::resource('portfolio', 'PortfolioController');
+        Route::resource('contents', 'ContentController');
+        Route::resource('portfolios', 'PortfolioController');
 
-        Route::resource('message', 'MessageController', [
+        Route::resource('messages', 'MessageController', [
             'except' => [
                 'create',
                 'edit',
@@ -25,14 +31,15 @@ Route::group([
             ]
         ]);
 
-        Route::resource('category', 'CategoryController', [
+        Route::resource('categories', 'CategoryController', [
             'except' => 'create'
         ]);
 
-        Route::resource('icon', 'IconController', [
+        Route::resource('icons', 'IconController', [
             'except' => 'create'
         ]);
 
+        Route::resource('pictureRooms', 'PictureRoomController');
 
         Route::put('relocateImageOrder/{type}/{id}', 'FunctionController@relocateImageOrder');
         Route::put('relocateListOrder/{type}', 'FunctionController@relocateListOrder');

@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-{{ Form::open(['route'=>'admin.portfolio.store', 'method'=>'POST', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
+{{ Form::open(['route'=>'admin.portfolios.store', 'method'=>'POST', 'files'=>true, 'class'=>'ui form catcha c-form']) }}
 {{-- {{ Form::open(['route'=>'test', 'method'=>'POST', 'files'=>true, 'class'=>'ui form catcha c-form']) }} --}}
 <div class="ui grid">
 	<div class="sixteen wide column">

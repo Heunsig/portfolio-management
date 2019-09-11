@@ -41,7 +41,7 @@
 							<td>{{ $message->email }}</td>
 							<td>{{ $message->created_at->diffForHumans() }}</td>
 							<td class="center aligned">
-								<a href="{{ route('admin.message.show', $message->id) }}" class="ui tiny positive button">View</a>
+								<a href="{{ route('admin.messages.show', $message->id) }}" class="ui tiny positive button">View</a>
 							</td>
 						</tr>
 						@endforeach
@@ -80,7 +80,7 @@
 					<td>{{ $message->name }}</td>
 					<td>{{ $message->email }}</td>
 					<td>
-						<a href="{{ route('admin.message.show', $message->id) }}" class="btn btn-default">View</a>
+						<a href="{{ route('admin.messages.show', $message->id) }}" class="btn btn-default">View</a>
 					</td>
 				</tr>
 				@endforeach
