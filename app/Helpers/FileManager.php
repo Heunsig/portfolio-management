@@ -26,8 +26,6 @@ class FileManager {
         $this->isUniqueName = $isUniqueName;
 
         $this->fileProperties = $this->generateFileProperties();
-
-        // print_r($this->fileProperties);
     }
 
     public function upload() {
@@ -71,7 +69,6 @@ class FileManager {
                     'mime' => $matches[1],
                     'original_name' => microtime() . '.' . $extension,
                     'extension' => $extension,
-                    // 'size' => null
                 ];
             }
         }
@@ -137,7 +134,6 @@ class FileManager {
             'mime' => $fileClass->getMimeType(),
             'original_name' => $fileClass->getClientOriginalName(),
             'extension' => $fileClass->getClientOriginalExtension(),
-            // 'size' => $fileClass->getClientSize()
         ];
     }
 
@@ -146,7 +142,6 @@ class FileManager {
             'mime' => $fileClass->mime(),
             'original_name' => $fileClass->getClientOriginalName(),
             'extension' => $fileClass->getClientOriginalExtension(),
-            // 'size' => $fileClass->filesize()
         ];   
     }
 }
