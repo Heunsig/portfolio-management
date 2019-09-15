@@ -22,16 +22,3 @@
   </div>
 </div>
 @endsection
-@push('scripts')
-<script>
-  $('#btnSave').on('click', e => {
-    e.preventDefault()
-    $('.ui.page.dimmer').dimmer({
-      closable: false,
-      onShow: function () {
-        $('form').submit()
-      }
-    }).dimmer('show')
-  })
-</script>
-@endpush
