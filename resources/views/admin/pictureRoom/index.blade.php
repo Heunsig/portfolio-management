@@ -1,24 +1,37 @@
-@extends('admin.main')
+@extends('admin.pictureRoom.layout')
 
-@section('title', '- Pricture Room')
+@section('content.breadcrumb')
+<a class="section">Home</a>
+<div class="divider"> / </div>
+<div class="section active" href="#">Picture room</div>
+@endsection
 
-@section('content')
-  <div class="ui grid">
-    <div class="sixteen wide column">
-      <div class="ui grid catcha c-header-main">
-        <div class="twelve wide column">
-          <h1 class="ui header catcha c-header-title">Pricture Room</h1>
-          <div class="ui breadcrumb">
-            @yield('content.breadcrumb')
-          </div>
-        </div>
-        <div class="four wide column right aligned">
-          @yield('content.topButtons')
-        </div>
+@section('content.topButtons')
+<a href="{{ route('admin.pictureRooms.create') }}" class="ui primary button">Create New Picture Room</a>
+@endsection
+
+@section('content.content')
+<h2>Picture room List</h2>
+<div class="ui five doubling cards">
+  @foreach($pictureRooms as $room)
+  <div class="ui card">
+    @component('admin.components.cardThumbnail', [
+      'picture' => image_path($room->first_picture['saved_dir'], 's3'),
+      'tag' => 'a', 
+      'attrs' => [
+        'href' => route('admin.pictureRooms.show', $room->id)
+      ]
+    ])
+    @endcomponent
+    <div class="content">
+      <a class="header" href="{{ route('admin.pictureRooms.show', $room->id) }}">{{ $room->title }}</a>
+      <div class="meta">
+        @component('admin.components.data', ['content' => $room->code, 'tag'=>'span'])
+          No code
+        @endcomponent
       </div>
     </div>
-    <div class="sixteen wide column">
-      @yield('content.content')
-    </div>
   </div>
+  @endforeach
+</div>
 @endsection

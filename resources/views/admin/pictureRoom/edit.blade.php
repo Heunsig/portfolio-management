@@ -1,13 +1,13 @@
-@extends('admin.pictureRoom.index')
+@extends('admin.pictureRoom.layout')
 
 @section('content.breadcrumb')
-<a class="section">Home</a>
-<div class="divider"> / </div>
-<a class="section" href="#">Image</a>
-<div class="divider"> / </div>
-<a class="section" href="#">View Picture Room: {{ $pictureRoom->id }}</a>
-<div class="divider"> / </div>
-<div class="section active" href="#">Edit</div>
+  <a class="section">Home</a>
+  <div class="divider"> / </div>
+  <a class="section" href="#">Image</a>
+  <div class="divider"> / </div>
+  <a class="section" href="#">View Picture Room: {{ $pictureRoom->id }}</a>
+  <div class="divider"> / </div>
+  <div class="section active" href="#">Edit</div>
 @endsection
 
 @section('content.topButtons')

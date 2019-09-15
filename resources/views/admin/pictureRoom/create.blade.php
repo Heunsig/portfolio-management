@@ -1,4 +1,4 @@
-@extends('admin.pictureRoom.index')
+@extends('admin.pictureRoom.layout')
 
 @push('stylesheets')
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.3/mustache.min.js"/>

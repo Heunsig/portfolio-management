@@ -1,4 +1,4 @@
-@extends('admin.pictureRoom.index')
+@extends('admin.pictureRoom.layout')
 
 @section('content.breadcrumb')
 <a class="section">Home</a>
