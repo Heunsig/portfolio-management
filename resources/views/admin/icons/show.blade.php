@@ -1,103 +1,91 @@
-@extends('admin.main')
+@extends('admin.icons.layout')
 
 @section('title', '- Icon ' . $icon->name)
 
-@section('content')
-<div class="ui grid">
-	<div class="sixteen wide column">
-		<div class="ui grid catcha c-header-main">
-			<div class="twelve wide column">
-				<h1 class="ui header catcha c-header-title">Icon</h1>
-				<div class="ui breadcrumb">
-				  <a class="section">Home</a>
-				  <div class="divider"> / </div>
-				  <a class="section">Icon</a>
-				  <div class="divider"> / </div>
-				  <div class="section active">View icon: {{ $icon->id }}</div>
-				</div>
-			</div>
-			<div class="four wide column right aligned">
-				<a class="ui grey button" href="{{ route('admin.icons.index') }}">
-				  Back to list
-				</a>
-				<button 
-					type="button" 
-					class="ui button orange" 
-					id="btnEditIcon"
-				>
-					Edit
-				</button>
-				{{ Form::open(['route'=>['admin.icons.destroy', $icon->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteIcon']) }}
-					<button class="ui button red" id="btnDelete">Delete</button>
-				{{ Form::close() }}
-			</div>
-		</div>
-	</div>
-	<h2 class="ui header">View Icon</h2>
-	<div class="sixteen wide column">
-		<div class="ui grid">
-			<div class="four wide column">
-				<h3 class="ui header top attached">Icon ID #{{ $icon->id }}'s information</h3>
-				<div class="ui segment attached">
-					<div class="ui grid">
-	    			<div class="row">
-				    	<div class="column">
-				    		<div class="ui tiny header">Name</div>
-				    		<p>{{ $icon->name }}</p>
-				    	</div>
-				    </div>
-				    <div class="row">
-				    	<div class="column">
-				    		<div class="ui tiny header">Icon code</div>
-				    		<p>{{ $icon->code }}</p>
-				    	</div>
-				    </div>
-				    <div class="row">
-				    	<div class="column">
-				    		<div class="ui tiny header">Icon</div>
-				    		<p><i class="ui icon {{ $icon->code }}"></i></p>
-				    	</div>
-				    </div>
-				  </div>
-				</div>
-			</div>
-			<div class="twelve wide column">
-				<h3 class="ui header top attached">Portfolios having this icon</h3>
-				<div class="ui segment attached">
-					<table class="ui very basic celled table">
-						<thead>
-							<tr>
-								<th width="50">#</th>
-								<th>Name</th>
-								<th width="500">icons</th>
-							</tr>
-						</thead>
-						<tbody>
-							@if(count($icon->portfolios))
-								@foreach($icon->portfolios as $portfolio)
-								<tr>
-									<td>{{ $portfolio->id }}</td>
-									<td><a href="{{ route('admin.portfolio.show', $portfolio->id) }}">{{ $portfolio->name }}</a></td>
-									<td>
-										@foreach($portfolio->icons as $icon)
-											<i class="ui icon {{$icon->code}}"></i>
-										@endforeach
-									</td>
-								</tr>
-								@endforeach
-							@else
-								<tr>
-									<td colspan="3" class="center aligned catcha c-text-noContent">No portfolios</td>
-								</tr>
-							@endif
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+@section('content.breadcrumb')
+	<a class="section">Home</a>
+  <div class="divider"> / </div>
+  <a class="section">Icon</a>
+  <div class="divider"> / </div>
+  <div class="section active">View icon: {{ $icon->id }}</div>
+@endsection
 
+@section('content.topButtons')
+	<a class="ui grey button" href="{{ route('admin.icons.index') }}">Back to list</a>
+	<button 
+		type="button" 
+		class="ui button orange" 
+		id="btnEditIcon"
+	>
+		Edit
+	</button>
+	{{ Form::open(['route'=>['admin.icons.destroy', $icon->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteIcon']) }}
+		<button class="ui button red" id="btnDelete">Delete</button>
+	{{ Form::close() }}
+@endsection
+
+@section('content.content')
+	<h2 class="ui header">View Icon</h2>
+	<div class="ui grid">
+		<div class="four wide column">
+			<h3 class="ui header top attached">Icon ID #{{ $icon->id }}'s information</h3>
+			<div class="ui segment attached">
+				<div class="ui grid">
+	  			<div class="row">
+			    	<div class="column">
+			    		<div class="ui tiny header">Name</div>
+			    		<p>{{ $icon->name }}</p>
+			    	</div>
+			    </div>
+			    <div class="row">
+			    	<div class="column">
+			    		<div class="ui tiny header">Icon code</div>
+			    		<p>{{ $icon->code }}</p>
+			    	</div>
+			    </div>
+			    <div class="row">
+			    	<div class="column">
+			    		<div class="ui tiny header">Icon</div>
+			    		<p><i class="ui icon {{ $icon->code }}"></i></p>
+			    	</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		<div class="twelve wide column">
+			<h3 class="ui header top attached">Portfolios having this icon</h3>
+			<div class="ui segment attached">
+				<table class="ui very basic celled table">
+					<thead>
+						<tr>
+							<th width="50">#</th>
+							<th>Name</th>
+							<th width="500">icons</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if(count($icon->portfolios))
+							@foreach($icon->portfolios as $portfolio)
+							<tr>
+								<td>{{ $portfolio->id }}</td>
+								<td><a href="{{ route('admin.portfolio.show', $portfolio->id) }}">{{ $portfolio->name }}</a></td>
+								<td>
+									@foreach($portfolio->icons as $icon)
+										<i class="ui icon {{$icon->code}}"></i>
+									@endforeach
+								</td>
+							</tr>
+							@endforeach
+						@else
+							<tr>
+								<td colspan="3" class="center aligned catcha c-text-noContent">No portfolios</td>
+							</tr>
+						@endif
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 @component('admin.components.modals.checkingModal')
 	@slot('id')
 		modalDeleteIcon
