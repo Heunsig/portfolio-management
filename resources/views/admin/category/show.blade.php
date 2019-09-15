@@ -1,98 +1,85 @@
-@extends('admin.main')
+@extends('admin.category.layout')
 
 @section('title', '- Category')
 
-@section('content')
+@section('content.breadcrumb')
+	<a class="section">Home</a>
+	<div class="divider"> / </div>
+	<a class="section">Category</a>
+	<div class="divider"> / </div>
+	<div class="section active">View category: {{ $category->id }}</div>
+@endsection
 
-<div class="ui grid">
-	<div class="sixteen wide column">
-		<div class="ui grid catcha c-header-main">
-			<div class="twelve wide column">
-				<h1 class="ui header catcha c-header-title">Category</h1>
-				<div class="ui breadcrumb">
-				  <a class="section">Home</a>
-				  <div class="divider"> / </div>
-				  <a class="section">Category</a>
-				  <div class="divider"> / </div>
-				  <div class="section active">View category: {{ $category->id }}</div>
-				</div>
-			</div>
-			<div class="four wide column right aligned">
-				<a class="ui grey button" href="{{ route('admin.categories.index') }}">
-				  Back to list
-				</a>
-				<button
-					type="button" 
-					class="ui button orange" 
-					id="btnEditCategory"
-				>
-					Edit
-				</button>
-				{{ Form::open(['route'=>['admin.categories.destroy', $category->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteCategory']) }}
-					<button class="ui button red" id="btnDelete">Delete</button>
-				{{ Form::close() }}
-			</div>
-		</div>
-	</div>
+@section('content.topButtons')
+	<a class="ui grey button" href="{{ route('admin.categories.index') }}">Back to list</a>
+	<button
+		type="button" 
+		class="ui button orange" 
+		id="btnEditCategory"
+	>
+		Edit
+	</button>
+	{{ Form::open(['route'=>['admin.categories.destroy', $category->id], 'method'=>'DELETE', 'class'=>'catcha c-alignment-inline', 'id'=>'formToDeleteCategory']) }}
+		<button class="ui button red" id="btnDelete">Delete</button>
+	{{ Form::close() }}
+@endsection
+
+@section('content.content')
 	<h2 class="ui header">View Category</h2>
-	<div class="sixteen wide column">
-		<div class="ui grid">
-			<div class="four wide column">
-				<h3 class="ui header top attached">ID #{{ $category->id }}'s information</h3>
-				<div class="ui segment attached">
-					<div class="ui grid">
-	    			<div class="row">
-				    	<div class="column">
-				    		<div class="ui tiny header">Name</div>
-				    		<p>{{ $category->name }}</p>
-				    	</div>
-				    </div>
-				    <div class="row">
-				    	<div class="column">
-				    		<div class="ui tiny header">Code</div>
-				    		<p>{{ $category->code }}</p>
-				    	</div>
-				    </div>
-				  </div>
-				</div>
+	<div class="ui grid">
+		<div class="four wide column">
+			<h3 class="ui header top attached">ID #{{ $category->id }}'s information</h3>
+			<div class="ui segment attached">
+				<div class="ui grid">
+    			<div class="row">
+			    	<div class="column">
+			    		<div class="ui tiny header">Name</div>
+			    		<p>{{ $category->name }}</p>
+			    	</div>
+			    </div>
+			    <div class="row">
+			    	<div class="column">
+			    		<div class="ui tiny header">Code</div>
+			    		<p>{{ $category->code }}</p>
+			    	</div>
+			    </div>
+			  </div>
 			</div>
-			<div class="twelve wide column">
-				<h3 class="ui header top attached">Portfolios belonged in this category</h3>
-				<div class="ui segment attached">
-					<table class="ui very basic celled table">
-						<thead>
+		</div>
+		<div class="twelve wide column">
+			<h3 class="ui header top attached">Portfolios belonged in this category</h3>
+			<div class="ui segment attached">
+				<table class="ui very basic celled table">
+					<thead>
+						<tr>
+							<th width="50">#</th>
+							<th>Name</th>
+							<th width="500">Categories</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if(count($category->portfolios))
+							@foreach($category->portfolios as $portfolio)
 							<tr>
-								<th width="50">#</th>
-								<th>Name</th>
-								<th width="500">Categories</th>
+								<td>{{ $portfolio->id }}</td>
+								<td><a href="{{ route('admin.portfolio.show', $portfolio->id) }}">{{ $portfolio->name }}</a></td>
+								<td>
+									@foreach($portfolio->categories as $category)
+										<span class="ui grey label">{{$category->name}}</span>
+									@endforeach
+								</td>
 							</tr>
-						</thead>
-						<tbody>
-							@if(count($category->portfolios))
-								@foreach($category->portfolios as $portfolio)
-								<tr>
-									<td>{{ $portfolio->id }}</td>
-									<td><a href="{{ route('admin.portfolio.show', $portfolio->id) }}">{{ $portfolio->name }}</a></td>
-									<td>
-										@foreach($portfolio->categories as $category)
-											<span class="ui grey label">{{$category->name}}</span>
-										@endforeach
-									</td>
-								</tr>
-								@endforeach
-							@else
-								<tr>
-									<td colspan="3" class="center aligned catcha c-text-noContent">No portfolios</td>
-								</tr>
-							@endif
-						</tbody>
-					</table>
-				</div>
+							@endforeach
+						@else
+							<tr>
+								<td colspan="3" class="center aligned catcha c-text-noContent">No portfolios</td>
+							</tr>
+						@endif
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-</div>
-
 @component('admin.components.modals.checkingModal')
 	@slot('id')
 		modalDeleteCategory
@@ -122,7 +109,9 @@
   	<button type="button" class="ui primary button approve">Save</button>
   </div>
 </div>
+
 @endsection
+
 @push('scripts')
 {{ Html::script('assets/admin/js/slugify.js') }}
 <script>
