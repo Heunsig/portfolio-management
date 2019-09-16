@@ -255,6 +255,32 @@ class PortfolioController extends Controller
     }
 
     
+    /**
+     * Resort items in the list
+     * @param  Request $request
+     * @return json
+     */
+    public function resortItemsInList(Request $request)
+    {
+        $resortedIds = $request->sortedIds;
+        $order = count($resortedIds);
+
+        foreach($resortedIds as $sortedId){
+            Portfolio::where('id', $sortedId)->update(['order_number' => $order]);
+            $order--;
+        }
+
+        return response()->json([
+            'success' => 'Successfully the list was resorted.'
+        ]);
+    }
+
+    /**
+     * Resort images
+     * @param  Request $request
+     * @param  int  $id
+     * @return json
+     */
     public function resortImages(Request $request, $id)
     {
         $portfolio = Portfolio::find($id);
