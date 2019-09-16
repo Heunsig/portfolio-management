@@ -13,13 +13,13 @@ class CreateRelPortfolioFileTable extends Migration
      */
     public function up()
     {
-        Schema::create('rel_portfolio_file', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('portfolio_id')->unsigned()->nullable();
-            $table->integer('file_id')->unsigned()->nullable();
-            $table->integer('order_number')->nullable();
-            $table->tinyInteger('is_thumbnail')->nullable();
-        });
+        // Schema::create('rel_portfolio_file', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('portfolio_id')->unsigned()->nullable();
+        //     $table->integer('file_id')->unsigned()->nullable();
+        //     $table->integer('order_number')->nullable();
+        //     $table->tinyInteger('is_thumbnail')->nullable();
+        // });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateRelPortfolioFileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rel_portfolio_file');
+        // Schema::dropIfExists('rel_portfolio_file');
     }
 }
