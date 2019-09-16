@@ -22,6 +22,7 @@ Route::group([
         Route::get('/', 'PageController@getIndex')->name('main');
         Route::resource('contents', 'ContentController');
 
+        Route::post('portfolios/resortItems', 'PortfolioController@resortItemsInList')->name('portfolios.resortItems');
         Route::post('portfolios/{id}/resortImages', 'PortfolioController@resortImages')->name('portfolios.resortImages');
         Route::resource('portfolios', 'PortfolioController');
 
@@ -41,10 +42,8 @@ Route::group([
             'except' => 'create'
         ]);
 
+        Route::post('pictureRooms/{id}/resortImages', 'PictureRoomController@resortImages')->name('pictureRooms.resortImages');
         Route::resource('pictureRooms', 'PictureRoomController');
-
-        Route::put('relocateImageOrder/{type}/{id}', 'FunctionController@relocateImageOrder');
-        Route::put('relocateListOrder/{type}', 'FunctionController@relocateListOrder');
 
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
     });
