@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Admin\Portfolio;
 use App\Models\Admin\Template;
+use App\Models\Admin\PictureRoom;
 //use App\Models\File;
 
 class FunctionController extends Controller
@@ -47,25 +48,28 @@ class FunctionController extends Controller
      * @param  [Array]  $id      item id
      * @return response
      */
-    public function relocateImageOrder(Request $request, $type, $id){
-    	if($type == 'portfolio'){
-    		$item = Portfolio::find($id);	
-    	}elseif($type == 'template'){
-    		$item = Template::find($id);
-    	}else{
-    		return response(json_encode(["success"=>"This type can't use"]),200)->header('Content-Type', 'application/json');
-    	}
+    // public function relocateImageOrder(Request $request, $type, $id){
+        // $model = null;
+        // $resortedIds = $request->sortedIds;
 
-    	$sortedIds = $request->sortedIds;
+        // switch ($type) {
+        //     case 'portfolio':
+        //         $model = Portfolio::find($id);
+        //         break;
+        //     case 'pictureRoom':
+        //         $model = PictureRoom::find($id);
+        //         break;
+        //     default: 
+        //         return response()->json(['error': 'This type is not available.']);
+        // }
 
-    	$order = 1;
-    	foreach($sortedIds as $sortedId){
-    		$item->files()->updateExistingPivot($sortedId, ['order_number'=>$order]);
-    		$order++;
-    	}
+    	// $order = 1;
+    	// foreach($resortedIds as $imageId){
+    	// 	$model->files()->updateExistingPivot($imageId, ['order_number'=>$order]);
+    	// 	$order++;
+    	// }
 
-    	return response(json_encode(['success'=>'Image was successfully relocated']), 200)
-               ->header('Content-Type', 'application/json');
-    }
+     //    return response()->json(['success' => 'Successfully images were resorted.']);
+    // }
 
 }
