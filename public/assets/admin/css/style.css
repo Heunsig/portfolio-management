@@ -62,13 +62,19 @@
 }
 
 .catcha.c-image-thumbnail {
-  width: 60px;
   border-radius: 15px;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.catcha.c-image-card-thumbnail {
+  background-size: cover !important;
+  background-position: center !important;
+  height: 150px;
 }
 
 .catcha.c-image-empty {
-  /*width: auto;*/
-  height: 50px;
+  border-radius: 15px;
   background: #d2d2d2;
   display: flex;
   align-items: center;
@@ -76,6 +82,21 @@
 }
 .catcha.c-image-empty i {
   font-size: 30px;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: auto;
+  color: white;
+}
+.catcha.c-image-empty-card {
+  height: 150px;
+  background: #d2d2d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.catcha.c-image-empty-card i {
+  font-size: 70px;
   margin: 0;
   padding: 0;
   height: auto;
