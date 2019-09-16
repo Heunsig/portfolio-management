@@ -65,27 +65,7 @@ class PictureRoomController extends Controller
 
             foreach($images as $image) {
                 if ($image->isValid()) {
-
-
                     $this->uploadFiles($image, $pictureRoom);
-                    // $fileManager = new FileManager($image, '', 's3', true);
-                    // $result = $fileManager->upload();
-
-                    // $newFile = new File;
-                    // $newFile->storage   = $result['uploaded_file_information']['storage'];
-                    // $newFile->mime      = $result['uploaded_file_information']['mime'];
-                    // $newFile->saved_dir = $result['uploaded_file_information']['directory'];
-                    // $newFile->orig_name = $result['uploaded_file_information']['original_filename'];
-                    // $newFile->saved_name= $result['uploaded_file_information']['filename'];
-                    // $newFile->size      = $result['uploaded_file_information']['filesize'];
-                    // $newFile->is_image  = true;
-
-                    // $newFile->save();
-
-                    // $last_picture_room = PictureRoom::find($pictureRoom->id);
-                    // $pictureRoom->pictures()->attach([
-                    //     $newFile->id => ['order_number' => $last_picture_room->pictures()->count() + 1]
-                    // ]);
                 }
             }
         }
@@ -130,9 +110,47 @@ class PictureRoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)   
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'code' => "unique:picture_rooms,code,{$id}|max:255",
+            'images[]' =>'image',
+        ]);
+
+
+        $pictureRoom = PictureRoom::find($id);
+
+        $pictureRoom->title = $request->title;
+        $pictureRoom->code = $request->code;
+        $pictureRoom->save();
+
+        if ($request->hasFile('images')){
+            $images = $request->images;
+
+            foreach($images as $image) {
+                if ($image->isValid()) {
+                    $this->uploadFiles($image, $pictureRoom);
+                }
+            }
+        }
+
+        //  Detach Images
+        if($request->has('images_to_delete')){
+            $pictureRoom->pictures()->detach($request->images_to_delete);
+
+            // Reset Images order number
+            $order_number = 1;
+            foreach($pictureRoom->pictures()->orderBy('order_number','asc')->get() as $picture){
+                $picture->pivot->order_number = $order_number;
+                $picture->pivot->save();
+                $order_number++;
+            }
+        }
+
+        Session::flash('success', 'Successfully Updated this picture room.');
+
+        return redirect()->route('admin.pictureRooms.edit', $id);
     }
 
     /**
@@ -144,6 +162,27 @@ class PictureRoomController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * Resort images
+     * @param  Request $request
+     * @param  int  $id
+     * @return json
+     */
+    public function resortImages(Request $request, $id)
+    {
+        $pictureRoom = PictureRoom::find($id);
+        $resortedIds = $request->sortedIds;
+
+        $order = 1;
+        foreach($resortedIds as $imageId){
+            $pictureRoom->pictures()->updateExistingPivot($imageId, ['order_number' => $order]);
+            $order++;
+        }
+
+        return response()->json(['success' => 'Successfully images were resorted.']);
     }
 
 
