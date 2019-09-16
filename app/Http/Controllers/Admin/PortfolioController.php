@@ -254,6 +254,20 @@ class PortfolioController extends Controller
         return redirect()->route('admin.portfolios.index');
     }
 
+    
+    public function resortImages(Request $request, $id)
+    {
+        $portfolio = Portfolio::find($id);
+        $resortedIds = $request->sortedIds;
+
+        $order = 1;
+        foreach($resortedIds as $imageId){
+            $portfolio->files()->updateExistingPivot($imageId, ['order_number' => $order]);
+            $order++;
+        }
+
+        return response()->json(['success' => 'Successfully images were resorted.']);
+    }
 
     private function uploadFiles($image, $portfolio)
     {
