@@ -43,6 +43,7 @@
 		var currentPage = breadcrumb.children().eq(2)[0].innerText.toLowerCase()
 
 		$('#mainNav').find('.item').each((i, e) => {
+			console.log(e)
 			if (e.innerText.toLowerCase() === currentPage) {
 				$(e).addClass('active')
 				return false
