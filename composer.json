@@ -19,7 +19,9 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/fileHelpers.php"
+            "app/Helpers/fileHelpers.php",
+            "app/Helpers/urlHelpers.php",
+            "app/Helpers/pictureHelpers.php"
         ],
         "classmap": [
             "database"
