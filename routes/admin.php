@@ -21,6 +21,8 @@ Route::group([
     Route::middleware(['auth'])->group(function () {
         Route::get('/', 'PageController@getIndex')->name('main');
         Route::resource('contents', 'ContentController');
+
+        Route::post('portfolios/{id}/resortImages', 'PortfolioController@resortImages')->name('portfolios.resortImages');
         Route::resource('portfolios', 'PortfolioController');
 
         Route::resource('messages', 'MessageController', [
