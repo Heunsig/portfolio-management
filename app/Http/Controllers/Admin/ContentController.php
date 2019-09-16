@@ -52,7 +52,7 @@ class ContentController extends Controller
 
         Session::flash('success', 'Successfully created a new content.');            
 
-        return redirect()->route('admin.content.show', $content->id);
+        return redirect()->route('admin.contents.show', $content->id);
     }
 
     /**
@@ -107,7 +107,7 @@ class ContentController extends Controller
         $content->save();
 
         Session::flash('success', 'Successfully updated the content.');
-        return redirect()->route('admin.content.edit', $content->id);
+        return redirect()->route('admin.contents.edit', $content->id);
     }
 
     /**
@@ -123,6 +123,6 @@ class ContentController extends Controller
 
         Session::flash('success', 'Successfully deleted the content(#'.$id.').');
 
-        return redirect()->route('admin.content.index');
+        return redirect()->route('admin.contents.index');
     }
 }

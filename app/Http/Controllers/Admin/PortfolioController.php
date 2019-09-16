@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Portfolio;
 use App\Models\Admin\File;
+use App\Models\Admin\AlternativeImage;
 use App\Models\Admin\Category;
 use App\Models\Admin\Icon;
+use App\Helpers\FileManager;
 use Session;
-use App\Helpers\FileInfo;
-use App\Helpers\FileString;
 use Image;
-use Illuminate\Support\Facades\Storage;
+use Storage;
 
 class PortfolioController extends Controller
 {
@@ -77,47 +77,7 @@ class PortfolioController extends Controller
 
             foreach ($images as $image) {
                 if ($image->isValid()){
-                    $file = new File;
-                    $fileInfo = (new FileInfo($image))->get_fileinfo();
-                    
-                    $image_big = Image::make($image);
-                    $image_thumb = Image::make($image);
-
-                    // Resize a image within width 1200px
-                    if ($image_big->width() > 1200) {
-                        $image_big->resize(1200, null, function ($constraint) {
-                            $constraint->aspectRatio();
-                        });
-                    }
-
-                    // Resize a image for thumbnail.
-                    if ($image_thumb->width() > 300) {
-                        $image_thumb->resize(300, null, function ($constraint) {
-                            $constraint->aspectRatio();
-                        });
-                    }
-
-                    $basePath = 'images/';
-                    $path = $basePath.$fileInfo['unique_name'];
-                    $path_thumbnail = $basePath.'thumbnail/'.$fileInfo['unique_name'];
-
-                    Storage::disk('s3')->put($path, $image_big->stream()->__toString());
-                    Storage::disk('s3')->put($path_thumbnail, $image_thumb->stream()->__toString());
-
-                    $file->mime      = $fileInfo['mime'];
-                    $file->saved_dir = $path;
-                    $file->thumbnail_dir = $path_thumbnail;
-                    $file->orig_name = $fileInfo['orig_name'];
-                    $file->saved_name= $fileInfo['unique_name'];
-                    $file->raw_name  = $fileInfo['raw_name'];
-                    $file->extension = $fileInfo['extension'];
-                    $file->size      = $fileInfo['size'];
-                    $file->is_image  = true;
-
-                    $file->save();
-
-                    $last_portfolio = Portfolio::find($portfolio->id);
-                    $portfolio->files()->attach([$file->id =>['order_number'=>$last_portfolio->files()->count() + 1]]);
+                    $this->uploadFiles($image, $portfolio);
                 }
             }
         }
@@ -136,7 +96,7 @@ class PortfolioController extends Controller
 
         Session::flash('success', 'Successfully created a new portfolio.');
 
-        return redirect()->route('admin.portfolio.show', $portfolio->id);
+        return redirect()->route('admin.portfolios.show', $portfolio->id);
     }
     
        
@@ -150,7 +110,6 @@ class PortfolioController extends Controller
     public function show($id)
     {
         $portfolio = Portfolio::find($id);
-
         $portfolio->explanation = nl2br(strip_tags(preg_replace('/\[(.[^\[\]\(\)]+)\]\((.[^\[\]\(\)]+)\)/uim', '<a href="${2}" target="__blank">${1}</a>', $portfolio->explanation), '<a>'));
 
         return view('admin.portfolio.show')->with([
@@ -224,7 +183,6 @@ class PortfolioController extends Controller
 
         $portfolio->name = $request->name;
         $portfolio->explanation = $request->explanation;
-
         $portfolio->save();
 
         if ($request->hasFile('images')) {
@@ -232,48 +190,7 @@ class PortfolioController extends Controller
 
             foreach ($images as $image) {
                 if ($image->isValid()){
-                    $file = new File;
-                    $fileInfo = (new FileInfo($image))->get_fileinfo();
-                    
-                    $image_big = Image::make($image);
-                    $image_thumb = Image::make($image);
-
-                    // Resize a image within width 1200px
-                    if ($image_big->width() > 1200) {
-                        // $image = $image->resize(1200, null, function ($constraint) {
-                        $image_big->resize(1200, null, function ($constraint) {
-                            $constraint->aspectRatio();
-                        });
-                    }
-
-                    // Resize a image for thumbnail.
-                    if ($image_thumb->width() > 300) {
-                        $image_thumb->resize(300, null, function ($constraint) {
-                            $constraint->aspectRatio();
-                        });
-                    }
-
-                    $basePath = 'images/';
-                    $path = $basePath.$fileInfo['unique_name'];
-                    $path_thumbnail = $basePath.'thumbnail/'.$fileInfo['unique_name'];
-
-                    Storage::disk('s3')->put($path, $image_big->stream()->__toString());
-                    Storage::disk('s3')->put($path_thumbnail, $image_thumb->stream()->__toString());
-
-                    $file->mime      = $fileInfo['mime'];
-                    $file->saved_dir = $path;
-                    $file->thumbnail_dir = $path_thumbnail;
-                    $file->orig_name = $fileInfo['orig_name'];
-                    $file->saved_name= $fileInfo['unique_name'];
-                    $file->raw_name  = $fileInfo['raw_name'];
-                    $file->extension = $fileInfo['extension'];
-                    $file->size      = $fileInfo['size'];
-                    $file->is_image  = true;
-
-                    $file->save();
-
-                    $last_portfolio = Portfolio::find($portfolio->id);
-                    $portfolio->files()->attach([$file->id =>['order_number'=>$last_portfolio->files()->count() + 1]]);
+                    $this->uploadFiles($image, $portfolio);
                 }
             }
         }
@@ -306,7 +223,7 @@ class PortfolioController extends Controller
 
         Session::flash('success', 'Successfully Updated this portfolio.');
 
-        return redirect()->route('admin.portfolio.edit', $id);
+        return redirect()->route('admin.portfolios.edit', $id);
     }
 
     /**
@@ -334,7 +251,78 @@ class PortfolioController extends Controller
 
         Session::flash('success', 'Successfully deleted the portfolio(#'.$id.').');
 
-        return redirect()->route('admin.portfolio.index');
+        return redirect()->route('admin.portfolios.index');
     }
 
+
+    private function uploadFiles($image, $portfolio)
+    {
+        $fileManager = new FileManager($image, '', 'local', true);
+        $fileManager->edit(function($file){
+            $img = Image::make($file);
+
+            if ($img->width() > 1200) {
+                $img->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            return $img->stream()->__toString();
+        });
+
+
+        $result = $fileManager->upload();
+
+        $fileManagerThumb = new FileManager($image, 'thumbnail', 'local', true);
+        $fileManagerThumb->edit(function($file){
+            $img = Image::make($file);
+
+            if ($img->width() > 90) {
+                $img->resize(90, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            return $img->stream()->__toString();
+        });
+        $resultThumb = $fileManagerThumb->upload();
+
+        $fileManagerThumb2 = new FileManager($image, 'thumbnail', 'local', true);
+        $fileManagerThumb2->edit(function($file){
+            $img = Image::make($file);
+
+            if ($img->width() > 300) {
+                $img->resize(300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+
+            return $img->stream()->__toString();
+        });
+        $resultThumb2 = $fileManagerThumb2->upload();
+
+        $newFile = new File;
+        $newFile->storage = $result['uploaded_file_information']['storage'];
+        $newFile->mime      = $result['uploaded_file_information']['mime'];
+        $newFile->saved_dir = $result['uploaded_file_information']['directory'];
+        $newFile->orig_name = $result['uploaded_file_information']['original_filename'];
+        $newFile->saved_name= $result['uploaded_file_information']['filename'];
+        $newFile->size      = $result['uploaded_file_information']['filesize'];
+        $newFile->is_image  = true;
+        $newFile->save();
+
+        $newFile->alternative_images()->saveMany([
+            new AlternativeImage([
+                'size'=> '90x',
+                'saved_dir' => $resultThumb['uploaded_file_information']['directory']
+            ]),
+            new AlternativeImage([
+                'size'=> '300x',
+                'saved_dir' => $resultThumb2['uploaded_file_information']['directory']
+            ]),
+        ]);
+
+        $last_portfolio = Portfolio::find($portfolio->id);
+        $portfolio->files()->attach([$newFile->id =>['order_number'=>$last_portfolio->files()->count() + 1]]);
+    }
 }

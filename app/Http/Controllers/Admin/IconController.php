@@ -45,7 +45,7 @@ class IconController extends Controller
 
         Session::flash('success', 'Successfully, New Icon has added');
 
-        return redirect()->route('admin.icon.index');
+        return redirect()->route('admin.icons.index');
 
     }
 
@@ -103,7 +103,7 @@ class IconController extends Controller
 
         Session::flash('success', 'This icon was successfully changed.');
 
-        return redirect()->route('admin.icon.show', $id);
+        return redirect()->route('admin.icons.show', $id);
     }
 
     /**
@@ -122,6 +122,6 @@ class IconController extends Controller
 
         Session::flash('success','The icon was successfully deleted.');
 
-        return redirect()->route('admin.icon.index');
+        return redirect()->route('admin.icons.index');
     }
 }

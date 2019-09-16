@@ -43,7 +43,7 @@ class CategoryController extends Controller
 
         Session::flash('success', 'Successfully a new category has been added.');
 
-        return redirect()->route('admin.category.index');
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -97,7 +97,7 @@ class CategoryController extends Controller
 
         Session::flash('success', 'The category name was successfully changed');
 
-        return redirect()->route('admin.category.show', $id);
+        return redirect()->route('admin.categories.show', $id);
     }
 
     /**
@@ -116,7 +116,7 @@ class CategoryController extends Controller
 
         Session::flash('success', 'The category was successfully deleted.');
 
-        return redirect()->route('admin.category.index');
+        return redirect()->route('admin.categories.index');
 
     }
 }
