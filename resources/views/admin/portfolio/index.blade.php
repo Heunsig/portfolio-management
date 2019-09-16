@@ -74,17 +74,13 @@
     draggable: 'tr',
     handle:'.__dragHandle',
     onUpdate: function (e) {
-      var type = 'portfolio'
       var sortedIds = this.toArray()
 
       $.ajax({
-        method: "PUT",
-        url: `/admin/relocateListOrder/${type}`,
+        method: "POST",
+        url: `/admin/portfolios/resortItems`,
         dataType: "json",
-        data: {"sortedIds[]": sortedIds},
-        success: function(data){
-          console.log(data);
-        }
+        data: { "sortedIds[]": sortedIds}
       });
     }
   })

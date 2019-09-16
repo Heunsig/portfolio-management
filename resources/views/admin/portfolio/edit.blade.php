@@ -134,7 +134,7 @@
 		                        'picture' => image_path(get_thumbnail($file, '300x')),
 		                        'height' => '200px',
 		                        'attrs' => [
-		                          'class' => 'c-cursor-pointer __btnExpandImage',
+		                          'class' => 'c-cursor-pointer',
 		                          'data-img-src' => image_path($file->saved_dir)
 		                        ]
 		                      ])
@@ -153,7 +153,7 @@
 										</div>
 									@else
 										@component('admin.components.data', ['tag'=>'div'])
-											No upladed images
+											No images upladed
 										@endcomponent
 									@endif
 								</div>
@@ -226,20 +226,14 @@
 	    ghostClass: 'dragging',
 			draggable: '.ui.link.card',
 			onUpdate: function (e) {
-				var type = 'portfolio'
 				var portfolioId = this.el.dataset['portfolioId']
 				var sortedIds = this.toArray()
 
 				$.ajax({
-					method: "PUT",
-					url: `/admin/relocateImageOrder/${type}/${portfolioId}`,
+					method: "POST",
+					url: `/admin/portfolios/${portfolioId}/resortImages`,
 					dataType: "json",
-					data: { "sortedIds[]": sortedIds },
-					success: function(data) {
-					},
-					error: function (req, status, error) {
-						// console.error(req.responseText)
-					}
+					data: { "sortedIds[]": sortedIds }
 				});
 			}
 		})
