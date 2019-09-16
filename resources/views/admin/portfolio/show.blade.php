@@ -154,7 +154,6 @@
                     <div class="card">
                       @component('admin.components.cardThumbnail', [
                         'picture' => image_path(get_thumbnail($file, '300x')),
-                        'height' => '200px',
                         'attrs' => [
                           'class' => 'c-cursor-pointer __btnExpandImage',
                           'data-img-src' => image_path($file->saved_dir)
@@ -215,7 +214,6 @@ $('#btnDelete').on('click', e => {
 
 $('.__btnExpandImage').on('click', e => {
   e.preventDefault()
-  console.log('e', e)
   $('.ui.modal.__modalExpandImage').modal({
     onShow: () => {
       var src = e.currentTarget.dataset['imgSrc']

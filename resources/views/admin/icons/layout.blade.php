@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="four wide column right aligned">
-          @yield('content.topButtons')
+        @yield('content.topButtons')
       </div>
     </div>
   </div>

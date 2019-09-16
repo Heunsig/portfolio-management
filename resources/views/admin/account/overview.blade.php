@@ -9,6 +9,7 @@
   <div class="section active">Overview</div>
 </div>
 @endsection
+
 @section('account.content')
 <h2 class="ui header">Overview</h2>
 <h3 class="ui header top attached">User information</h3>
