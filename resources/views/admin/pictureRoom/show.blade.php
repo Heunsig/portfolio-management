@@ -43,22 +43,30 @@
       @if(count($pictureRoom->pictures))
         <div class="ui five doubling cards">
           @foreach($pictureRoom->pictures()->orderBy('order_number','asc')->get() as $picture)
-          <div class="card">
-            @component('admin.components.cardThumbnail', [
-              'picture' => $picture->saved_dir, 
-              'attrs' => [
-                'class' => 'c-cursor-pointer __btnExpandImage',
-                'data-img-src' => env('AWS_OBJECT_BASEURL') . $picture->saved_dir
-              ]
-            ])
-            @endcomponent
-            <div class="content">
-              <div>{{ $picture->orig_name }}</div>
-              <div class="meta">
-                <span>{{ humanFileSize($picture->size) }}</span>
+            <div class="card">
+              @component('admin.components.cardThumbnail', [
+                'picture' => image_path(get_thumbnail($picture, '300x')),
+                'attrs' => [
+                  'class' => 'c-cursor-pointer __btnExpandImage',
+                  'data-img-src' => image_path($picture->saved_dir)
+                ]
+              ])
+              @endcomponent
+              {{-- @component('admin.components.cardThumbnail', [
+                'picture' => image_path(get_thumbnail($picture, '300x'), 'local'), 
+                'attrs' => [
+                  'class' => 'c-cursor-pointer __btnExpandImage',
+                  'data-img-src' => image_path($picture->saved_dir)
+                ]
+              ])
+              @endcomponent --}}
+              <div class="content">
+                <div>{{ $picture->orig_name }}</div>
+                <div class="meta">
+                  <span>{{ humanFileSize($picture->size) }}</span>
+                </div>
               </div>
             </div>
-          </div>
           @endforeach
         </div>
       @else
@@ -79,11 +87,9 @@
 <script>
   $('.__btnExpandImage').on('click', e => {
     e.preventDefault()
-    console.log('e', e)
     $('#modalExpandImage').modal({
       onShow: () => {
         var src = e.currentTarget.dataset['imgSrc']
-        console.log('src', src)
         $('#modalExpandImage > .content').html(`<img src="${src}" style="max-width: 1000px;"/>`)
       }
     }).modal('show')
