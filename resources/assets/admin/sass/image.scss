@@ -8,14 +8,20 @@ $prefix: 'c-image';
 
 
 #{$app}.#{$prefix}-thumbnail {
-  width: 60px;
   border-radius: 15px;
+  background-size:cover!important;
+  background-position:center!important;
+}
+
+#{$app}.#{$prefix}-card-thumbnail {
+  background-size:cover!important;
+  background-position:center!important;
+  height: 150px;
 }
 
 
 #{$app}.#{$prefix}-empty {
-  /*width: auto;*/
-  height: 50px;
+  border-radius: 15px;
   background: #d2d2d2;
   display: flex;
   align-items: center;
@@ -28,5 +34,22 @@ $prefix: 'c-image';
     height: auto;
     width: auto;
     color: white;
+  }
+
+  &-card {
+    height: 150px;
+    background: #d2d2d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 70px;
+      margin: 0;
+      padding: 0;
+      height: auto;
+      width: auto;
+      color: white;
+    }
   }
 }
