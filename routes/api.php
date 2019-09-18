@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Models\Admin\Content;
 use App\Models\Admin\Portfolio;
+use App\Models\Admin\PictureRoom;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,8 @@ function makeResult ($value, $onlyQuery) {
     return $result;
 } 
 
-Route::middleware(['cors', 'checkReferrer', 'dbConn.api'])->group(function () {
+// Route::middleware(['cors', 'checkReferrer', 'dbConn.api'])->group(function () {
+Route::middleware(['cors'])->group(function () {
 
     Route::get('contents', function (Request $request) {
         $contents = Content::all();
@@ -94,4 +96,9 @@ Route::middleware(['cors', 'checkReferrer', 'dbConn.api'])->group(function () {
         return response()->json(makeResult($portfolio, $request->query('only')));
     });
     
+
+    Route::get('pictureRooms/{id}', function (Request $request, $id) {
+        $pictureRoom = PictureRoom::where('id', $id)->with('pictures')->first();
+        return response()->json(makeResult($pictureRoom, $request->query('only')));
+    });
 });
