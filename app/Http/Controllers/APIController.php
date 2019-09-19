@@ -41,7 +41,6 @@ class APIController extends Controller
         return response()->json($this->makeResult($portfolio, $request->query('only')));
     }
 
-
     public function getPictureRoomById (Request $request, $id) {
         $pictureRoom = PictureRoom::where('id', $id)->with('pictures')->first();
         return response()->json($this->makeResult($pictureRoom, $request->query('only')));
