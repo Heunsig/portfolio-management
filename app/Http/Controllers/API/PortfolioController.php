@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Portfolio;
 use App\Http\Controllers\API\helpers\Converter;
 
-
 class PortfolioController extends Controller
 {
     public function getPortfolios (Request $request) {
