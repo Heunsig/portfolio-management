@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\Manager\Apikey;
+use Log;
 
 class DatabaseConnectionByApi
 {
@@ -25,11 +26,15 @@ class DatabaseConnectionByApi
         }
         
         $db = $apikey->databases()->first();
+        $this->connectDB($db);
+
+        return $next($request);
+    }
+
+    private function connectDB ($db) {
         config()->set('database.connections.tenant.host', $db->host);
         config()->set('database.connections.tenant.port', $db->port);
         config()->set('database.connections.tenant.database', $db->database);
         DB::reconnect('tenant');
-        
-        return $next($request);
     }
 }
