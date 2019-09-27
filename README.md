@@ -5,7 +5,7 @@
 0.24
 
 
-## Screenshots (Devloping)
+## Screenshots (Developing)
 
 ### Login page
 ![Login page](https://heunsig-portfolio.s3.ca-central-1.amazonaws.com/portfolio/modified_login.png)
