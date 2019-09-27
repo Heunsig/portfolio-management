@@ -1,11 +1,11 @@
-# Portfolio management system
+# Portfolio management system (Developing)
 
 ## Version
 
 0.24
 
 
-## Screenshots (Developing)
+## Screenshots
 
 ### Login page
 ![Login page](https://heunsig-portfolio.s3.ca-central-1.amazonaws.com/portfolio/modified_login.png)
